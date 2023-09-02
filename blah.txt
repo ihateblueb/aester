@@ -1,0 +1,24 @@
+
+  <div v-if="this.loginstate !== 'done'">
+    <h2>ummm. login.</h2>
+    <div v-if="this.loginstate === 'start'">
+      <input type="text" placeholder="type ur server url" id="instanceurl" v-model="instanceurl">
+      <button @click="startlogin()">GO!</button>
+    </div>
+    <div v-if="this.loginstate === 'almost'">
+      <p>now paste the code here here</p>
+      <input type="text" placeholder="type ur auth token" id="code" v-model="code">
+      <button @click="endlogin()">GO AGAIN!</button>
+    </div>
+  </div>
+  <div>
+    <h2>your account. yup.</h2>
+    <p>{{ user.displayname }}</p>
+    <p>@{{ user.username }}</p>
+    <button @click="logout()">LOGOUT. BYE.</button>
+  </div>
+  <div>
+    <h2>write. now.</h2>
+    <textarea id="w3review" name="w3review" rows="6" cols="40" placeholder="heyyy" v-model="tootarea"></textarea>
+    <button @click="sendToot()">toot</button>
+  </div>
