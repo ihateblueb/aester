@@ -265,7 +265,8 @@ export default {
                     <p>Aster <span class="betaTag">BETA</span></p>
                     <button @click="logout()">BYE!</button>
                 </div>
-                <div class="postArea">
+                <div class="mColumnContent">
+                    <div class="postArea">
                     <div class="postAreaHeader">
                         <div class="postArea-avatars">
                             <img class="postArea-avatar" :src="user.avatar" :alt="user.displayname + 's avatar'">
@@ -367,6 +368,7 @@ export default {
 
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             <div class="mColumn">
@@ -500,17 +502,22 @@ textarea {
 
 .mColumns {
     display: flex;
+    overflow-y: hidden;
 }
 
 .mColumn {
     background-color: var(--bg2);
 
     width: 375px;
-    min-width: 288px !important;
     height: 100vh;
-    overflow-y: scroll;
+    min-width: 288px !important;
 
     border-right: 1px solid var(--bg1);
+}
+
+.mColumnContent {
+    height: calc(100vh - 45px);
+    overflow-y: scroll;
 }
 
 .betaTag {
@@ -530,9 +537,11 @@ textarea {
 }
 
 .mColumnHeader {
-    padding: 10px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    height: 45px!important;
+
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
 
     color: var(--txt1);
 
