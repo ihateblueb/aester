@@ -187,8 +187,8 @@ export default {
                 </div>
                 <div class="postArea">
                     <div class="postAreaHeader">
-                        <div>
-                            <img class="postArea-avatar" :src="user.avatar" :alt="user.displayname+'s avatar'">
+                        <div class="postArea-avatars">
+                            <img class="postArea-avatar" :src="user.avatar" :alt="user.displayname + 's avatar'">
                         </div>
                         <div class="postArea-names">
                             <p class="postArea-displayName">{{ user.displayname }}</p>
@@ -197,7 +197,19 @@ export default {
                     </div>
                     <div>
                         <textarea class="postArea-textArea" placeholder="What's up?" v-model="tootarea"></textarea>
-                        <button class="btn" @click="sendToot()">Toot</button>
+                        <div>
+                            <button class="btn">📎</button>
+                            <button class="btn">📦</button>
+                            <select id="visiblity" class="postArea-visibility">
+                                <option value="global">🌐 Global</option>
+                                <option value="unlisted">🔓 Unlisted</option>
+                                <option value="followers">🔐 Followers only</option>
+                                <option value="mentioned">📧 Mentioned people only</option>
+                            </select>
+                            <button class="btn">CW</button>
+                            <button class="btn">EN</button>
+                            <button class="btn" @click="sendToot()">Toot</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -335,6 +347,7 @@ textarea {
     background-color: var(--bg2);
 
     width: 325px;
+    min-width: 275px !important;
     height: 100vh;
 
     border-right: 1px solid var(--bg1);
@@ -358,6 +371,8 @@ textarea {
 
 .mColumnHeader {
     padding: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
 
     color: var(--txt1);
 
@@ -377,17 +392,26 @@ textarea {
     margin: 10px;
 }
 
+.postArea-avatars {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .postArea-names {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .postArea-displayName {
     color: var(--txt1);
+    font-size: 16px;
 }
 
 .postArea-userName {
     color: var(--txt2);
+    font-size: 14px;
 }
 
 .postArea-avatar {
@@ -398,8 +422,8 @@ textarea {
 }
 
 .postArea-textArea {
-    margin-top: 0px!important;
-    
+    margin-top: 0px !important;
+
     width: 100%;
     box-sizing: border-box;
 
@@ -407,8 +431,9 @@ textarea {
 
     font-size: 14px;
 
-    min-height: 32px;
-    max-height: 150px;
+    min-height: 35px;
+    max-height: 200px;
+    height: 100px;
     resize: vertical;
 
     border-radius: 7px;
@@ -417,5 +442,9 @@ textarea {
 
     color: var(--txt2);
     outline: none;
+}
+
+.postArea-visibility {
+    width: 45px;
 }
 </style>
