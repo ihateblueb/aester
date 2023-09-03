@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Aester',
-  ogTitle: 'Aester',
+  title: 'Aster',
+  ogTitle: 'Aster',
   charset: 'UTF-8',
   description: "A web Mastodon client",
   ogDescription: "A web Mastodon client",
