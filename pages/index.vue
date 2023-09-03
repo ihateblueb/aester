@@ -178,7 +178,7 @@ export default {
 
             this.app.postArea.dropdown = ""
             this.app.postArea.selectedBtn = ""
-            this.app.toot.content = this
+            this.app.toot.content = ""
 
             console.log("[Aster Actions] Posted toot. Response below.")
             console.log(sendtoot_response)
