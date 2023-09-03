@@ -160,8 +160,8 @@ export default {
 
             var additional_status_options = `&visibility=${this.toot.visibility}`
 
-            if (this.toot.poll.options[1]) {
-                var additional_status_options = `&visibility=${this.toot.visibility}&poll[options[${this.toot.poll.options}],expires_in=${this.toot.poll.expires_in},multiple=${this.toot.poll.multiple},hide_totals=${this.toot.poll.hide_totals}]`
+            if (this.toot.spoiler_text && this.app.postArea.selectedBtn === "sensitive") {
+                var additional_status_options = (additional_status_options += `&spoiler_text=${this.toot.spoiler_text}`)
             }
 
             const sendtoot = await fetch("https://" + this.instanceurl + "/api/v1/statuses", {
@@ -176,7 +176,9 @@ export default {
 
             this.app.postArea.dropdown = ""
             this.app.postArea.selectedBtn = ""
-            this.app.toot.content = ""
+
+            this.toot.content = ""
+            this.toot.spoiler_text = ""
 
             console.log("[Aster Actions] Posted toot. Response below.")
             console.log(sendtoot_response)
@@ -277,6 +279,7 @@ export default {
                         </div>
                     </div>
                     <div>
+                        <input class="postArea-contentwarning" placeholder="Write your content warning here..." v-if="this.toot.sensitive === 'true'" v-model="this.toot.spoiler_text">
                         <textarea class="postArea-textArea" placeholder="What's up?" v-model="toot.content"></textarea>
                         <div>
                             <div class="postArea-buttons">
@@ -298,8 +301,6 @@ export default {
                                     </button>
                                     <button class="btn postArea-btn" @click="setPostAreaButton('sensitive')"
                                         v-bind:class="{ pAbtnselected: this.toot.sensitive === 'true' }">CW</button>
-                                    <button class="btn postArea-btn"
-                                        v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'lang' }">EN</button>
                                 </div>
                                 <button class="btn postArea-btn postArea-btn-post" @click="sendToot()">Toot</button>
                             </div>
@@ -589,6 +590,25 @@ textarea {
     margin-right: 10px;
 
     border-radius: 7px;
+}
+
+.postArea-contentwarning {
+    margin-top: 0px !important;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 5px;
+    margin-bottom: 10px;
+
+    font-size: 14px;
+
+    border-radius: 7px;
+    border: 2px solid var(--bg3);
+    background-color: var(--bg3);
+
+    color: var(--txt2);
+    outline: none;
 }
 
 .postArea-textArea {
