@@ -10,7 +10,7 @@ export default {
     props: {
         instanceurl: String,
         token: String,
-        content: String,
+        content: Object,
     },
     created() {
         console.log("one post!")
@@ -84,7 +84,13 @@ export default {
             </div>
         </div>
         <span v-html="content.reblog.content" v-if="content.reblog"></span>
-        <span v-html="content.content"></span>
+        <div v-for="attatchment in content.reblog.media_attatchments" v-if="content.reblog">
+            <span>{{ attatchment }}</span>
+        </div>
+        <div v-for="attatchment in content.media_attatchments" v-if="!content.reblog">
+            <img :src="attatchment.url" :alt="attatchment.descriotion" :title="attatchment.descriotion">
+        </div>
+        <span v-html="content.content" v-if="!content.reblog"></span>
         <div>
             <button @click="postInteraction('boost', content.id)">boost</button>
             <button @click="postInteraction('favorite', content.id)">favorite</button>

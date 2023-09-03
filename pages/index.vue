@@ -35,7 +35,7 @@ export default {
                 expires_in: "1 day",
                 multiple: "false",
                 hide_totals: "false",
-            }, 
+            },
             sensitive: "",
             spoiler_text: "",
             visibility: "public",
@@ -52,8 +52,8 @@ export default {
             this.loginstate = this.getLocalStorage("loginstate");
             this.afterLogin()
             this.getAccountDetails()
+            this.loadToots()
         }
-
     },
     methods: {
         setLocalStorage(key, value) {
@@ -140,8 +140,6 @@ export default {
             this.app.clientid = this.getLocalStorage("app_clientid");
             this.app.secret = this.getLocalStorage("app_secret");
             this.app.vapidkey = this.getLocalStorage("app_vapidkey");
-
-            this.loadToots()
         },
 
         async logout() {
@@ -209,16 +207,19 @@ export default {
         },
 
         async loadToots(max_id) {
-            const loadtoot = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home", {
-                method: "GET",
+            const sendtoot = await fetch("https://" + this.instanceurl + "/api/v1/statuses", {
+                method: "POST",
                 headers: {
-                    "Authorization": "Bearer " + this.token,
+                    "Authorization": "Bearer " + this.token
                 }
             })
-            const loadtoot_response = await loadtoot.json()
+            const homeSocket = new WebSocket(
+                "wss://" + this.instanceurl + "/api/v1/streaming"
+            );
 
-            console.log(loadtoot_response);
-            this.timeline.toots = loadtoot_response;
+            homeSocket.onmessage = (event) => {
+                console.log(event.data);
+            };
         }
     }
 }
@@ -262,6 +263,7 @@ export default {
             <div class="mColumn">
                 <div class="mColumnHeader">
                     <p>Aster <span class="betaTag">BETA</span></p>
+                    <button @click="logout()">BYE!</button>
                 </div>
                 <div class="postArea">
                     <div class="postAreaHeader">
@@ -278,25 +280,30 @@ export default {
                         <div>
                             <div class="postArea-buttons">
                                 <div class="postArea-buttons-left">
-                                    <button class="btn postArea-btn" @click="setPostAreaButton('attatchment')" v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'attatchment' }">
+                                    <button class="btn postArea-btn" @click="setPostAreaButton('attatchment')"
+                                        v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'attatchment' }">
                                         <Icon name="paperclip" size="18px" />
                                     </button>
-                                    <button class="btn postArea-btn" @click="setPostAreaButton('poll')" v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'poll' }">
+                                    <button class="btn postArea-btn" @click="setPostAreaButton('poll')"
+                                        v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'poll' }">
                                         <Icon name="bar-chart-2" size="18px" />
                                     </button>
-                                    <button class="btn postArea-btn" @click="setPostAreaButton('visibility')" v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'visibility' }">
+                                    <button class="btn postArea-btn" @click="setPostAreaButton('visibility')"
+                                        v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'visibility' }">
                                         <Icon name="globe" size="18px" v-if="this.toot.visibility === 'public'" />
                                         <Icon name="lock" size="18px" v-if="this.toot.visibility === 'unlisted'" />
                                         <Icon name="users" size="18px" v-if="this.toot.visibility === 'private'" />
                                         <Icon name="at-sign" size="18px" v-if="this.toot.visibility === 'direct'" />
                                     </button>
-                                    <button class="btn postArea-btn" @click="setPostAreaButton('sensitive')" v-bind:class="{ pAbtnselected: this.toot.sensitive === 'true' }">CW</button>
-                                    <button class="btn postArea-btn" v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'lang' }">EN</button>
+                                    <button class="btn postArea-btn" @click="setPostAreaButton('sensitive')"
+                                        v-bind:class="{ pAbtnselected: this.toot.sensitive === 'true' }">CW</button>
+                                    <button class="btn postArea-btn"
+                                        v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'lang' }">EN</button>
                                 </div>
                                 <button class="btn postArea-btn postArea-btn-post" @click="sendToot()">Toot</button>
                             </div>
 
-                            
+
                             <div class="postArea-attatchments-selector" v-if="this.app.postArea.dropdown === 'attatchment'">
                                 <div class="postArea-attatchments-selector-option">
                                     <Icon name="upload" color="var(--txt1)" size="20px" /> <span>Upload a file</span>
@@ -304,48 +311,58 @@ export default {
                             </div>
 
                             <div class="postArea-pollmaker" v-if="this.app.postArea.dropdown === 'poll'">
-                                <input class="postArea-pollmaker-option" placeholder="Choice 1" v-model="this.toot.poll.options[1]">
-                                <input class="postArea-pollmaker-option" placeholder="Choice 2" v-model="this.toot.poll.options[2]">
-                                <input class="postArea-pollmaker-option" placeholder="Choice 3" v-model="this.toot.poll.options[3]" v-if="this.app.postArea.poll.option >= 3">
-                                <input class="postArea-pollmaker-option" placeholder="Choice 4" v-model="this.toot.poll.options[4]" v-if="this.app.postArea.poll.option >= 4">
-                                <input class="postArea-pollmaker-option" placeholder="Choice 5" v-model="this.toot.poll.options[5]" v-if="this.app.postArea.poll.option >= 5">
+                                <input class="postArea-pollmaker-option" placeholder="Choice 1"
+                                    v-model="this.toot.poll.options[1]">
+                                <input class="postArea-pollmaker-option" placeholder="Choice 2"
+                                    v-model="this.toot.poll.options[2]">
+                                <input class="postArea-pollmaker-option" placeholder="Choice 3"
+                                    v-model="this.toot.poll.options[3]" v-if="this.app.postArea.poll.option >= 3">
+                                <input class="postArea-pollmaker-option" placeholder="Choice 4"
+                                    v-model="this.toot.poll.options[4]" v-if="this.app.postArea.poll.option >= 4">
+                                <input class="postArea-pollmaker-option" placeholder="Choice 5"
+                                    v-model="this.toot.poll.options[5]" v-if="this.app.postArea.poll.option >= 5">
                                 <select class="postArea-pollmaker-select">
-                                    <option @click="this.app.postArea.poll.option = 2">2 choices</option>    
-                                    <option @click="this.app.postArea.poll.option = 3">3 choices</option>  
-                                    <option @click="this.app.postArea.poll.option = 4">4 choices</option>  
-                                    <option @click="this.app.postArea.poll.option = 5">5 choices</option>  
+                                    <option @click="this.app.postArea.poll.option = 2">2 choices</option>
+                                    <option @click="this.app.postArea.poll.option = 3">3 choices</option>
+                                    <option @click="this.app.postArea.poll.option = 4">4 choices</option>
+                                    <option @click="this.app.postArea.poll.option = 5">5 choices</option>
                                 </select>
                                 <select class="postArea-pollmaker-select">
-                                    <option @click="this.toot.poll.multiple = 'false'">Single choice</option>    
+                                    <option @click="this.toot.poll.multiple = 'false'">Single choice</option>
                                     <option @click="this.toot.poll.expires_in = 'true'">Multiple Choice</option>
                                 </select>
                                 <select class="postArea-pollmaker-select">
-                                    <option @click="this.toot.poll.expires_in = '5 minutes'">5 minutes</option>    
-                                    <option @click="this.toot.poll.expires_in = '30 minutes'">30 minutes</option>  
-                                    <option @click="this.toot.poll.expires_in = '1 hour'">1 hour</option>  
-                                    <option @click="this.toot.poll.expires_in = '6 hours'">6 hours</option>   
-                                    <option @click="this.toot.poll.expires_in = '12 hours'">12 hours</option>   
-                                    <option @click="this.toot.poll.expires_in = '1 day'">1 day</option>   
-                                    <option @click="this.toot.poll.expires_in = '3 days'">3 days</option>   
-                                    <option @click="this.toot.poll.expires_in = '7 days'">7 days</option> 
+                                    <option @click="this.toot.poll.expires_in = '5 minutes'">5 minutes</option>
+                                    <option @click="this.toot.poll.expires_in = '30 minutes'">30 minutes</option>
+                                    <option @click="this.toot.poll.expires_in = '1 hour'">1 hour</option>
+                                    <option @click="this.toot.poll.expires_in = '6 hours'">6 hours</option>
+                                    <option @click="this.toot.poll.expires_in = '12 hours'">12 hours</option>
+                                    <option @click="this.toot.poll.expires_in = '1 day'">1 day</option>
+                                    <option @click="this.toot.poll.expires_in = '3 days'">3 days</option>
+                                    <option @click="this.toot.poll.expires_in = '7 days'">7 days</option>
                                 </select>
                             </div>
-                            
+
                             <div class="postArea-visibility" v-if="this.app.postArea.dropdown === 'visibility'">
-                                <div class="postArea-visibility-option" @click="setTootOption('visibility', 'public')" v-bind:class="{ pAoption: this.toot.visibility === 'public' }">
-                                    <Icon name="globe" color="var(--txt1)" size="20px" /> <span>Global</span>
+                                <div class="postArea-visibility-option" @click="setTootOption('visibility', 'public')"
+                                    v-bind:class="{ pAoption: this.toot.visibility === 'public' }">
+                                    <Icon name="globe" color="var(--txt1)" size="18px" /> <span>Global</span>
                                 </div>
-                                <div class="postArea-visibility-option" @click="setTootOption('visibility', 'unlisted')" v-bind:class="{ pAoption: this.toot.visibility === 'unlisted' }">
-                                    <Icon name="lock" color="var(--txt1)" size="20px" /> <span>Unlisted</span>
+                                <div class="postArea-visibility-option" @click="setTootOption('visibility', 'unlisted')"
+                                    v-bind:class="{ pAoption: this.toot.visibility === 'unlisted' }">
+                                    <Icon name="lock" color="var(--txt1)" size="18px" /> <span>Unlisted</span>
                                 </div>
-                                <div class="postArea-visibility-option" @click="setTootOption('visibility', 'private')" v-bind:class="{ pAoption: this.toot.visibility === 'private' }">
-                                    <Icon name="users" color="var(--txt1)" size="20px" /> <span>Followers Only</span>
+                                <div class="postArea-visibility-option" @click="setTootOption('visibility', 'private')"
+                                    v-bind:class="{ pAoption: this.toot.visibility === 'private' }">
+                                    <Icon name="users" color="var(--txt1)" size="18px" /> <span>Followers Only</span>
                                 </div>
-                                <div class="postArea-visibility-option" @click="setTootOption('visibility', 'direct')" v-bind:class="{ pAoption: this.toot.visibility === 'direct' }">
-                                    <Icon name="at-sign" color="var(--txt1)" size="20px" /> <span>Mentioned People Only</span>
+                                <div class="postArea-visibility-option" @click="setTootOption('visibility', 'direct')"
+                                    v-bind:class="{ pAoption: this.toot.visibility === 'direct' }">
+                                    <Icon name="at-sign" color="var(--txt1)" size="18px" /> <span>Mentioned People
+                                        Only</span>
                                 </div>
                             </div>
-                            
+
 
 
                         </div>
@@ -624,13 +641,16 @@ textarea {
     border-radius: 7px;
 
     margin-top: 10px;
-    padding: 4px!important;
+    padding: 4px !important;
 
     box-sizing: border-box;
     width: 100%;
 }
 
 .postArea-visibility-option {
+    display: flex;
+    align-content: center;
+
     padding: 6px;
     padding-left: 10px;
     padding-right: 10px;
@@ -638,11 +658,20 @@ textarea {
     border: 2px solid transparent;
 
     color: var(--txt2);
+}
 
-    span {
-        font-size: 15px;
-        margin-left: 7px;
-    }
+.postArea-visibility-option span {
+    font-size: 14px;
+    padding-left: 7px;
+
+    display: flex;
+    align-content: center;
+}
+
+.postArea-visibility-option i {
+    margin-bottom: 0px;
+    display: flex;
+    align-content: center;
 }
 
 .postArea-visibility-option:hover {
@@ -657,7 +686,7 @@ textarea {
     border-radius: 7px;
 
     margin-top: 10px;
-    padding: 4px!important;
+    padding: 4px !important;
 
     box-sizing: border-box;
     width: 100%;
@@ -695,7 +724,7 @@ textarea {
     border-radius: 7px;
 
     margin-top: 10px;
-    padding: 4px!important;
+    padding: 4px !important;
 
     box-sizing: border-box;
     width: 100%;
@@ -765,5 +794,4 @@ textarea {
     box-sizing: border-box;
     width: 100%;
 }
-
 </style>
