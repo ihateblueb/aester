@@ -17,7 +17,7 @@ export default {
         tootarea: ""
     }),
     mounted() {
-        console.log("[Aester Startup] Login State: " + this.getLocalStorage("loginstate"))
+        console.log("[Aster Startup] Login State: " + this.getLocalStorage("loginstate"))
 
         if (this.getLocalStorage("loginstate") === 'done') {
             this.loginstate = this.getLocalStorage("loginstate");
@@ -127,7 +127,7 @@ export default {
         },
 
         async sendToot() {
-            console.log("[Aester Actions] Posting toot as @" + this.user.username + "@" + this.instanceurl + "...")
+            console.log("[Aster Actions] Posting toot as @" + this.user.username + "@" + this.instanceurl + "...")
 
             const sendtoot = await fetch("https://" + this.instanceurl + "/api/v1/statuses", {
                 method: "POST",
@@ -139,7 +139,7 @@ export default {
             })
             const sendtoot_response = await sendtoot.json()
 
-            console.log("[Aester Actions] Posted toot. Response below.")
+            console.log("[Aster Actions] Posted toot. Response below.")
             console.log(sendtoot_response)
         }
     }
@@ -151,7 +151,7 @@ export default {
         <div class="loginArea" v-if="this.loginstate === 'start'">
             <div class="loginContainer">
                 <div class="loginContainerHeader">
-                    <h1 class="loginContainerHeading">Welcome to Aester</h1>
+                    <h1 class="loginContainerHeading">Welcome to Aster</h1>
                 </div>
                 <div>
                     <p class="iptlabel">Please type your instances URL</p>
@@ -165,7 +165,7 @@ export default {
         <div class="loginArea" v-if="this.loginstate === 'almost'">
             <div class="loginContainer">
                 <div class="loginContainerHeader">
-                    <h1 class="loginContainerHeading">Welcome to Aester</h1>
+                    <h1 class="loginContainerHeading">Welcome to Aster</h1>
                 </div>
                 <div>
                     <p class="iptlabel">Please type in your Authorization Code</p>
@@ -183,7 +183,7 @@ export default {
         <div class="mColumns">
             <div class="mColumn">
                 <div class="mColumnHeader">
-                    <p>Aester <span class="betaTag">BETA</span></p>
+                    <p>Aster <span class="betaTag">BETA</span></p>
                 </div>
                 <div class="postArea">
                     <div class="postAreaHeader">
