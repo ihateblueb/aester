@@ -488,7 +488,7 @@ textarea {
 .mColumn {
     background-color: var(--bg2);
 
-    width: 325px;
+    width: 375px;
     min-width: 288px !important;
     height: 100vh;
     overflow-y: scroll;
