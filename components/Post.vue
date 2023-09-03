@@ -8,10 +8,59 @@ export default {
         fillcolor: "none",
     }),
     props: {
+        instanceurl: String,
+        token: String,
         content: String,
     },
     created() {
         console.log("one post!")
+    }, 
+    methods: {
+        async postInteraction(type, id) {
+            if (type === 'boost') {
+                const postInteaction = fetch("https://"+this.instanceurl+"/api/v1/statuses/"+id+"/reblog", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            } else if (type === 'unboost') {
+                const postInteaction = fetch("https://"+this.instanceurl+"/api/v1/statuses/"+id+"/unreblog", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            } else if (type === 'favorite') {
+                const postInteaction = fetch("https://"+this.instanceurl+"/api/v1/statuses/"+id+"/favourite", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            } else if (type === 'unfavorite') {
+                const postInteaction = fetch("https://"+this.instanceurl+"/api/v1/statuses/"+id+"/unfavourite", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            } else if (type === 'bookmark') {
+                const postInteaction = fetch("https://"+this.instanceurl+"/api/v1/statuses/"+id+"/bookmark", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            } else if (type === 'unbookmark') {
+                const postInteaction = fetch("https://"+this.instanceurl+"/api/v1/statuses/"+id+"/unbookmark", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            }
+        }
     }
 }
 </script>
@@ -36,6 +85,11 @@ export default {
         </div>
         <span v-html="content.reblog.content" v-if="content.reblog"></span>
         <span v-html="content.content"></span>
+        <div>
+            <button @click="postInteraction('boost', content.id)">boost</button>
+            <button @click="postInteraction('favorite', content.id)">favorite</button>
+            <button @click="postInteraction('bookmark', content.id)">bookmark</button>
+        </div>
     </div>
 </template>
 

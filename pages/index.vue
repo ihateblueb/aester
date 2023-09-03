@@ -357,7 +357,7 @@ export default {
                     <p>Home</p>
                 </div>
                 <div v-for="toot in this.timeline.toots">
-                    <Post :content="toot" />
+                    <Post :content="toot" :instanceurl="this.instanceurl" :token="this.token" />
                 </div>
             </div>
             <div class="mColumn">
