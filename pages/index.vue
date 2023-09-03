@@ -1,3 +1,8 @@
+<script setup>
+import Icon from '../components/Icon.vue';
+</script>
+
+
 <script>
 export default {
     data: () => ({
@@ -11,6 +16,9 @@ export default {
             avatar: "none",
         },
         app: {
+            postArea: {
+                dropdown: "",
+            },
             clientid: "",
             secret: "",
         },
@@ -198,17 +206,31 @@ export default {
                     <div>
                         <textarea class="postArea-textArea" placeholder="What's up?" v-model="tootarea"></textarea>
                         <div>
-                            <button class="btn">📎</button>
-                            <button class="btn">📦</button>
-                            <select id="visiblity" class="postArea-visibility">
-                                <option value="global">🌐 Global</option>
-                                <option value="unlisted">🔓 Unlisted</option>
-                                <option value="followers">🔐 Followers only</option>
-                                <option value="mentioned">📧 Mentioned people only</option>
-                            </select>
-                            <button class="btn">CW</button>
-                            <button class="btn">EN</button>
-                            <button class="btn" @click="sendToot()">Toot</button>
+                            <div class="postArea-buttons">
+                                <div class="postArea-buttons-left">
+                                    <button class="btn postArea-btn">
+                                        <Icon name="paperclip" size="18px" />
+                                    </button>
+                                    <button class="btn postArea-btn">
+                                        <Icon name="bar-chart-2" size="18px" />
+                                    </button>
+                                    <button class="btn postArea-btn">
+                                        <Icon name="globe" size="18px" />
+                                    </button>
+                                    <button class="btn postArea-btn">CW</button>
+                                    <button class="btn postArea-btn">EN</button>
+                                </div>
+                                <button class="btn postArea-btn postArea-btn-post" @click="sendToot()">Toot</button>
+                            </div>
+
+                            <div v-if="this.app.postArea.dropdown === 'visibility'" class="postArea-visibility">
+                                <div value="global">
+                                    <Icon name="globe" /> Global
+                                </div>
+                                <div value="unlisted">🔓 Unlisted</div>
+                                <div value="followers">🔐 Followers only</div>
+                                <div value="mentioned">📧 Mentioned people only</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -446,5 +468,32 @@ textarea {
 
 .postArea-visibility {
     width: 45px;
+}
+
+.postArea-btn {
+    background-color: var(--bg3);
+
+    border: 2px solid var(--bg3);
+    border-radius: 7px;
+
+    padding: 6px;
+    margin-top: 10px;
+    margin-right: 5px;
+
+    color: var(--txt1);
+}
+
+.postArea-btn-post {
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-right: 0px;
+}
+
+.postArea-buttons {
+    display: flex;
+}
+
+.postArea-buttons-left {
+    flex-grow: 3;
 }
 </style>
