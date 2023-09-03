@@ -162,7 +162,7 @@ export default {
 
             if (this.toot.spoiler_text && this.app.postArea.selectedBtn === "sensitive") {
                 var additional_status_options = (additional_status_options += `&spoiler_text=${this.toot.spoiler_text}`)
-            }
+            } 
 
             const sendtoot = await fetch("https://" + this.instanceurl + "/api/v1/statuses", {
                 method: "POST",
@@ -178,7 +178,14 @@ export default {
             this.app.postArea.selectedBtn = ""
 
             this.toot.content = ""
+            this.toot.media = ""
+            this.toot.poll.options = ""
+            this.toot.poll.expires_in = "1 day"
+            this.toot.poll.multiple = "false"
+            this.toot.poll.hide_totals = "false"
+            this.toot.sensitive = ""
             this.toot.spoiler_text = ""
+            this.toot.visibility = "public"
 
             console.log("[Aster Actions] Posted toot. Response below.")
             console.log(sendtoot_response)
