@@ -414,6 +414,7 @@ body {
     font-family: var(--font1);
     margin: 0px;
     background-color: var(--bg1);
+    overflow-y: hidden;
 }
 
 h1,
