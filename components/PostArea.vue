@@ -11,6 +11,7 @@ export default {
         app: {
             postArea: {
                 selectedBtn: "",
+                contentWarning: "false",
                 dropdown: "",
                 poll: {
                     options: 2
@@ -64,14 +65,14 @@ export default {
         },
 
         async sendToot() {
-            var additional_status_options = `&visibility=${this.toot.visibility}`
-
-            if (this.toot.spoiler_text && this.app.postArea.selectedBtn === "sensitive") {
-                var additional_status_options = (additional_status_options += `&spoiler_text=${this.toot.spoiler_text}`)
-            }
-
             if (this.toot.content != "") {
                 console.log("[Aster Actions] Posting toot as @" + this.user.username + "@" + this.instanceurl + "...")
+
+                var additional_status_options = `&visibility=${this.toot.visibility}`
+
+                if (this.toot.spoiler_text && this.app.postArea.contentWarning === "true") {
+                    var additional_status_options = (additional_status_options += `&spoiler_text=${this.toot.spoiler_text}`)
+                }
 
                 const sendtoot = await fetch("https://" + this.instanceurl + "/api/v1/statuses", {
                     method: "POST",
@@ -124,6 +125,16 @@ export default {
             }
         },
 
+        setPostAreaToggle(thetoggle) {
+            if (thetoggle === 'contentwarning') {
+                if (this.app.postArea.contentWarning === "true") {
+                    this.app.postArea.contentWarning = "false"
+                } else {
+                    this.app.postArea.contentWarning = "true"
+                }
+            }
+        },
+
         setTootOption(option, value) {
             if (option === 'visibility') {
                 this.toot.visibility = value
@@ -146,7 +157,7 @@ export default {
         </div>
         <div>
             <input class="postArea-contentwarning" placeholder="Write your content warning here..."
-                v-if="this.toot.sensitive === 'true'" v-model="this.toot.spoiler_text">
+                v-if="this.app.postArea.contentWarning === 'true'" v-model="this.toot.spoiler_text">
             <textarea class="postArea-textArea" placeholder="What's up?" v-model="toot.content"></textarea>
             <div>
                 <div class="postArea-buttons">
@@ -166,8 +177,8 @@ export default {
                             <Icon name="users" size="18px" v-if="this.toot.visibility === 'private'" />
                             <Icon name="at-sign" size="18px" v-if="this.toot.visibility === 'direct'" />
                         </button>
-                        <button class="btn postArea-btn" @click="setPostAreaButton('sensitive')"
-                            v-bind:class="{ pAbtnselected: this.toot.sensitive === 'true' }">CW</button>
+                        <button class="btn postArea-btn" @click="setPostAreaToggle('contentwarning')"
+                            v-bind:class="{ pAbtnselected: this.app.postArea.contentWarning === 'true' }">CW</button>
                     </div>
                     <button class="btn postArea-btn postArea-btn-post" @click="sendToot()"
                         v-bind:class="{ pAbtnpostdisabled: this.toot.content === '' }">Toot</button>
