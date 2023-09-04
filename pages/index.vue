@@ -1,6 +1,7 @@
 <script setup>
 import Icon from '../components/Icon.vue';
 import Post from '../components/Post.vue';
+import PostArea from '../components/PostArea.vue';
 </script>
 
 
@@ -91,6 +92,10 @@ export default {
         },
 
         async startlogin() {
+            this.removeLocalStorage("user_avatar")
+            this.removeLocalStorage("user_displayname")
+            this.removeLocalStorage("user_username")
+
             await this.createApplication()
 
             window.open("https://" + this.instanceurl + "/oauth/authorize?client_id=" + this.app.clientid + "&scope=read+write+push&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code", '_blank');
@@ -99,7 +104,6 @@ export default {
         },
 
         async endlogin() {
-
             const gettingtoken = await fetch("https://" + this.instanceurl + "/oauth/token", {
                 method: "POST",
                 headers: {
@@ -110,13 +114,14 @@ export default {
             const gettingtoken_response = await gettingtoken.json()
 
             this.setLocalStorage("token", gettingtoken_response.access_token)
-            this.setLocalStorage("loginstate", "done")
-
+            
             this.token = gettingtoken_response.access_token;
-            this.loginstate = 'done';
 
             this.getAccountDetails()
             this.afterLogin()
+
+            this.setLocalStorage("loginstate", "done")
+            this.loginstate = 'done';
         },
 
         async getAccountDetails() {
@@ -131,6 +136,10 @@ export default {
             this.user.avatar = accountdetails_response.avatar;
             this.user.displayname = accountdetails_response.display_name;
             this.user.username = accountdetails_response.username;
+
+            this.setLocalStorage("user_avatar", this.user.avatar)
+            this.setLocalStorage("user_displayname", this.user.displayname)
+            this.setLocalStorage("user_username", this.user.username)
         },
 
         async afterLogin() {
@@ -144,6 +153,11 @@ export default {
 
         async logout() {
             console.log("Logging out...")
+
+            this.removeLocalStorage("user_avatar")
+            this.removeLocalStorage("user_displayname")
+            this.removeLocalStorage("user_username")
+
             this.removeLocalStorage("token")
             this.removeLocalStorage("instanceurl")
             this.removeLocalStorage("loginstate")
@@ -153,73 +167,6 @@ export default {
             this.removeLocalStorage("app_vapidkey")
 
             location.reload();
-        },
-
-        async sendToot() {
-            console.log("[Aster Actions] Posting toot as @" + this.user.username + "@" + this.instanceurl + "...")
-
-            var additional_status_options = `&visibility=${this.toot.visibility}`
-
-            if (this.toot.spoiler_text && this.app.postArea.selectedBtn === "sensitive") {
-                var additional_status_options = (additional_status_options += `&spoiler_text=${this.toot.spoiler_text}`)
-            }
-
-            if (this.toot.content != "") {
-                const sendtoot = await fetch("https://" + this.instanceurl + "/api/v1/statuses", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + this.token,
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `status=${this.toot.content}${additional_status_options}`,
-                })
-                const sendtoot_response = await sendtoot.json()
-
-                if (sendtoot_response.error) {
-                    this.toast(sendtoot_response.error)
-
-                    console.log("[Aster Actions] Can't post toot: " + sendtoot_response.error)
-                } else {
-                    this.app.postArea.dropdown = ""
-                    this.app.postArea.selectedBtn = ""
-
-                    this.toot.content = ""
-                    this.toot.media = ""
-                    this.toot.poll.options = ""
-                    this.toot.poll.expires_in = "1 day"
-                    this.toot.poll.multiple = "false"
-                    this.toot.poll.hide_totals = "false"
-                    this.toot.sensitive = ""
-                    this.toot.spoiler_text = ""
-                    this.toot.visibility = "public"
-
-                    console.log("[Aster Actions] Posted toot.")
-                }
-            }
-        },
-
-        setPostAreaButton(thebutton) {
-            if (thebutton === "sensitive") {
-                if (this.toot.sensitive === "true") {
-                    this.toot.sensitive = "false"
-                } else {
-                    this.toot.sensitive = "true"
-                }
-            } else {
-                if (thebutton === this.app.postArea.selectedBtn) {
-                    this.app.postArea.selectedBtn = ""
-                    this.app.postArea.dropdown = ""
-                } else {
-                    this.app.postArea.selectedBtn = thebutton
-                    this.app.postArea.dropdown = thebutton
-                }
-            }
-        },
-
-        setTootOption(option, value) {
-            if (option === 'visibility') {
-                this.toot.visibility = value
-            }
         },
 
         async loadToots(max_id) {
@@ -278,115 +225,17 @@ export default {
         <div class="mColumns">
             <div class="mColumn">
                 <div class="mColumnHeader">
-                    <p>Aster <span class="betaTag">BETA</span></p>
-                    <button @click="logout()">BYE!</button>
+                    <div class="mCH-text">
+                        <p>Aster <span class="betaTag">BETA</span></p>
+                    </div>
+                    <div class="mCH-buttons">
+                        <button @click="logout()" class="btn btn-logout">
+                            <Icon name="log-out" size="16px" />
+                        </button>
+                    </div>
                 </div>
                 <div class="mColumnContent">
-                    <div class="postArea">
-                        <div class="postAreaHeader">
-                            <div class="postArea-avatars">
-                                <img class="postArea-avatar" :src="user.avatar" :alt="user.displayname + 's avatar'">
-                            </div>
-                            <div class="postArea-names">
-                                <p class="postArea-displayName">{{ user.displayname }}</p>
-                                <p class="postArea-userName">@{{ user.username }}@{{ instanceurl }}</p>
-                            </div>
-                        </div>
-                        <div>
-                            <input class="postArea-contentwarning" placeholder="Write your content warning here..."
-                                v-if="this.toot.sensitive === 'true'" v-model="this.toot.spoiler_text">
-                            <textarea class="postArea-textArea" placeholder="What's up?" v-model="toot.content"></textarea>
-                            <div>
-                                <div class="postArea-buttons">
-                                    <div class="postArea-buttons-left">
-                                        <button class="btn postArea-btn" @click="setPostAreaButton('attatchment')"
-                                            v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'attatchment' }">
-                                            <Icon name="paperclip" size="18px" />
-                                        </button>
-                                        <button class="btn postArea-btn" @click="setPostAreaButton('poll')"
-                                            v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'poll' }">
-                                            <Icon name="bar-chart-2" size="18px" />
-                                        </button>
-                                        <button class="btn postArea-btn" @click="setPostAreaButton('visibility')"
-                                            v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'visibility' }">
-                                            <Icon name="globe" size="18px" v-if="this.toot.visibility === 'public'" />
-                                            <Icon name="lock" size="18px" v-if="this.toot.visibility === 'unlisted'" />
-                                            <Icon name="users" size="18px" v-if="this.toot.visibility === 'private'" />
-                                            <Icon name="at-sign" size="18px" v-if="this.toot.visibility === 'direct'" />
-                                        </button>
-                                        <button class="btn postArea-btn" @click="setPostAreaButton('sensitive')"
-                                            v-bind:class="{ pAbtnselected: this.toot.sensitive === 'true' }">CW</button>
-                                    </div>
-                                    <button class="btn postArea-btn postArea-btn-post" @click="sendToot()"
-                                        v-bind:class="{ pAbtnpostdisabled: this.toot.content === '' }">Toot</button>
-                                </div>
-
-
-                                <div class="postArea-attatchments-selector"
-                                    v-if="this.app.postArea.dropdown === 'attatchment'">
-                                    <div class="postArea-attatchments-selector-option">
-                                        <Icon name="upload" color="var(--txt1)" size="20px" /> <span>Upload a file</span>
-                                    </div>
-                                </div>
-
-                                <div class="postArea-pollmaker" v-if="this.app.postArea.dropdown === 'poll'">
-                                    <input class="postArea-pollmaker-option" placeholder="Choice 1"
-                                        v-model="this.toot.poll.options[1]">
-                                    <input class="postArea-pollmaker-option" placeholder="Choice 2"
-                                        v-model="this.toot.poll.options[2]">
-                                    <input class="postArea-pollmaker-option" placeholder="Choice 3"
-                                        v-model="this.toot.poll.options[3]" v-if="this.app.postArea.poll.option >= 3">
-                                    <input class="postArea-pollmaker-option" placeholder="Choice 4"
-                                        v-model="this.toot.poll.options[4]" v-if="this.app.postArea.poll.option >= 4">
-                                    <input class="postArea-pollmaker-option" placeholder="Choice 5"
-                                        v-model="this.toot.poll.options[5]" v-if="this.app.postArea.poll.option >= 5">
-                                    <select class="postArea-pollmaker-select">
-                                        <option @click="this.app.postArea.poll.option = 2">2 choices</option>
-                                        <option @click="this.app.postArea.poll.option = 3">3 choices</option>
-                                        <option @click="this.app.postArea.poll.option = 4">4 choices</option>
-                                        <option @click="this.app.postArea.poll.option = 5">5 choices</option>
-                                    </select>
-                                    <select class="postArea-pollmaker-select">
-                                        <option @click="this.toot.poll.multiple = 'false'">Single choice</option>
-                                        <option @click="this.toot.poll.expires_in = 'true'">Multiple Choice</option>
-                                    </select>
-                                    <select class="postArea-pollmaker-select">
-                                        <option @click="this.toot.poll.expires_in = '5 minutes'">5 minutes</option>
-                                        <option @click="this.toot.poll.expires_in = '30 minutes'">30 minutes</option>
-                                        <option @click="this.toot.poll.expires_in = '1 hour'">1 hour</option>
-                                        <option @click="this.toot.poll.expires_in = '6 hours'">6 hours</option>
-                                        <option @click="this.toot.poll.expires_in = '12 hours'">12 hours</option>
-                                        <option @click="this.toot.poll.expires_in = '1 day'">1 day</option>
-                                        <option @click="this.toot.poll.expires_in = '3 days'">3 days</option>
-                                        <option @click="this.toot.poll.expires_in = '7 days'">7 days</option>
-                                    </select>
-                                </div>
-
-                                <div class="postArea-visibility" v-if="this.app.postArea.dropdown === 'visibility'">
-                                    <div class="postArea-visibility-option" @click="setTootOption('visibility', 'public')"
-                                        v-bind:class="{ pAoption: this.toot.visibility === 'public' }">
-                                        <Icon name="globe" color="var(--txt1)" size="18px" /> <span>Global</span>
-                                    </div>
-                                    <div class="postArea-visibility-option" @click="setTootOption('visibility', 'unlisted')"
-                                        v-bind:class="{ pAoption: this.toot.visibility === 'unlisted' }">
-                                        <Icon name="lock" color="var(--txt1)" size="18px" /> <span>Unlisted</span>
-                                    </div>
-                                    <div class="postArea-visibility-option" @click="setTootOption('visibility', 'private')"
-                                        v-bind:class="{ pAoption: this.toot.visibility === 'private' }">
-                                        <Icon name="users" color="var(--txt1)" size="18px" /> <span>Followers Only</span>
-                                    </div>
-                                    <div class="postArea-visibility-option" @click="setTootOption('visibility', 'direct')"
-                                        v-bind:class="{ pAoption: this.toot.visibility === 'direct' }">
-                                        <Icon name="at-sign" color="var(--txt1)" size="18px" /> <span>Mentioned People
-                                            Only</span>
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-                        </div>
-                    </div>
+                    <PostArea />
                 </div>
             </div>
             <div class="mColumn">
@@ -414,451 +263,29 @@ export default {
 </template>
 
 <style>
-:root {
-    --bg1: #000000;
-    --bg2: #272727;
-    --bg3: #3f3f3f;
-    --bg4: #525151;
-
-    --bg1-50: #00000050;
-    --bg2-50: #27272750;
-    --bg3-50: #3f3f3f50;
-    --bg4-50: #52515150;
-
-    --txt1: #ffffff;
-    --txt2: #d1d1d1;
-
-    --font1: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
-    --accent1: #7c5fff;
-}
-
-body {
-    font-family: var(--font1);
-    margin: 0px;
-    background-color: var(--bg1);
-    overflow-y: hidden;
-}
-
-body,
-input,
-textarea,
-button {
-    font-family: var(--font1) !important;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-    margin: 0px;
-}
-
-button,
-input,
-textarea {
-    font-family: var(--font1);
-}
-
-.loginArea {
-    display: flex;
-    justify-content: center;
-}
-
-.loginContainer {
-    margin-top: 25px;
-    width: 450px;
-    background-color: var(--bg1);
-    color: var(--txt1);
-    padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.loginContainerHeading {
-    margin-top: 10px;
-    margin-bottom: 30px;
-    font-size: 20px;
-}
-
-.instanceTextArea {
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.ipt {
-    background-color: var(--bg2);
-    border: 2px solid var(--bg2);
-    color: var(--txt1);
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-radius: 7px;
-}
-
-.ipt:focus {
-    outline: none;
-    border: 2px solid var(--accent1);
-}
-
-.iptlabel {
-    padding-bottom: 10px;
-}
-
-.instanceLoginButtons {
-    margin-top: 10px;
-    float: right
-}
-
-.loginbtn {
-    margin-left: 10px;
-    background-color: var(--bg2);
-    border: 2px solid var(--bg2);
-    color: var(--txt1);
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    border-radius: 7px;
-}
-
-.loginbtn:hover {
-    background-color: var(--bg3);
-    border: 2px solid var(--bg3);
-}
-
-.mColumns {
-    display: flex;
-    overflow-y: hidden;
-}
-
-.mColumn {
-    background-color: var(--bg2);
-
-    width: 400px;
-    height: 100vh;
-    min-width: 350px !important;
-
-    border-right: 1px solid var(--bg1);
-}
-
-.mColumnContent {
-    height: calc(100vh - 45px);
-    overflow-y: scroll;
-}
-
-.betaTag {
-    background-color: var(--bg3);
-    color: var(--txt1);
-
-    margin-left: 6px;
-
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-
-    border-radius: 5px;
-
-    font-size: 12px;
-}
-
-.mColumnHeader {
-    height: 45px !important;
-
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-
-    color: var(--txt1);
-
-    border-bottom: 1px solid var(--bg1);
-}
-
-.noSelection {
-    color: var(--txt2);
-}
-
-.postAreaHeader {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.postArea {
-    margin: 10px;
-}
-
-.postArea-avatars {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.postArea-names {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.postArea-displayName {
-    color: var(--txt1);
-    font-size: 16px;
-}
-
-.postArea-userName {
-    color: var(--txt2);
-    font-size: 14px;
-}
-
-.postArea-avatar {
-    height: 45px;
-    margin-right: 10px;
-
-    border-radius: 7px;
-}
-
-.postArea-contentwarning {
-    margin-top: 0px !important;
-
-    width: 100%;
-    box-sizing: border-box;
-
-    padding: 5px;
-    margin-bottom: 10px;
-
-    font-size: 14px;
-
-    border-radius: 7px;
-    border: 2px solid var(--bg3);
-    background-color: var(--bg3);
-
-    color: var(--txt2);
-    outline: none;
-}
-
-.postArea-textArea {
-    margin-top: 0px !important;
-
-    width: 100%;
-    box-sizing: border-box;
-
-    padding: 5px;
-
-    font-size: 14px;
-
-    min-height: 35px;
-    max-height: 200px;
-    height: 100px;
-    resize: vertical;
-
-    border-radius: 7px;
-    border: 2px solid var(--bg3);
-    background-color: var(--bg3);
-
-    color: var(--txt2);
-    outline: none;
-}
-
-.postArea-visibility {
-    width: 45px;
-}
-
-.postArea-btn {
-    background-color: var(--bg3);
-
-    border: 2px solid var(--bg3);
-    border-radius: 7px;
-
-    padding: 6px;
-    margin-top: 10px;
-    margin-right: 5px;
-
-    color: var(--txt1);
-}
-
-.postArea-btn-post {
-    padding-left: 12px;
-    padding-right: 12px;
-    margin-right: 0px;
-
-    background-color: var(--accent1);
-    border: 2px solid var(--accent1);
-}
-
-.postArea-btn-post.pAbtnpostdisabled {
-    background-color: var(--bg3) !important;
-    border: 2px solid var(--bg3) !important;
-}
-
-.postArea-buttons {
-    display: flex;
-}
-
-.postArea-buttons-left {
+.mCH-text {
     flex-grow: 3;
 }
 
-.postArea-visibility {
-    background-color: var(--bg3);
-
-    border-radius: 7px;
-
-    margin-top: 10px;
-    padding: 4px !important;
-
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.postArea-visibility-option {
+.btn-logout {
     display: flex;
-    align-content: center;
 
-    padding: 6px;
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color: transparent;
+    border: none;
 
-    border: 2px solid transparent;
+    color: var(--txt1);
+    cursor: pointer;
 
-    color: var(--txt2);
+    padding: 10px;
+
+    align-items: center;
 }
 
-.postArea-visibility-option span {
-    font-size: 14px;
-    padding-left: 7px;
-
-    display: flex;
-    align-content: center;
-}
-
-.postArea-visibility-option i {
+.btn-logout .vue-feather {
     margin-bottom: 0px;
-    display: flex;
-    align-content: center;
 }
 
-.postArea-visibility-option:hover {
-    background-color: var(--bg2);
-    border: 2px solid transparent;
-    border-radius: 5px;
-}
-
-.postArea-attatchments-selector {
-    background-color: var(--bg3);
-
-    border-radius: 7px;
-
-    margin-top: 10px;
-    padding: 4px !important;
-
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.postArea-attatchments-selector-option:hover {
-    background-color: var(--bg2);
-    border-radius: 5px;
-}
-
-
-.postArea-attatchments-selector-option {
-    padding: 6px;
-    padding-left: 10px;
-    padding-right: 10px;
-
-    border: 2px solid transparent;
-
-    color: var(--txt2);
-
-    span {
-        font-size: 15px;
-        margin-left: 7px;
-    }
-}
-
-.postArea-attatchments-selector-option:hover {
-    background-color: var(--bg2);
-    border-radius: 5px;
-}
-
-.postArea-pollmaker {
-    background-color: var(--bg3);
-
-    border-radius: 7px;
-
-    margin-top: 10px;
-    padding: 4px !important;
-
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.pAbtnselected {
-    background-color: var(--bg4);
-    border-color: var(--accent1);
-}
-
-.pAoption {
-    background-color: var(--bg4);
-    border-color: var(--bg4);
-    border-radius: 5px;
-}
-
-.postArea-pollmaker-option {
-    background-color: var(--bg3);
-    border-color: var(--bg3);
-
-    border-radius: 5px;
-    padding: 6px;
-    padding-left: 10px;
-    padding-right: 10px;
-
-    margin-bottom: 10px;
-
-    border: 2px solid var(--bg4);
-
-    color: var(--txt2);
-
-    box-sizing: border-box;
-    width: 100%;
-
-    outline: none;
-}
-
-.postArea-pollmaker-option:hover {
-    background-color: var(--bg2);
-    border-color: var(--bg2);
-
-    border: 2px solid var(--bg4);
-
-    color: var(--txt2);
-
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.postArea-pollmaker-select {
-    font-family: var(--font1);
-
-    background-color: var(--bg3);
-    border-color: var(--bg3);
-
-    border-radius: 5px;
-    padding: 6px;
-    padding-left: 10px;
-    padding-right: 10px;
-
-    margin-top: 10px;
-
-    border: 2px solid var(--bg4);
-
-    color: var(--txt2);
-
-    box-sizing: border-box;
-    width: 100%;
+.btn-logout:hover {
+    color: var(--bg-danger);
 }
 </style>

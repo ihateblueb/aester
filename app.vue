@@ -12,3 +12,7 @@ useSeoMeta({
 <template>
   <NuxtPage />
 </template>
+
+<style>
+@import url('/assets/main.css');
+</style>

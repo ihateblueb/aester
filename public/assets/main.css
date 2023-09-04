@@ -1,0 +1,451 @@
+
+:root {
+    --bg1: #000000;
+    --bg2: #272727;
+    --bg3: #3f3f3f;
+    --bg4: #525151;
+
+    --bg1-50: #00000050;
+    --bg2-50: #27272750;
+    --bg3-50: #3f3f3f50;
+    --bg4-50: #52515150;
+
+    --txt1: #ffffff;
+    --txt2: #d1d1d1;
+
+    --bg-danger: #ff5f5f;
+    --bg-warning: #ffc75f;
+
+    --font1: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    --accent1: #7c5fff;
+}
+
+body {
+    font-family: var(--font1);
+    margin: 0px;
+    background-color: var(--bg1);
+    overflow-y: hidden;
+}
+
+body,
+input,
+textarea,
+button {
+    font-family: var(--font1) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0px;
+}
+
+button,
+input,
+textarea {
+    font-family: var(--font1);
+}
+
+.loginArea {
+    display: flex;
+    justify-content: center;
+}
+
+.loginContainer {
+    margin-top: 25px;
+    width: 450px;
+    background-color: var(--bg1);
+    color: var(--txt1);
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.loginContainerHeading {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.instanceTextArea {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.ipt {
+    background-color: var(--bg2);
+    border: 2px solid var(--bg2);
+    color: var(--txt1);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 7px;
+}
+
+.ipt:focus {
+    outline: none;
+    border: 2px solid var(--accent1);
+}
+
+.iptlabel {
+    padding-bottom: 10px;
+}
+
+.instanceLoginButtons {
+    margin-top: 10px;
+    float: right
+}
+
+.loginbtn {
+    margin-left: 10px;
+    background-color: var(--bg2);
+    border: 2px solid var(--bg2);
+    color: var(--txt1);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border-radius: 7px;
+}
+
+.loginbtn:hover {
+    background-color: var(--bg3);
+    border: 2px solid var(--bg3);
+}
+
+.mColumns {
+    display: flex;
+    overflow-y: hidden;
+}
+
+.mColumn {
+    background-color: var(--bg2);
+
+    width: 400px;
+    height: 100vh;
+    min-width: 350px !important;
+
+    border-right: 1px solid var(--bg1);
+}
+
+.mColumnContent {
+    height: calc(100vh - 45px);
+    overflow-y: scroll;
+}
+
+.betaTag {
+    background-color: var(--bg3);
+    color: var(--txt1);
+
+    margin-left: 6px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    border-radius: 5px;
+
+    font-size: 12px;
+}
+
+.mColumnHeader {
+    height: 45px !important;
+
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+
+    color: var(--txt1);
+
+    border-bottom: 1px solid var(--bg1);
+}
+
+.noSelection {
+    color: var(--txt2);
+}
+
+.postAreaHeader {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.postArea {
+    margin: 10px;
+}
+
+.postArea-avatars {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.postArea-names {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.postArea-displayName {
+    color: var(--txt1);
+    font-size: 16px;
+}
+
+.postArea-userName {
+    color: var(--txt2);
+    font-size: 14px;
+}
+
+.postArea-avatar {
+    height: 45px;
+    margin-right: 10px;
+
+    border-radius: 7px;
+}
+
+.postArea-contentwarning {
+    margin-top: 0px !important;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 5px;
+    margin-bottom: 10px;
+
+    font-size: 14px;
+
+    border-radius: 7px;
+    border: 2px solid var(--bg3);
+    background-color: var(--bg3);
+
+    color: var(--txt2);
+    outline: none;
+}
+
+.postArea-textArea {
+    margin-top: 0px !important;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 5px;
+
+    font-size: 14px;
+
+    min-height: 35px;
+    max-height: 200px;
+    height: 100px;
+    resize: vertical;
+
+    border-radius: 7px;
+    border: 2px solid var(--bg3);
+    background-color: var(--bg3);
+
+    color: var(--txt2);
+    outline: none;
+}
+
+.postArea-visibility {
+    width: 45px;
+}
+
+.postArea-btn {
+    background-color: var(--bg3);
+
+    border: 2px solid var(--bg3);
+    border-radius: 7px;
+
+    padding: 6px;
+    margin-top: 10px;
+    margin-right: 5px;
+
+    color: var(--txt1);
+}
+
+.postArea-btn-post {
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-right: 0px;
+
+    background-color: var(--accent1);
+    border: 2px solid var(--accent1);
+}
+
+.postArea-btn-post.pAbtnpostdisabled {
+    background-color: var(--bg3) !important;
+    border: 2px solid var(--bg3) !important;
+}
+
+.postArea-buttons {
+    display: flex;
+}
+
+.postArea-buttons-left {
+    flex-grow: 3;
+}
+
+.postArea-visibility {
+    background-color: var(--bg3);
+
+    border-radius: 7px;
+
+    margin-top: 10px;
+    padding: 4px !important;
+
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.postArea-visibility-option {
+    display: flex;
+    align-content: center;
+
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border: 2px solid transparent;
+
+    color: var(--txt2);
+}
+
+.postArea-visibility-option span {
+    font-size: 14px;
+    padding-left: 7px;
+
+    display: flex;
+    align-content: center;
+}
+
+.postArea-visibility-option i {
+    margin-bottom: 0px;
+    display: flex;
+    align-content: center;
+}
+
+.postArea-visibility-option:hover {
+    background-color: var(--bg2);
+    border: 2px solid transparent;
+    border-radius: 5px;
+}
+
+.postArea-attatchments-selector {
+    background-color: var(--bg3);
+
+    border-radius: 7px;
+
+    margin-top: 10px;
+    padding: 4px !important;
+
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.postArea-attatchments-selector-option:hover {
+    background-color: var(--bg2);
+    border-radius: 5px;
+}
+
+
+.postArea-attatchments-selector-option {
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border: 2px solid transparent;
+
+    color: var(--txt2);
+
+    span {
+        font-size: 15px;
+        margin-left: 7px;
+    }
+}
+
+.postArea-attatchments-selector-option:hover {
+    background-color: var(--bg2);
+    border-radius: 5px;
+}
+
+.postArea-pollmaker {
+    background-color: var(--bg3);
+
+    border-radius: 7px;
+
+    margin-top: 10px;
+    padding: 4px !important;
+
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.pAbtnselected {
+    background-color: var(--bg4);
+    border-color: var(--accent1);
+}
+
+.pAoption {
+    background-color: var(--bg4);
+    border-color: var(--bg4);
+    border-radius: 5px;
+}
+
+.postArea-pollmaker-option {
+    background-color: var(--bg3);
+    border-color: var(--bg3);
+
+    border-radius: 5px;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    margin-bottom: 10px;
+
+    border: 2px solid var(--bg4);
+
+    color: var(--txt2);
+
+    box-sizing: border-box;
+    width: 100%;
+
+    outline: none;
+}
+
+.postArea-pollmaker-option:hover {
+    background-color: var(--bg2);
+    border-color: var(--bg2);
+
+    border: 2px solid var(--bg4);
+
+    color: var(--txt2);
+
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.postArea-pollmaker-select {
+    font-family: var(--font1);
+
+    background-color: var(--bg3);
+    border-color: var(--bg3);
+
+    border-radius: 5px;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    margin-top: 10px;
+
+    border: 2px solid var(--bg4);
+
+    color: var(--txt2);
+
+    box-sizing: border-box;
+    width: 100%;
+}
