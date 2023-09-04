@@ -64,8 +64,6 @@ export default {
         },
 
         async sendToot() {
-            console.log("[Aster Actions] Posting toot as @" + this.user.username + "@" + this.instanceurl + "...")
-
             var additional_status_options = `&visibility=${this.toot.visibility}`
 
             if (this.toot.spoiler_text && this.app.postArea.selectedBtn === "sensitive") {
@@ -73,6 +71,8 @@ export default {
             }
 
             if (this.toot.content != "") {
+                console.log("[Aster Actions] Posting toot as @" + this.user.username + "@" + this.instanceurl + "...")
+
                 const sendtoot = await fetch("https://" + this.instanceurl + "/api/v1/statuses", {
                     method: "POST",
                     headers: {
