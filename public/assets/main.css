@@ -1,14 +1,14 @@
 
 :root {
-    --bg1: rgb(17, 16, 26);
+    --bg1: #11101a;
     --bg2: #201d29;
     --bg3: #302c3b;
     --bg4: #494457;
 
-    --bg1-50: #00000050;
-    --bg2-50: #27272750;
-    --bg3-50: #3f3f3f50;
-    --bg4-50: #52515150;
+    --bg1-50: #11101a50;
+    --bg2-50: #201d2950;
+    --bg3-50: #302c3b50;
+    --bg4-50: #49445750;
 
     --txt1: #ffffff;
     --txt2: #c6bfcf;
@@ -448,4 +448,20 @@ textarea {
 
     box-sizing: border-box;
     width: 100%;
+}
+
+.modalContainer {
+    width: 100vw;
+    height: 100vh;
+
+    position: absolute;
+    z-index: 100;
+
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--bg1-50)!important;
 }

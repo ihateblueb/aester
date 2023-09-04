@@ -2,6 +2,7 @@
 import Icon from '../components/Icon.vue';
 import Post from '../components/Post.vue';
 import PostArea from '../components/PostArea.vue';
+import Modal from '../components/Modal.vue';
 </script>
 
 
@@ -47,6 +48,7 @@ export default {
         }
     }),
     mounted() {
+        this.closeModal()
         console.log("[Aster Startup] Login State: " + this.getLocalStorage("loginstate"))
 
         if (this.getLocalStorage("loginstate") === 'done') {
@@ -114,7 +116,7 @@ export default {
             const gettingtoken_response = await gettingtoken.json()
 
             this.setLocalStorage("token", gettingtoken_response.access_token)
-            
+
             this.token = gettingtoken_response.access_token;
 
             this.getAccountDetails()
@@ -166,7 +168,16 @@ export default {
             this.removeLocalStorage("app_secret")
             this.removeLocalStorage("app_vapidkey")
 
+            this.removeLocalStorage("ui_modal")
+
             location.reload();
+        },
+
+        async openModal(modal) {
+            this.setLocalStorage("ui_modal", modal)
+        },
+        async closeModal() {
+            this.removeLocalStorage("ui_modal")
         },
 
         async loadToots(max_id) {
@@ -189,6 +200,10 @@ export default {
 </script>
 
 <template>
+    <div class="modalContainer" v-if="getLocalStorage('ui_modal') === 'settings'">
+        <Modal :name="getLocalStorage('ui_modal')" />
+    </div>
+
     <div v-if="this.loginstate !== 'done'">
         <div class="loginArea" v-if="this.loginstate === 'start'">
             <div class="loginContainer">
@@ -229,7 +244,10 @@ export default {
                         <p>Aster <span class="betaTag">BETA</span></p>
                     </div>
                     <div class="mCH-buttons">
-                        <button @click="logout()" class="btn btn-logout">
+                        <button @click="openModal('settings')" class="btn btn-header">
+                            <Icon name="settings" size="16px" />
+                        </button>
+                        <button @click="logout()" class="btn btn-header-logout">
                             <Icon name="log-out" size="16px" />
                         </button>
                     </div>
@@ -264,10 +282,16 @@ export default {
 
 <style>
 .mCH-text {
-    flex-grow: 3;
+    flex-grow: 2;
 }
 
-.btn-logout {
+.mCH-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.btn-header {
     display: flex;
 
     background-color: transparent;
@@ -281,11 +305,30 @@ export default {
     align-items: center;
 }
 
-.btn-logout .vue-feather {
+.btn-header-logout {
+    display: flex;
+
+    background-color: transparent;
+    border: none;
+
+    color: var(--txt1);
+    cursor: pointer;
+
+    padding: 10px;
+
+    align-items: center;
+}
+
+.btn-header-logout .vue-feather,
+.btn-header .vue-feather {
     margin-bottom: 0px;
 }
 
-.btn-logout:hover {
+.btn-header:hover {
+    color: var(--txt2);
+}
+
+.btn-header-logout:hover {
     color: var(--bg-danger);
 }
 </style>
