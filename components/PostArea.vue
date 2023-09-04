@@ -229,10 +229,7 @@ export default {
                         <Icon name="at-sign" color="var(--txt1)" size="18px" /> <span>Mentioned People
                             Only</span>
                     </div>
-                </div>
-
-
-
+                </div>0
             </div>
         </div>
     </div>
