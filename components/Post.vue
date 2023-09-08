@@ -115,20 +115,24 @@ export default {
                 <img class="post-userAvatar" :src="content.reblog.account.avatar" loading="lazy" v-if="content.reblog">
             </div>
             <div class="post-userNames">
-                <span v-if="!content.reblog">{{ content.account.display_name }}</span>
-                <span v-if="!content.reblog" class="post-userName">@{{ content.account.acct }}</span>
-                <span v-if="content.reblog">{{ content.reblog.account.display_name }}</span>
-                <span v-if="content.reblog" class="post-userName">@{{ content.reblog.account.acct }}</span>
+                <a :href="'/@' + content.account.acct" v-if="!content.reblog" class="post-displayName">{{
+                    content.account.display_name }}</a>
+                <a :href="'/@' + content.account.acct" v-if="!content.reblog" class="post-userName">@{{ content.account.acct
+                }}</a>
+                <a :href="'/@' + content.reblog.account.acct" v-if="content.reblog" class="post-displayName">{{
+                    content.reblog.account.display_name }}</a>
+                <a :href="'/@' + content.reblog.account.acct" v-if="content.reblog" class="post-userName">@{{
+                    content.reblog.account.acct }}</a>
             </div>
         </div>
-        <span v-html="content.reblog.content" v-if="content.reblog"></span>
+        <span v-html="content.reblog.content" class="post-content" v-if="content.reblog"></span>
         <div v-for="attatchment in content.reblog.media_attatchments" v-if="content.reblog">
             <span>{{ attatchment }}</span>
         </div>
         <div v-for="attatchment in content.media_attatchments" v-if="!content.reblog">
             <img :src="attatchment.url" :alt="attatchment.descriotion" :title="attatchment.descriotion">
         </div>
-        <span v-html="content.content" v-if="!content.reblog"></span>
+        <span v-html="content.content" class="post-content" v-if="!content.reblog"></span>
         <div class="postReactionBar" v-if="content.reactions.length > 0">
             <div v-for="reaction in content.reactions">
                 <div class="postReaction" @click="postInteraction('react', content.id)" v-if="!reaction.me">
@@ -307,6 +311,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
 }
 
@@ -330,6 +335,7 @@ export default {
     cursor: pointer;
 
     margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .postReactionCounter {
@@ -370,4 +376,19 @@ export default {
 .post-userName {
     font-size: 14px;
     color: var(--txt2);
+    text-decoration: none;
+    text-wrap: wrap;
+    word-break: break-all;
+}
+
+.post-displayName {
+    color: var(--txt1);
+    text-decoration: none;
+    text-wrap: wrap;
+    word-break: break-all;
+}
+
+.post-content {
+    text-wrap: wrap;
+    word-break: break-all;
 }</style>
