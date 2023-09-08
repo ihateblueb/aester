@@ -282,6 +282,10 @@ export default {
                 </div>
                 <div class="mColumnContent">
                     <PostArea />
+
+                    <div class="mCHbottom">
+                        <img class="mCHbottomImage" src="https://media.wetdry.world/site_uploads/files/000/000/002/original/skeeter.png" v-if="this.instanceurl === 'wetdry.world'">
+                    </div>
                 </div>
             </div>
             <div class="mColumn">
