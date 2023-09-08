@@ -41,10 +41,12 @@ export default {
             sensitive: "",
             spoiler_text: "",
             visibility: "public",
-            language: ""
+            language: "",
         },
         timeline: {
-            toots: "",
+            home: [],
+            home_first: "",
+            home_last: "",
         }
     }),
     mounted() {
@@ -115,6 +117,8 @@ export default {
             })
             const gettingtoken_response = await gettingtoken.json()
 
+            console.log(gettingtoken_response)
+
             this.setLocalStorage("token", gettingtoken_response.access_token)
 
             this.token = gettingtoken_response.access_token;
@@ -180,20 +184,44 @@ export default {
             this.removeLocalStorage("ui_modal")
         },
 
-        async loadToots(max_id) {
-            const sendtoot = await fetch("https://" + this.instanceurl + "/api/v1/statuses", {
-                method: "POST",
+        async loadToots() {
+            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home?limit=40", {
+                method: "GET",
                 headers: {
-                    "Authorization": "Bearer " + this.token
+                    "Authorization": "Bearer " + this.token,
                 }
             })
-            const homeSocket = new WebSocket(
-                "wss://" + this.instanceurl + "/api/v1/streaming"
-            );
+            let initialtoots_response = await initialtoots.json()
 
-            homeSocket.onmessage = (event) => {
-                console.log(event.data);
-            };
+            initialtoots_response.forEach((element) =>
+                this.timeline.home.push(element) &&
+                console.log(element)
+            )
+
+            this.timeline.home_first = initialtoots_response.at(1).id;
+            this.timeline.home_last = initialtoots_response.at(-1).id;
+        },
+        async loadMoreToots(id) {
+            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home?max_id=" + id + "?limit=40", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            let moretoots_response = await moretoots.json()
+
+            moretoots_response.forEach((element) =>
+                this.timeline.home.push(element)
+            )
+
+            this.timeline.home_last = moretoots_response.at(-1).id;
+        },
+
+        async onScroll(e) {
+            const { scrollTop, offsetHeight, scrollHeight } = e.target
+            if ((scrollTop + offsetHeight) >= scrollHeight) {
+                this.loadMoreToots(this.timeline.home_last)
+            }
         }
     }
 }
@@ -260,8 +288,10 @@ export default {
                 <div class="mColumnHeader">
                     <p>Home</p>
                 </div>
-                <div v-for="toot in this.timeline.toots">
-                    <Post :content="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                <div class="mColumnContent" @scroll="onScroll">
+                    <div v-for="toot in this.timeline.home">
+                        <Post :content="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                    </div>
                 </div>
             </div>
             <div class="mColumn">

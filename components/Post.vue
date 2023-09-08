@@ -5,16 +5,13 @@ import Icon from '../components/Icon.vue';
 <script>
 export default {
     data: () => ({
-        fillcolor: "none",
+        e: "none",
     }),
     props: {
         instanceurl: String,
         token: String,
         content: Object,
     },
-    created() {
-        console.log("one post!")
-    }, 
     methods: {
         async postInteraction(type, id) {
             if (type === 'boost') {
@@ -73,8 +70,8 @@ export default {
         </div>
         <div class="post-userInfo">
             <div class="post-userAvatars">
-                <img class="post-userAvatar" :src="content.account.avatar" v-if="!content.reblog">
-                <img class="post-userAvatar" :src="content.reblog.account.avatar" v-if="content.reblog">
+                <img class="post-userAvatar" :src="content.account.avatar" loading="lazy" v-if="!content.reblog">
+                <img class="post-userAvatar" :src="content.reblog.account.avatar" loading="lazy" v-if="content.reblog">
             </div>
             <div class="post-userNames">
                 <span v-if="!content.reblog">{{ content.account.display_name }}</span>
@@ -91,15 +88,104 @@ export default {
             <img :src="attatchment.url" :alt="attatchment.descriotion" :title="attatchment.descriotion">
         </div>
         <span v-html="content.content" v-if="!content.reblog"></span>
-        <div>
-            <button @click="postInteraction('boost', content.id)">boost</button>
-            <button @click="postInteraction('favorite', content.id)">favorite</button>
-            <button @click="postInteraction('bookmark', content.id)">bookmark</button>
+        <div class="postReactionBar" v-if="content.reactions">
+            <div v-for="reaction in content.reactions">
+                <div class="postReaction" @click="postInteraction('react', content.id)" v-if="!reaction.me">
+                    <span>{{ reaction.name }}</span>
+                    <span class="postReactionCounter">{{ reaction.count }}</span>
+                </div>
+                <div class="postReaction pRme" @click="postInteraction('unreact', content.id)" v-if="reaction.me">
+                    <span>{{ reaction.name }}</span>
+                    <span class="postReactionCounter">{{ reaction.count }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="postInteractionBar">
+            <button class="postInteraction">
+                <Icon type="message-circle" size="18px" color="var(--txt2)" />
+                <span>
+                    {{ content.replies_count }}
+                </span>
+            </button>
+            <button @click="postInteraction('boost', content.id)" class="postInteraction" v-bind:class="{ pIrebloggedTrue: this.content.reblogged }">
+                <Icon type="refresh-cw" size="18px" color="var(--txt2)" />
+                <span>
+                    {{ content.reblogs_count }}
+                </span>
+            </button>
+            <button @click="postInteraction('favorite', content.id)" class="postInteraction" v-bind:class="{ pIfavoriteTrue: this.content.favorited }">
+                <Icon type="star" size="18px" color="var(--txt2)" />
+                <span>
+                    {{ content.favourites_count }}
+                </span>
+            </button>
+            <button class="postInteraction">
+                <Icon type="plus" size="18px" color="var(--txt2)" />
+            </button>
+            <button @click="postInteraction('bookmark', content.id)" class="postInteraction" v-bind:class="{ pIbookmarkTrue: this.content.bookmarked }">
+                <Icon type="bookmark" size="18px" color="var(--txt2)" />
+            </button>
+            <button class="postInteraction">
+                <Icon type="more-horizontal" size="18px" color="var(--txt2)" />
+            </button>
         </div>
     </div>
 </template>
 
 <style>
+.postReactionBar {
+    padding-top: 15px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+}
+
+.postReaction.pRme {
+    border-color: var(--accent1)!important;
+    background-color: var(--accent1-50);
+}
+
+.postReaction {
+    padding: 2px;
+    padding-left: 6px!important;
+    padding-right: 6px!important;
+
+    border: 2px solid var(--bg4);
+    border-radius: 7px;
+    background-color: var(--bg2);
+
+    font-size: 14px;
+
+    user-select: none;
+    cursor: pointer;
+
+    margin-right: 5px;
+}
+
+.postReactionCounter {
+    padding-left: 5px;
+}
+
+.postInteractionBar {
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.postInteraction {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    color: var(--txt2);
+}
+
+.postInteraction span {
+    padding-left: 7px;
+}
+
 .boostAlertIcon {
     margin-bottom: -2px!important;
 }
