@@ -5,117 +5,98 @@ import Icon from '../components/Icon.vue';
 <script>
 export default {
     data: () => ({
-        e: "none",
+        content: [],
+        ready: false
     }),
     props: {
         instanceurl: String,
         token: String,
-        content: Object,
+        data: Object,
+    },
+    mounted() {
+        this.content = this.data
+        this.ready = true
     },
     methods: {
         async postInteraction(type, id) {
             if (type === 'boost') {
-                await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/reblog", {
+                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/reblog", {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + this.token,
                     }
-                }).then((response) => {
-                    if (response.status === 200) {
-                        if (this.content.reblog) {
-                            this.content.reblog.reblogged = true
-                        } else {
-                            this.content.reblogged = true
-                        }
-                    } else {
-                        console.log(type+" failed. "+response.status+" "+response.statusText)
-                    }
-                });
-            } else if (type === 'unboost') {                
-                await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/unreblog", {
+                })
+
+                if (response.status === 200) {
+                    this.content = await response.json()
+                } else {
+                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                }
+            } else if (type === 'unboost') {
+                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/unreblog", {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + this.token,
                     }
-                }).then((response) => {
-                    if (response.status === 200) {
-                        if (this.content.reblog) {
-                            this.content.reblog.reblogged = false
-                        } else {
-                            this.content.reblogged = false
-                        }
-                    } else {
-                        console.log(type+" failed. "+response.status+" "+response.statusText)
-                    }
-                });
+                })
+
+                if (response.status === 200) {
+                    this.content = await response.json()
+                } else {
+                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                }
             } else if (type === 'favorite') {
-                await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/favourite", {
+                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/favourite", {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + this.token,
                     }
-                }).then((response) => {
-                    if (response.status === 200) {
-                        if (this.content.reblog) {
-                            this.content.reblog.favourited = true
-                        } else {
-                            this.content.favourited = true
-                        }
-                    } else {
-                        console.log(type+" failed. "+response.status+" "+response.statusText)
-                    }
-                });
+                })
+
+                if (response.status === 200) {
+                    this.content = await response.json()
+                } else {
+                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                }
             } else if (type === 'unfavorite') {
-                await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/unfavourite", {
+                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/unfavourite", {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + this.token,
                     }
-                }).then((response) => {
-                    if (response.status === 200) {
-                        if (this.content.reblog) {
-                            this.content.reblog.favourited = false
-                        } else {
-                            this.content.favourited = false
-                        }
-                    } else {
-                        console.log(type+" failed. "+response.status+" "+response.statusText)
-                    }
-                });
+                })
+
+                if (response.status === 200) {
+                    this.content = await response.json()
+                } else {
+                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                }
             } else if (type === 'bookmark') {
-                await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/bookmark", {
+                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/bookmark", {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + this.token,
                     }
-                }).then((response) => {
-                    if (response.status === 200) {
-                        if (this.content.reblog) {
-                            this.content.reblog.bookmarked = true
-                        } else {
-                            this.content.bookmarked = true
-                        }
-                    } else {
-                        console.log(type+" failed. "+response.status+" "+response.statusText)
-                    }
-                });
+                })
+
+                if (response.status === 200) {
+                    this.content = await response.json()
+                } else {
+                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                }
             } else if (type === 'unbookmark') {
-                await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/unbookmark", {
+                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/unbookmark", {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + this.token,
                     }
-                }).then((response) => {
-                    if (response.status === 200) {
-                        if (this.content.reblog) {
-                            this.content.reblog.bookmarked = false
-                        } else {
-                            this.content.bookmarked = false
-                        }
-                    } else {
-                        console.log(type+" failed. "+response.status+" "+response.statusText)
-                    }
-                });
+                })
+
+                if (response.status === 200) {
+                    this.content = await response.json()
+                } else {
+                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                }
             }
         }
     }
@@ -123,7 +104,7 @@ export default {
 </script>
 
 <template>
-    <div class="post">
+    <div class="post" v-if="this.ready">
         <div class="boostAlertContainer" v-if="content.reblog">
             <Icon class="boostAlertIcon" name="refresh-cw" size="14px" color="var(--txt2)" />
             <span class="boostAlert">{{ content.account.display_name }} boosted</span>
@@ -205,7 +186,7 @@ export default {
             </button>
             <button @click="postInteraction('unbookmark', content.id)" class="postInteraction pIbookmarked"
                 v-if="content.bookmarked">
-                <Icon type="bookmark" size="18px"  color="var(--bookmark)" fill=true />
+                <Icon type="bookmark" size="18px" color="var(--bookmark)" fill=true />
             </button>
 
             <button class="postInteraction">
@@ -235,7 +216,8 @@ export default {
                 </span>
             </button>
 
-            <button @click="postInteraction('favorite', content.id)" class="postInteraction" v-if="!content.reblog.favourited">
+            <button @click="postInteraction('favorite', content.id)" class="postInteraction"
+                v-if="!content.reblog.favourited">
                 <Icon type="star" size="18px" color="var(--txt2)" />
                 <span>
                     {{ content.reblog.favourites_count }}
@@ -253,12 +235,13 @@ export default {
                 <Icon type="plus" size="18px" color="var(--txt2)" />
             </button>
 
-            <button @click="postInteraction('bookmark', content.id)" class="postInteraction" v-if="!content.reblog.bookmarked">
+            <button @click="postInteraction('bookmark', content.id)" class="postInteraction"
+                v-if="!content.reblog.bookmarked">
                 <Icon type="bookmark" size="18px" color="var(--txt2)" />
             </button>
             <button @click="postInteraction('unbookmark', content.id)" class="postInteraction pIbookmarked"
                 v-if="content.reblog.bookmarked">
-                <Icon type="bookmark" size="18px"  color="var(--bookmark)" fill=true />
+                <Icon type="bookmark" size="18px" color="var(--bookmark)" fill=true />
             </button>
 
             <button class="postInteraction">
@@ -284,13 +267,17 @@ export default {
     color: var(--txt2);
 }
 
-.postInteraction.pIbookmarked span, .postInteraction.pIbookmarked {
+.postInteraction.pIbookmarked span,
+.postInteraction.pIbookmarked {
     color: var(--bookmark) !important;
 }
+
 .postInteraction.pIreblogged span {
     color: var(--reblog) !important;
 }
-.postInteraction.pIfavorited span, .postInteraction.pIbookmarked {
+
+.postInteraction.pIfavorited span,
+.postInteraction.pIbookmarked {
     color: var(--favorite) !important;
 }
 

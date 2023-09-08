@@ -294,7 +294,7 @@ export default {
                 </div>
                 <div class="mColumnContent" @scroll="onScroll">
                     <div v-for="toot in this.timeline.home">
-                        <Post :content="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                        <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
                     </div>
                 </div>
             </div>
