@@ -126,13 +126,17 @@ export default {
             </div>
         </div>
         <span v-html="content.reblog.content" class="post-content" v-if="content.reblog"></span>
-        <div v-for="attatchment in content.reblog.media_attatchments" v-if="content.reblog">
-            <span>{{ attatchment }}</span>
-        </div>
-        <div v-for="attatchment in content.media_attatchments" v-if="!content.reblog">
-            <img :src="attatchment.url" :alt="attatchment.descriotion" :title="attatchment.descriotion">
-        </div>
         <span v-html="content.content" class="post-content" v-if="!content.reblog"></span>
+
+        <div class="post-mediaContainer">
+            <div class="post-media" v-for="attachment in content.reblog.media_attachments" v-if="content.reblog">
+                <img :src="attachment.url" :alt="attachment.description" :title="attachment.description" v-if="attachment.type === 'image'">
+            </div>
+            <div class="post-media" v-for="attachment in content.media_attachments" v-if="!content.reblog">
+                <img :src="attachment.url" :alt="attachment.description" :title="attachment.description" v-if="attachment.type === 'image'">
+            </div>
+        </div>
+
         <div class="postReactionBar" v-if="content.reactions.length > 0">
             <div v-for="reaction in content.reactions">
                 <div class="postReaction" @click="postInteraction('react', content.id)" v-if="!reaction.me">
@@ -391,4 +395,20 @@ export default {
 .post-content {
     text-wrap: wrap;
     word-break: break-all;
-}</style>
+}
+
+.post-mediaContainer {
+    box-sizing: border-box;
+    max-height: 200px;
+
+    background-color: var(--bg1);
+    border-radius: 7px;
+    margin-top: 15px;
+}
+
+.post-media img {
+    object-fit: contain;
+    max-height: 200px;
+    width: 100%;
+}
+</style>

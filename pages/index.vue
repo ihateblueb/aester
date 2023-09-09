@@ -309,6 +309,7 @@ export default {
                     <p class="noSelection">No Selection...</p>
                 </div>
                 e
+                {{ $route.params }}
             </div>
         </div>
     </div>
