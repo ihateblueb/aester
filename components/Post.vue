@@ -145,7 +145,7 @@ export default {
             v-if="!content.reblog">
             <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
                 <div class="post-media">
-                    <a :href="attachment.url">
+                    <a :href="attachment.url" v-if="attachment.type === 'image'">
                         <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
                             v-if="attachment.type === 'image'">
                     </a>
@@ -452,4 +452,9 @@ export default {
 
 .post-attachments.four img {
     max-height: 100px;
-}</style>
+}
+
+.post-attachments.four video {
+    max-height: 100px!important;
+}
+</style>
