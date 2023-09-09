@@ -400,10 +400,18 @@ export default {
 .post-mediaContainer {
     box-sizing: border-box;
     max-height: 200px;
-
     background-color: var(--bg1);
     border-radius: 7px;
     margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.post-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .post-media img {
