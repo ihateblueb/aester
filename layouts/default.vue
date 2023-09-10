@@ -52,8 +52,8 @@ export default {
         this.closeModal()
         console.log("[Aster Startup] Login State: " + this.getLocalStorage("loginstate"))
 
+        this.loginstate = this.getLocalStorage("loginstate");
         if (this.getLocalStorage("loginstate") === 'done') {
-            this.loginstate = this.getLocalStorage("loginstate");
             this.afterLogin()
             this.getAccountDetails()
             this.loadToots()
@@ -332,9 +332,6 @@ export default {
                 e
             </div>
             <div class="mColumn">
-                <div class="mColumnHeader">
-                    <p class="noSelection">No Selection...</p>
-                </div>
                 <slot></slot>
             </div>
         </div>
