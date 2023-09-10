@@ -216,6 +216,10 @@ export default {
 
             this.timeline.home_last = moretoots_response.at(-1).id;
         },
+        async resetFeed() {
+            this.timeline.home = [];
+            this.loadToots()
+        },
 
         async onScroll(e) {
             const { scrollTop, offsetHeight, scrollHeight } = e.target
@@ -290,7 +294,14 @@ export default {
             </div>
             <div class="mColumn">
                 <div class="mColumnHeader">
-                    <p>Home</p>
+                    <div class="mCH-text">
+                        <p>Home</p>
+                    </div>
+                    <div class="mCH-buttons">
+                        <button @click="resetFeed()" class="btn btn-header">
+                            <Icon name="refresh-ccw" size="16px" />
+                        </button>
+                    </div>
                 </div>
                 <div class="mColumnContent" @scroll="onScroll">
                     <div v-for="toot in this.timeline.home">

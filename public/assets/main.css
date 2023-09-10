@@ -1,8 +1,8 @@
 :root {
-    --bg1: #11101a;
-    --bg2: #201d29;
-    --bg3: #302c3b;
-    --bg4: #494457;
+    --bg1: #130f16;
+    --bg2: #251f2b;
+    --bg3: #2f2737;
+    --bg4: #4a4055;
 
     --bg1-50: #11101a50;
     --bg2-50: #201d2950;
@@ -10,7 +10,7 @@
     --bg4-50: #49445750;
 
     --txt1: #ffffff;
-    --txt2: #c6bfcf;
+    --txt2: #dcc7f7;
 
     --bg-danger: #ff5f5f;
     --bg-warning: #ffc75f;
@@ -21,8 +21,8 @@
 
     --font1: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-    --accent1: #7c5fff;
-    --accent1-50: #7c5fff50;
+    --accent1: #9c5fff;
+    --accent1-50: #9c5fff50;
 }
 
 body {
@@ -251,7 +251,7 @@ textarea {
     border: 2px solid var(--bg3);
     background-color: var(--bg3);
 
-    color: var(--txt2);
+    color: var(--txt1);
     outline: none;
 }
 
