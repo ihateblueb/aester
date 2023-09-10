@@ -365,11 +365,11 @@ textarea {
     border: 2px solid transparent;
 
     color: var(--txt2);
+}
 
-    span {
-        font-size: 15px;
-        margin-left: 7px;
-    }
+.postArea-attatchments-selector-option span {
+    font-size: 15px;
+    margin-left: 7px;
 }
 
 .postArea-attatchments-selector-option:hover {
