@@ -30,6 +30,7 @@ body {
     margin: 0px;
     background-color: var(--bg1);
     overflow-y: hidden;
+    font-feature-settings: tnum;
 }
 
 body,
@@ -531,4 +532,9 @@ textarea {
 
 .btn-header-logout:hover {
     color: var(--bg-danger);
+}
+
+.timelineNewPosts {
+    display: flex;
+    flex-direction: column-reverse;
 }

@@ -16,7 +16,7 @@ export default {
         user: {
             displayname: "none",
             username: "none",
-            avatar: "none",
+            avatar: "assets/none.png",
         },
         app: {
             postArea: {
@@ -45,6 +45,7 @@ export default {
         },
         timeline: {
             home: [],
+            home_new: [],
             home_last: "",
         }
     }),
@@ -226,8 +227,7 @@ export default {
 
             userSocket.onmessage = (event) => {
                 let msg = JSON.parse(event.data)
-                console.log(JSON.parse(msg.payload))
-                console.log(this.timeline.home.unshift(JSON.parse(msg.payload)))
+                this.timeline.home_new.push(JSON.parse(msg.payload))
             }
         },
 
@@ -316,6 +316,11 @@ export default {
                     </div>
                 </div>
                 <div class="mColumnContent" @scroll="onScroll">
+                    <div class="timelineNewPosts">
+                        <div v-for="toot in this.timeline.home_new">
+                            <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                        </div>
+                    </div>
                     <div v-for="toot in this.timeline.home">
                         <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
                     </div>

@@ -436,6 +436,10 @@ export default {
     width: 100%;
 }
 
+.post-attachments {
+    margin-top: 15px;
+}
+
 .post-attachments.multiple {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -455,6 +459,6 @@ export default {
 
 .post-attachments .post-mediaContainer {
     background-color: #000000;
-    margin-top: 15px;
+    border: 1px solid var(--bg2);
 }
 </style>
