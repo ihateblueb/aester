@@ -45,7 +45,6 @@ export default {
         },
         timeline: {
             home: [],
-            home_first: "",
             home_last: "",
         }
     }),
@@ -125,7 +124,7 @@ export default {
 
             this.getAccountDetails()
             this.afterLogin()
-            
+
             this.setLocalStorage("loginstate", "done")
             this.loginstate = 'done';
         },
@@ -198,8 +197,9 @@ export default {
                 console.log(element)
             )
 
-            this.timeline.home_first = initialtoots_response.at(1).id;
             this.timeline.home_last = initialtoots_response.at(-1).id;
+
+            this.startStream()
         },
         async loadMoreToots(id) {
             let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home?max_id=" + id + "?limit=40", {
@@ -219,6 +219,16 @@ export default {
         async resetFeed() {
             this.timeline.home = [];
             this.loadToots()
+        },
+
+        async startStream() {
+            let userSocket = new WebSocket("wss://" + this.instanceurl + "/api/v1/streaming?access_token=" + this.token + "&stream=user");
+
+            userSocket.onmessage = (event) => {
+                let msg = JSON.parse(event.data)
+                console.log(JSON.parse(msg.payload))
+                console.log(this.timeline.home.unshift(JSON.parse(msg.payload)))
+            }
         },
 
         async onScroll(e) {
@@ -288,7 +298,9 @@ export default {
                     <PostArea />
 
                     <div class="mCHbottom">
-                        <img class="mCHbottomImage" src="https://media.wetdry.world/site_uploads/files/000/000/002/original/skeeter.png" v-if="this.instanceurl === 'wetdry.world'">
+                        <img class="mCHbottomImage"
+                            src="https://media.wetdry.world/site_uploads/files/000/000/002/original/skeeter.png"
+                            v-if="this.instanceurl === 'wetdry.world'">
                     </div>
                 </div>
             </div>
