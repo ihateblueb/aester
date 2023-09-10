@@ -437,7 +437,6 @@ export default {
 }
 
 .post-attachments {
-    margin-top: 15px;
     background-color: #000000;
 }
 
@@ -456,5 +455,9 @@ export default {
 
 .post-attachments.four video {
     max-height: 100px!important;
+}
+
+.post-attachments .post-mediaContainer {
+    margin-top: 15px;
 }
 </style>

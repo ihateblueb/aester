@@ -125,7 +125,7 @@ export default {
 
             this.getAccountDetails()
             this.afterLogin()
-
+            
             this.setLocalStorage("loginstate", "done")
             this.loginstate = 'done';
         },
