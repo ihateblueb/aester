@@ -538,3 +538,35 @@ textarea {
     display: flex;
     flex-direction: column-reverse;
 }
+
+.cwAlert {
+    display: flex;
+    align-items: center;
+}
+
+.cwText {
+    margin-left: 5px;
+    color: var(--bg-warning);
+}
+
+.cwContent {
+    margin-top: 15px;
+}
+
+.cwButton {
+    background-color: var(--bg3);
+    color: var(--txt1);
+
+    margin-left: 6px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    border-radius: 5px;
+    border: none;
+
+    font-size: 12px;
+    cursor: pointer;
+}

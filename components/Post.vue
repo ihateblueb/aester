@@ -6,7 +6,8 @@ import Icon from '../components/Icon.vue';
 export default {
     data: () => ({
         content: [],
-        ready: false
+        ready: false,
+        showCwContent: false
     }),
     props: {
         instanceurl: String,
@@ -98,6 +99,13 @@ export default {
                     console.log(await type + " failed. " + response.status + " " + response.statusText)
                 }
             }
+        },
+        async toggleShowCW() {
+            if (this.showCwContent === true) {
+                this.showCwContent = false;
+            } else {
+                this.showCwContent = true;
+            }
         }
     }
 }
@@ -125,8 +133,22 @@ export default {
                     content.reblog.account.acct }}</a>
             </div>
         </div>
-        <span v-html="content.reblog.content" class="post-content" v-if="content.reblog"></span>
-        <span v-html="content.content" class="post-content" v-if="!content.reblog"></span>
+
+        <div v-if="content.spoiler_text">
+            <div class="cwAlert">
+                <Icon type="alert-triangle" size="18px" color="var(--bg-warning)" />
+                <p class="cwText">{{ content.spoiler_text }}</p>
+                <button class="cwButton" @click="toggleShowCW()">Show More</button>
+            </div>
+            <div class="cwContent" v-if="this.showCwContent">
+                <span v-html="content.reblog.content" class="post-content" v-if="content.reblog"></span>
+                <span v-html="content.content" class="post-content" v-if="!content.reblog"></span>
+            </div>
+        </div>
+        <div v-if="!content.spoiler_text">
+            <span v-html="content.reblog.content" class="post-content" v-if="content.reblog"></span>
+            <span v-html="content.content" class="post-content" v-if="!content.reblog"></span>
+        </div>
 
         <div class="post-attachments"
             v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
