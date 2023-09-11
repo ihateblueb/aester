@@ -581,3 +581,24 @@ textarea {
     font-size: 14px;
     color: var(--txt2);
 }
+
+.notificationSessionHeader {
+    background-color: var(--bg3);
+    border-bottom: 1px solid var(--bg1);
+    color: var(--txt1);
+
+    padding: 15px;
+}
+
+.notificationTop {
+    font-size: 16px;
+}
+
+.notificationTop span {
+    padding-left: 10px;
+}
+
+.notificationTop .vue-feather {
+    min-width: 18px;
+    margin-bottom: 0px;
+}

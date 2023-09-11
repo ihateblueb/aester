@@ -3,6 +3,7 @@ import Icon from '../components/Icon.vue';
 import Post from '../components/Post.vue';
 import PostArea from '../components/PostArea.vue';
 import Modal from '../components/Modal.vue';
+import Column from '../components/Column.vue';
 </script>
 
 <script>
@@ -272,6 +273,8 @@ export default {
                     this.timeline.home_new.push(JSON.parse(msg.payload))
                 }
                 if (msg.event === 'notification') {
+                    let audio = new Audio("/assets/vine_boom.mp3");
+                    audio.play();
                     this.timeline.notifications_new.push(JSON.parse(msg.payload))
                 }
             }
@@ -388,16 +391,16 @@ export default {
                             <Notification :data="notification" :instanceurl="this.instanceurl" :token="this.token" />
                         </div>
                     </div>
+                    <div class="notificationSessionHeader">
+                        <span>Previous Sessions</span>
+                    </div>
                     <div v-for="notification in this.timeline.notifications">
                         <Notification :data="notification" :instanceurl="this.instanceurl" :token="this.token" />
                     </div>
                 </div>
             </div>
             <div class="mColumn">
-                <div class="mColumnHeader">
-                    <p class="noSelection">No Selection...</p>
-                </div>
-                <slot></slot>
+                <Column view="" />
             </div>
         </div>
     </div>

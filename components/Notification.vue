@@ -59,7 +59,16 @@ export default {
                 <span v-html="content.status.content"></span>
             </div>
         </div>
-        <div v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention'">
+        <div v-if="this.content.type === 'status'">
+            <div class="notificationTop">
+                <Icon type="message-circle" size="18px" color="var(--accent1)" />
+                <span>{{ content.account.display_name }} published a toot</span>
+            </div>
+            <div class="notificationStatus">
+                <span v-html="content.status.content"></span>
+            </div>
+        </div>
+        <div v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status'">
             <div class="notificationTop">
                 <Icon type="alert-circle" size="18px" color="var(--bg-danger)" />
                 <span>{{ content }}</span>
@@ -67,17 +76,3 @@ export default {
         </div>
     </div>
 </template>
-
-<style>
-.notificationTop {
-    font-size: 16px;
-}
-
-.notificationTop span {
-    padding-left: 10px;
-}
-
-.notificationTop .vue-feather {
-    min-width: 18px;
-}
-</style>

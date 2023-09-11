@@ -249,14 +249,14 @@ export default {
             </button>
 
             <button @click="postInteraction('boost', content.id)" class="postInteraction" v-if="!content.reblog.reblogged">
-                <Icon type="refresh-cw" size="18px" color="var(--txt2)" />
+                <Icon type="repeat" size="18px" color="var(--txt2)" />
                 <span>
                     {{ content.reblog.reblogs_count }}
                 </span>
             </button>
             <button @click="postInteraction('unboost', content.id)" class="postInteraction pIreblogged"
                 v-if="content.reblog.reblogged">
-                <Icon type="refresh-cw" size="18px" color="var(--reblog)" />
+                <Icon type="repeat" size="18px" color="var(--reblog)" />
                 <span>
                     {{ content.reblog.reblogs_count }}
                 </span>
