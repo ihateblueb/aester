@@ -31,6 +31,7 @@ export default {
         },
         toot: {
             content: "",
+            replying: "",
             media: [],
             poll: {
                 options: ["", "", "", "", ""],

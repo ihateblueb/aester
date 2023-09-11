@@ -76,3 +76,18 @@ export default {
         </div>
     </div>
 </template>
+
+<style>
+.notificationTop {
+    font-size: 16px;
+}
+
+.notificationTop span {
+    padding-left: 10px;
+}
+
+.notificationTop .vue-feather {
+    min-width: 18px;
+    margin-bottom: 0px;
+}
+</style>
