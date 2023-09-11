@@ -5,12 +5,11 @@ import PostArea from '../components/PostArea.vue';
 import Modal from '../components/Modal.vue';
 </script>
 
-
 <script>
 export default {
     data: () => ({
         code: "", // gets ignored after login
-        loginstate: 'start',
+        loginstate: "start",
         instanceurl: "",
         token: "",
         user: {
@@ -51,7 +50,6 @@ export default {
     }),
     mounted() {
         this.closeModal()
-        console.log("[Aster Startup] Login State: " + this.getLocalStorage("loginstate"))
 
         if (this.getLocalStorage("loginstate") === 'done') {
             this.loginstate = this.getLocalStorage("loginstate");
@@ -59,6 +57,8 @@ export default {
             this.getAccountDetails()
             this.loadToots()
         }
+
+        console.log("[Aster Startup] Login State: "+ this.loginstate)
     },
     methods: {
         setLocalStorage(key, value) {
@@ -242,26 +242,102 @@ export default {
 </script>
 
 <template>
-    <div>
-        ea
+    <div class="modalContainer" v-if="getLocalStorage('ui_modal') === 'settings'">
+        <Modal :name="getLocalStorage('ui_modal')" />
+    </div>
+
+    <div v-if="this.loginstate !== 'done'">
+        <div class="loginArea" v-if="this.loginstate === 'start'">
+            <div class="loginContainer">
+                <div class="loginContainerHeader">
+                    <h1 class="loginContainerHeading">Welcome to Aster</h1>
+                </div>
+                <div>
+                    <p class="iptlabel">Please type your instances URL</p>
+                    <input type="text" placeholder="eg. wetdry.world" class="ipt instanceTextArea" v-model="instanceurl">
+                    <div class="instanceLoginButtons">
+                        <button class="loginbtn" @click="startlogin()">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="loginArea" v-if="this.loginstate === 'almost'">
+            <div class="loginContainer">
+                <div class="loginContainerHeader">
+                    <h1 class="loginContainerHeading">Welcome to Aster</h1>
+                </div>
+                <div>
+                    <p class="iptlabel">Please type in your Authorization Code</p>
+                    <input type="text" placeholder="Authorization Code" class="ipt instanceTextArea" v-model="code">
+                    <div class="instanceLoginButtons">
+                        <button class="loginbtn" @click="logout()">Cancel</button>
+                        <button class="loginbtn" @click="endlogin()">Finish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="this.loginstate === 'done'">
+        <div class="mColumns">
+            <div class="mColumn">
+                <div class="mColumnHeader">
+                    <div class="mCH-text">
+                        <p>Aster <span class="betaTag">BETA</span></p>
+                    </div>
+                    <div class="mCH-buttons">
+                        <button @click="openModal('settings')" class="btn btn-header">
+                            <Icon name="settings" size="16px" />
+                        </button>
+                        <button @click="logout()" class="btn btn-header-logout">
+                            <Icon name="log-out" size="16px" />
+                        </button>
+                    </div>
+                </div>
+                <div class="mColumnContent">
+                    <PostArea />
+
+                    <div class="mCHbottom">
+                        <img class="mCHbottomImage"
+                            src="https://media.wetdry.world/site_uploads/files/000/000/002/original/skeeter.png"
+                            v-if="this.instanceurl === 'wetdry.world'">
+                    </div>
+                </div>
+            </div>
+            <div class="mColumn">
+                <div class="mColumnHeader">
+                    <div class="mCH-text">
+                        <p>Home</p>
+                    </div>
+                    <div class="mCH-buttons">
+                        <button @click="resetFeed()" class="btn btn-header">
+                            <Icon name="refresh-ccw" size="16px" />
+                        </button>
+                    </div>
+                </div>
+                <div class="mColumnContent" @scroll="onScroll">
+                    <div class="timelineNewPosts">
+                        <div v-for="toot in this.timeline.home_new">
+                            <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                        </div>
+                    </div>
+                    <div v-for="toot in this.timeline.home">
+                        <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                    </div>
+                </div>
+            </div>
+            <div class="mColumn">
+                <div class="mColumnHeader">
+                    <p>Notifications</p>
+                </div>
+                e
+            </div>
+            <div class="mColumn">
+                <div class="mColumnHeader">
+                    <p class="noSelection">No Selection...</p>
+                </div>
+                <slot></slot>
+            </div>
+        </div>
     </div>
 </template>
-
-<style>
-.gsLink {
-    display: block;
-
-    margin: 10px;
-    padding: 15px 20px 15px 20px;
-
-    color: var(--txt2);
-    text-decoration: none;
-
-    border-radius: 10px;
-}
-
-.gsLink:hover {
-    color: var(--txt1);
-    background-color: var(--bg3);
-}
-</style>

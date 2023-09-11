@@ -6,7 +6,7 @@ export default {
         user: {
             displayname: "none",
             username: "none",
-            avatar: "none",
+            avatar: "assets/none.png",
         },
         app: {
             postArea: {
