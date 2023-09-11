@@ -114,7 +114,7 @@ export default {
 <template>
     <div class="post" v-if="this.ready">
         <div class="boostAlertContainer" v-if="content.reblog">
-            <Icon class="boostAlertIcon" name="refresh-cw" size="14px" color="var(--txt2)" />
+            <Icon class="boostAlertIcon" name="repeat" size="14px" color="var(--txt2)" />
             <span class="boostAlert">{{ content.account.display_name }} boosted</span>
         </div>
         <div class="post-userInfo">
