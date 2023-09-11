@@ -46,6 +46,9 @@ export default {
             home: [],
             home_new: [],
             home_last: "",
+            notifications: [],
+            notifications_new: [],
+            notifications_last: "",
         }
     }),
     mounted() {
@@ -56,9 +59,10 @@ export default {
             this.afterLogin()
             this.getAccountDetails()
             this.loadToots()
+            this.loadNotifications()
         }
 
-        console.log("[Aster Startup] Login State: "+ this.loginstate)
+        console.log("[Aster Startup] Login State: " + this.loginstate)
     },
     methods: {
         setLocalStorage(key, value) {
@@ -221,6 +225,41 @@ export default {
             this.timeline.home = [];
             this.loadToots()
         },
+        async loadNotifications() {
+            let initialnotifications = await fetch("https://" + this.instanceurl + "/api/v1/notifications?limit=30", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            let initialnotifications_response = await initialnotifications.json()
+
+            initialnotifications_response.forEach((element) =>
+                this.timeline.notifications.push(element) &&
+                console.log(element)
+            )
+
+            this.timeline.notifications_last = initialnotifications_response.at(-1).id;
+        },
+        async loadMoreNotifications(id) {
+            let morenotifications = await fetch("https://" + this.instanceurl + "/api/v1/notifications?max_id=" + id + "?limit=30", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            let morenotifications_response = await morenotifications.json()
+
+            morenotifications_response.forEach((element) =>
+                this.timeline.home.push(element)
+            )
+
+            this.timeline.notifications_last = morenotifications_response.at(-1).id;
+        },
+        async resetNotifications() {
+            this.timeline.notifications = [];
+            this.loadNotifications()
+        },
 
         async startStream() {
             let userSocket = new WebSocket("wss://" + this.instanceurl + "/api/v1/streaming?access_token=" + this.token + "&stream=user");
@@ -231,10 +270,16 @@ export default {
             }
         },
 
-        async onScroll(e) {
+        async onHomeScroll(e) {
             const { scrollTop, offsetHeight, scrollHeight } = e.target
             if ((scrollTop + offsetHeight) >= scrollHeight) {
                 this.loadMoreToots(this.timeline.home_last)
+            }
+        },
+        async onNotificationsScroll(e) {
+            const { scrollTop, offsetHeight, scrollHeight } = e.target
+            if ((scrollTop + offsetHeight) >= scrollHeight) {
+                this.loadMoreNotifications(this.timeline.notifications_last)
             }
         }
     }
@@ -315,7 +360,7 @@ export default {
                         </button>
                     </div>
                 </div>
-                <div class="mColumnContent" @scroll="onScroll">
+                <div class="mColumnContent" @scroll="onHomeScroll">
                     <div class="timelineNewPosts">
                         <div v-for="toot in this.timeline.home_new">
                             <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
@@ -330,7 +375,16 @@ export default {
                 <div class="mColumnHeader">
                     <p>Notifications</p>
                 </div>
-                e
+                <div class="mColumnContent" @scroll="onNotificationsScroll">
+                    <div class="timelineNewPosts">
+                        <div v-for="notification in this.timeline.notifications_new">
+                            <Notification :data="notification" :instanceurl="this.instanceurl" :token="this.token" />
+                        </div>
+                    </div>
+                    <div v-for="notification in this.timeline.notifications">
+                        <Notification :data="notification" :instanceurl="this.instanceurl" :token="this.token" />
+                    </div>
+                </div>
             </div>
             <div class="mColumn">
                 <div class="mColumnHeader">

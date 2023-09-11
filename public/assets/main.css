@@ -570,3 +570,15 @@ textarea {
     font-size: 12px;
     cursor: pointer;
 }
+
+.notificationTop {
+    display: flex;
+    align-items: center;
+}
+
+.notificationStatus {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    color: var(--txt2);
+}
