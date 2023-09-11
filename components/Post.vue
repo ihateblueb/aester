@@ -398,19 +398,19 @@ export default {
     color: var(--txt2);
     text-decoration: none;
     text-wrap: wrap;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .post-displayName {
     color: var(--txt1);
     text-decoration: none;
     text-wrap: wrap;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .post-content {
     text-wrap: wrap;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .post-mediaContainer {
