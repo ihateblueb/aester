@@ -262,11 +262,18 @@ export default {
         },
 
         async startStream() {
-            let userSocket = new WebSocket("wss://" + this.instanceurl + "/api/v1/streaming?access_token=" + this.token + "&stream=user");
+            let userSocket = new WebSocket("wss://" + this.instanceurl + "/api/v1/streaming?stream=user&access_token=" + this.token);
 
             userSocket.onmessage = (event) => {
                 let msg = JSON.parse(event.data)
-                this.timeline.home_new.push(JSON.parse(msg.payload))
+                console.log(msg.event)
+
+                if (msg.event === 'update') {
+                    this.timeline.home_new.push(JSON.parse(msg.payload))
+                }
+                if (msg.event === 'notification') {
+                    this.timeline.notifications_new.push(JSON.parse(msg.payload))
+                }
             }
         },
 

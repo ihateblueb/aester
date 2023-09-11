@@ -577,8 +577,7 @@ textarea {
 }
 
 .notificationStatus {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
+    margin-top: 5px;
+    font-size: 14px;
     color: var(--txt2);
 }

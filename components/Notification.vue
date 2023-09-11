@@ -31,11 +31,17 @@ export default {
                 <Icon type="star" size="18px" color="var(--favorite)" fill=true />
                 <span>{{ content.account.display_name }} favorited your post</span>
             </div>
+            <div class="notificationStatus">
+                <span v-html="content.status.content"></span>
+            </div>
         </div>
         <div v-if="this.content.type === 'reblog'">
             <div class="notificationTop">
                 <Icon type="repeat" size="18px" color="var(--reblog)" />
                 <span>{{ content.account.display_name }} favorited your post</span>
+            </div>
+            <div class="notificationStatus">
+                <span v-html="content.status.content"></span>
             </div>
         </div>
         <div v-if="this.content.type === 'follow'">
@@ -50,9 +56,7 @@ export default {
                 <span>{{ content.account.display_name }} mentioned you</span>
             </div>
             <div class="notificationStatus">
-                <p>"</p>
                 <span v-html="content.status.content"></span>
-                <p>"</p>
             </div>
         </div>
         <div v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention'">
