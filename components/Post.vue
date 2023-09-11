@@ -167,7 +167,7 @@ export default {
             v-if="content.reblog">
             <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
                 <div class="post-media">
-                    <a :href="attachment.url" target="_blank">
+                    <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
                         <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
                             v-if="attachment.type === 'image'">
                     </a>
@@ -196,14 +196,14 @@ export default {
             </button>
 
             <button @click="postInteraction('boost', content.id)" class="postInteraction" v-if="!content.reblogged">
-                <Icon type="refresh-cw" size="18px" color="var(--txt2)" />
+                <Icon type="repeat" size="18px" color="var(--txt2)" />
                 <span>
                     {{ content.reblogs_count }}
                 </span>
             </button>
             <button @click="postInteraction('unboost', content.id)" class="postInteraction pIreblogged"
                 v-if="content.reblogged">
-                <Icon type="refresh-cw" size="18px" color="var(--reblog)" />
+                <Icon type="repeat" size="18px" color="var(--reblog)" />
                 <span>
                     {{ content.reblogs_count }}
                 </span>
@@ -445,6 +445,10 @@ export default {
     align-content: center;
 }
 
+.post-mediaContainerMargin {
+    margin-top: 15px;
+}
+
 .post-media,
 .post-media a {
     display: flex;
@@ -456,10 +460,6 @@ export default {
     object-fit: contain;
     max-height: 200px;
     width: 100%;
-}
-
-.post-attachments {
-    margin-top: 15px;
 }
 
 .post-attachments.multiple {
@@ -482,5 +482,9 @@ export default {
 .post-attachments .post-mediaContainer {
     background-color: #000000;
     border: 1px solid var(--bg2);
+}
+
+.post-attachments {
+    margin-top: 15px!important;
 }
 </style>
