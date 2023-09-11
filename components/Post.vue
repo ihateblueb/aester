@@ -151,11 +151,11 @@ export default {
         </div>
 
         <div class="post-attachments"
-            v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
-            v-if="content.reblog">
-            <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
+            v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
+            v-if="!content.reblog">
+            <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
                 <div class="post-media">
-                    <a :href="attachment.url">
+                    <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
                         <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
                             v-if="attachment.type === 'image'">
                     </a>
@@ -163,11 +163,11 @@ export default {
             </div>
         </div>
         <div class="post-attachments"
-            v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
-            v-if="!content.reblog">
-            <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
+            v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
+            v-if="content.reblog">
+            <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
                 <div class="post-media">
-                    <a :href="attachment.url" v-if="attachment.type === 'image'">
+                    <a :href="attachment.url" target="_blank">
                         <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
                             v-if="attachment.type === 'image'">
                     </a>
@@ -468,7 +468,7 @@ export default {
 }
 
 .post-attachments.three {
-    grid-template-columns: repeat(3, 1fr)!important;
+    grid-template-columns: repeat(3, 1fr) !important;
 }
 
 .post-attachments.four img {
@@ -476,7 +476,7 @@ export default {
 }
 
 .post-attachments.four video {
-    max-height: 100px!important;
+    max-height: 100px !important;
 }
 
 .post-attachments .post-mediaContainer {
