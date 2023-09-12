@@ -19,7 +19,7 @@ export default {
         this.ready = true
     },
     methods: {
-        
+
     }
 }
 </script>
@@ -38,7 +38,7 @@ export default {
         <div v-if="this.content.type === 'reblog'">
             <div class="notificationTop">
                 <Icon type="repeat" size="18px" color="var(--reblog)" />
-                <span>{{ content.account.display_name }} favorited your post</span>
+                <span>{{ content.account.display_name }} boosted your post</span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
@@ -68,7 +68,8 @@ export default {
                 <span v-html="content.status.content"></span>
             </div>
         </div>
-        <div v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status'">
+        <div
+            v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status'">
             <div class="notificationTop">
                 <Icon type="alert-circle" size="18px" color="var(--bg-danger)" />
                 <span>{{ content }}</span>

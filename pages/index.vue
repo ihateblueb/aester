@@ -225,7 +225,20 @@ export default {
         },
         async resetFeed() {
             this.timeline.home = [];
-            this.loadToots()
+            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home?limit=40", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            let initialtoots_response = await initialtoots.json()
+
+            initialtoots_response.forEach((element) =>
+                this.timeline.home.push(element) &&
+                console.log(element)
+            )
+
+            this.timeline.home_last = initialtoots_response.at(-1).id;
         },
         async loadNotifications() {
             let initialnotifications = await fetch("https://" + this.instanceurl + "/api/v1/notifications?limit=30", {
@@ -263,6 +276,27 @@ export default {
             this.loadNotifications()
         },
 
+        
+        async sendPush(msg) {
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification");
+            } else if (Notification.permission === "granted") {
+                if (msg.type === 'favourite') {
+                    const notification = new Notification(msg.account.display_name, {body: "@"+msg.account.acct+" favorited your post", icon: msg.account.avatar_static,});
+                } else if (msg.type === 'reblog') {
+                    const notification = new Notification(msg.account.display_name, {body: "@"+msg.account.acct+" reblogged your post", icon: msg.account.avatar_static,});
+                } else {
+                    const notification = new Notification(msg.account.display_name, {body: "@"+msg.account.acct+" sent you a notification", icon: msg.account.avatar_static,});
+                }
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then((permission) => {
+                    if (permission === "granted") {
+                        const notification = new Notification("Hi there!");
+                    }
+                });
+            }
+        },
+
         async startStream() {
             let userSocket = new WebSocket("wss://" + this.instanceurl + "/api/v1/streaming?stream=user&access_token=" + this.token);
 
@@ -274,9 +308,13 @@ export default {
                     this.timeline.home_new.push(JSON.parse(msg.payload))
                 }
                 if (msg.event === 'notification') {
+                    this.timeline.notifications_new.push(JSON.parse(msg.payload))
+
                     let audio = new Audio("/assets/vine_boom.mp3");
                     audio.play();
-                    this.timeline.notifications_new.push(JSON.parse(msg.payload))
+
+                    console.log(JSON.parse(msg.payload))
+                    this.sendPush(JSON.parse(msg.payload))
                 }
             }
         },

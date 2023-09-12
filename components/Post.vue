@@ -132,6 +132,24 @@ export default {
                 <a :href="'/@' + content.reblog.account.acct" v-if="content.reblog" class="post-userName">@{{
                     content.reblog.account.acct }}</a>
             </div>
+            <div class="post-infoIcons" v-if="content.reblog">
+                <div class="post-infoIcon post-infoIcons-lang">{{ content.language }}</div>
+                <div class="post-infoIcon post-infoIcons-visibility">
+                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'public'" />
+                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'unlisted'" />
+                    <Icon name="users" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'private'" />
+                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'direct'" />
+                </div>
+            </div>
+            <div class="post-infoIcons" v-if="!content.reblog">
+                <div class="post-infoIcon post-infoIcons-lang">{{ content.language }}</div>
+                <div class="post-infoIcon post-infoIcons-visibility">
+                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'public'" />
+                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'unlisted'" />
+                    <Icon name="users" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'private'" />
+                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'direct'" />
+                </div>
+            </div>
         </div>
 
         <div v-if="content.spoiler_text">
@@ -409,27 +427,6 @@ export default {
     margin-right: 10px;
 }
 
-.post-userNames {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.post-userName {
-    font-size: 14px;
-    color: var(--txt2);
-    text-decoration: none;
-    text-wrap: wrap;
-    overflow-wrap: break-word;
-}
-
-.post-displayName {
-    color: var(--txt1);
-    text-decoration: none;
-    text-wrap: wrap;
-    overflow-wrap: break-word;
-}
-
 .post-content {
     text-wrap: wrap;
     overflow-wrap: break-word;
@@ -485,6 +482,6 @@ export default {
 }
 
 .post-attachments {
-    margin-top: 15px!important;
+    margin-top: 15px !important;
 }
 </style>

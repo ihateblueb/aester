@@ -594,3 +594,49 @@ textarea {
 
     padding: 15px;
 }
+
+.post-infoIcon {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.post-infoIcons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.post-infoIcons-lang {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--txt2);
+}
+
+.post-infoIcons-visibility {
+    display: flex;
+    justify-content: center;
+}
+
+.post-userNames {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 3;
+}
+
+.post-userName {
+    font-size: 14px;
+    color: var(--txt2);
+    text-decoration: none;
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+}
+
+.post-displayName {
+    color: var(--txt1);
+    text-decoration: none;
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+}
