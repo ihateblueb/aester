@@ -225,6 +225,7 @@ export default {
         },
         async resetFeed() {
             this.timeline.home = [];
+            this.timeline.home_new = [];
             let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home?limit=40", {
                 method: "GET",
                 headers: {

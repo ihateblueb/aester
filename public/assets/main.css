@@ -640,3 +640,18 @@ textarea {
     text-wrap: wrap;
     overflow-wrap: break-word;
 }
+
+blockquote {
+    display: flex;
+    color: var(--txt2);
+    margin: 10px;
+}
+
+blockquote::before {
+    content: ' ';
+    font-size: 0px;
+    margin-right: 10px;
+    background-color: var(--bg4);
+    width: 7px;
+    border-radius: 10px;
+}
