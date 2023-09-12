@@ -136,24 +136,29 @@ export default {
                     content.reblog.account.acct }}</a>
             </div>
             <div class="post-infoIcons" v-if="content.reblog">
-                <div class="post-infoIcon post-infoIcons-lang">{{ content.language }}</div>
+                <div class="post-infoIcon post-infoIcons-lang">{{ content.reblog.language }}</div>
                 <div class="post-infoIcon post-infoIcons-visibility">
-                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'public'" />
-                    <Icon name="lock" size="14px" color="var(--txt2)"
-                        v-if="this.content.reblog.visibility === 'unlisted'" />
-                    <Icon name="users" size="14px" color="var(--txt2)"
-                        v-if="this.content.reblog.visibility === 'private'" />
-                    <Icon name="at-sign" size="14px" color="var(--txt2)"
-                        v-if="this.content.reblog.visibility === 'direct'" />
+                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'public'"
+                        :title="this.content.reblog.visibility" />
+                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'unlisted'"
+                        :title="this.content.reblog.visibility" />
+                    <Icon name="users" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'private'"
+                        :title="this.content.reblog.visibility" />
+                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'direct'"
+                        :title="this.content.reblog.visibility" />
                 </div>
             </div>
             <div class="post-infoIcons" v-if="!content.reblog">
                 <div class="post-infoIcon post-infoIcons-lang">{{ content.language }}</div>
                 <div class="post-infoIcon post-infoIcons-visibility">
-                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'public'" />
-                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'unlisted'" />
-                    <Icon name="users" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'private'" />
-                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'direct'" />
+                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'public'"
+                        :title="this.content.visibility" />
+                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'unlisted'"
+                        :title="this.content.visibility" />
+                    <Icon name="users" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'private'"
+                        :title="this.content.visibility" />
+                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'direct'"
+                        :title="this.content.visibility" />
                 </div>
             </div>
         </div>
@@ -512,5 +517,4 @@ export default {
 
 .post-attachments {
     margin-top: 15px !important;
-}
-</style>
+}</style>
