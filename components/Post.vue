@@ -7,7 +7,8 @@ export default {
     data: () => ({
         content: [],
         ready: false,
-        showCwContent: false
+        showCwContent: false,
+        showcwtext: "Show More",
     }),
     props: {
         instanceurl: String,
@@ -103,8 +104,10 @@ export default {
         async toggleShowCW() {
             if (this.showCwContent === true) {
                 this.showCwContent = false;
+                this.showcwtext = "Show More"
             } else {
                 this.showCwContent = true;
+                this.showcwtext = "Show Less"
             }
         }
     }
@@ -136,9 +139,12 @@ export default {
                 <div class="post-infoIcon post-infoIcons-lang">{{ content.language }}</div>
                 <div class="post-infoIcon post-infoIcons-visibility">
                     <Icon name="globe" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'public'" />
-                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'unlisted'" />
-                    <Icon name="users" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'private'" />
-                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'direct'" />
+                    <Icon name="lock" size="14px" color="var(--txt2)"
+                        v-if="this.content.reblog.visibility === 'unlisted'" />
+                    <Icon name="users" size="14px" color="var(--txt2)"
+                        v-if="this.content.reblog.visibility === 'private'" />
+                    <Icon name="at-sign" size="14px" color="var(--txt2)"
+                        v-if="this.content.reblog.visibility === 'direct'" />
                 </div>
             </div>
             <div class="post-infoIcons" v-if="!content.reblog">
@@ -156,39 +162,62 @@ export default {
             <div class="cwAlert">
                 <Icon type="alert-triangle" size="18px" color="var(--bg-warning)" />
                 <p class="cwText">{{ content.spoiler_text }}</p>
-                <button class="cwButton" @click="toggleShowCW()">Show More</button>
+                <button class="cwButton" @click="toggleShowCW()">{{ showcwtext }}</button>
             </div>
             <div class="cwContent" v-if="this.showCwContent">
                 <span v-html="content.reblog.content" class="post-content" v-if="content.reblog"></span>
                 <span v-html="content.content" class="post-content" v-if="!content.reblog"></span>
+                <div class="post-attachments"
+                    v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
+                    v-if="!content.reblog">
+                    <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
+                        <div class="post-media">
+                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
+                                <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
+                                    v-if="attachment.type === 'image'">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-attachments"
+                    v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
+                    v-if="content.reblog">
+                    <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
+                        <div class="post-media">
+                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
+                                <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
+                                    v-if="attachment.type === 'image'">
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div v-if="!content.spoiler_text">
             <span v-html="content.reblog.content" class="post-content" v-if="content.reblog"></span>
             <span v-html="content.content" class="post-content" v-if="!content.reblog"></span>
-        </div>
-
-        <div class="post-attachments"
-            v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
-            v-if="!content.reblog">
-            <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
-                <div class="post-media">
-                    <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
-                        <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
-                            v-if="attachment.type === 'image'">
-                    </a>
+            <div class="post-attachments"
+                v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
+                v-if="!content.reblog">
+                <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
+                    <div class="post-media">
+                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
+                            <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
+                                v-if="attachment.type === 'image'">
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="post-attachments"
-            v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
-            v-if="content.reblog">
-            <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
-                <div class="post-media">
-                    <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
-                        <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
-                            v-if="attachment.type === 'image'">
-                    </a>
+            <div class="post-attachments"
+                v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
+                v-if="content.reblog">
+                <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
+                    <div class="post-media">
+                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
+                            <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
+                                v-if="attachment.type === 'image'">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
