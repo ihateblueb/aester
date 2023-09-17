@@ -68,6 +68,15 @@ export default {
                 <span v-html="content.status.content"></span>
             </div>
         </div>
+        <div v-if="this.content.type === 'poll'">
+            <div class="notificationTop">
+                <Icon type="bar-chart-2" size="18px" color="var(--accent1)" />
+                <span>A poll you have voted in has ended</span>
+            </div>
+            <div class="notificationStatus">
+                <span v-html="'@' + content.account.acct + ':' + content.status.content"></span>
+            </div>
+        </div>
         <div v-if="this.content.type === 'reaction'">
             <div class="notificationTop">
                 <Icon type="plus" size="18px" color="var(--accent1)" />
@@ -78,7 +87,7 @@ export default {
             </div>
         </div>
         <div
-            v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status' && this.content.type !== 'reaction'">
+            v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status' && this.content.type !== 'poll' && this.content.type !== 'reaction'">
             <div class="notificationTop">
                 <Icon type="alert-circle" size="18px" color="var(--bg-danger)" />
                 <span>{{ content }}</span>

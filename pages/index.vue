@@ -277,17 +277,25 @@ export default {
             this.loadNotifications()
         },
 
-        
+
         async sendPush(msg) {
             if (!("Notification" in window)) {
                 alert("This browser does not support desktop notification");
             } else if (Notification.permission === "granted") {
                 if (msg.type === 'favourite') {
-                    const notification = new Notification(msg.account.display_name, {body: "@"+msg.account.acct+" favorited your post", icon: msg.account.avatar_static,});
+                    const notification = new Notification(msg.account.display_name, { body: "@" + msg.account.acct + " favorited your post\n\"" + msg.status.content + "\"", icon: msg.account.avatar_static, });
                 } else if (msg.type === 'reblog') {
-                    const notification = new Notification(msg.account.display_name, {body: "@"+msg.account.acct+" reblogged your post", icon: msg.account.avatar_static,});
+                    const notification = new Notification(msg.account.display_name, { body: "@" + msg.account.acct + " reblogged your post\n\"" + msg.status.content + "\"", icon: msg.account.avatar_static, });
+                } else if (msg.type === 'reaction') {
+                    const notification = new Notification(msg.account.display_name, { body: "@" + msg.account.acct + " reacted to your post\n\"" + msg.status.content + "\"", icon: msg.account.avatar_static, });
+                } else if (msg.type === 'mention') {
+                    const notification = new Notification(msg.account.display_name, { body: "@" + msg.account.acct + " mentioned you\n\"" + msg.status.content + "\"", icon: msg.account.avatar_static, });
+                } else if (msg.type === 'poll') {
+                    const notification = new Notification(msg.account.display_name, { body: "A poll you have voted in ended\n\"" + '@' + content.account.acct + ':' + msg.status.content + "\"", icon: msg.account.avatar_static, });
+                } else if (msg.type === 'status') {
+                    const notification = new Notification(msg.account.display_name, { body: "@" + msg.account.acct + " posted a toot, \n\"" + msg.status.content + "\"", icon: msg.account.avatar_static, });
                 } else {
-                    const notification = new Notification(msg.account.display_name, {body: "@"+msg.account.acct+" sent you a notification", icon: msg.account.avatar_static,});
+                    const notification = new Notification(msg.account.display_name, { body: "@" + msg.account.acct + " sent you a notification", icon: msg.account.avatar_static, });
                 }
             } else if (Notification.permission !== "denied") {
                 Notification.requestPermission().then((permission) => {
@@ -310,9 +318,6 @@ export default {
                 }
                 if (msg.event === 'notification') {
                     this.timeline.notifications_new.push(JSON.parse(msg.payload))
-
-                    let audio = new Audio("/assets/vine_boom.mp3");
-                    audio.play();
 
                     console.log(JSON.parse(msg.payload))
                     this.sendPush(JSON.parse(msg.payload))
