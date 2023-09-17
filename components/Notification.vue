@@ -68,8 +68,17 @@ export default {
                 <span v-html="content.status.content"></span>
             </div>
         </div>
+        <div v-if="this.content.type === 'reaction'">
+            <div class="notificationTop">
+                <Icon type="plus" size="18px" color="var(--accent1)" />
+                <span>{{ content.account.display_name }} reacted to your post</span>
+            </div>
+            <div class="notificationStatus">
+                <span v-html="content.status.content"></span>
+            </div>
+        </div>
         <div
-            v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status'">
+            v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status' && this.content.type !== 'reaction'">
             <div class="notificationTop">
                 <Icon type="alert-circle" size="18px" color="var(--bg-danger)" />
                 <span>{{ content }}</span>
