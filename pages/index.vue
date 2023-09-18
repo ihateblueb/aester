@@ -382,8 +382,16 @@ export default {
         <div class="mColumns">
             <div class="mColumn">
                 <div class="mColumnHeader">
-                    <div class="mCH-text">
+                    <div class="mCH-left">
+                        <div class="mCH-text">
                         <p>Aster <span class="betaTag">BETA</span></p>
+                    </div>
+                        <div class="mCH-instanceSpecific mCH-instanceSpecific-wetdryworld">
+                            <img class="logoImage"
+                                aria-hidden="true"
+                                src="https://media.wetdry.world/site_uploads/files/000/000/002/original/skeeter.png"
+                                v-if="this.instanceurl === 'wetdry.world'">
+                        </div>
                     </div>
                     <div class="mCH-buttons">
                         <button @click="openModal('settings')" class="btn btn-header">
@@ -396,12 +404,6 @@ export default {
                 </div>
                 <div class="mColumnContent">
                     <PostArea />
-
-                    <div class="mCHbottom">
-                        <img class="mCHbottomImage"
-                            src="https://media.wetdry.world/site_uploads/files/000/000/002/original/skeeter.png"
-                            v-if="this.instanceurl === 'wetdry.world'">
-                    </div>
                 </div>
             </div>
             <div class="mColumn">
