@@ -2,7 +2,6 @@
 import Icon from '../components/Icon.vue';
 import Post from '../components/Post.vue';
 import PostArea from '../components/PostArea.vue';
-import Modal from '../components/Modal.vue';
 import Column from '../components/Column.vue';
 </script>
 
@@ -11,6 +10,7 @@ export default {
     data: () => ({
         code: "", // gets ignored after login
         loginstate: "start",
+        openmodal: "",
         instanceurl: "",
         token: "",
         user: {
@@ -185,9 +185,11 @@ export default {
 
         async openModal(modal) {
             this.setLocalStorage("ui_modal", modal)
+            this.openmodal = modal
         },
         async closeModal() {
             this.removeLocalStorage("ui_modal")
+            this.openmodal = ""
         },
 
         async loadToots() {
@@ -342,8 +344,57 @@ export default {
 </script>
 
 <template>
-    <div class="modalContainer" v-if="getLocalStorage('ui_modal') === 'settings'">
-        <Modal :name="getLocalStorage('ui_modal')" />
+    <!-- Settings Modal -->
+    <div class="modalContainer" v-if="openmodal === 'settings'">
+        <div class="modal">
+            <div class="modalHeader">
+                <div class="modalText">
+                    <h2>Settings</h2>
+                </div>
+                <div class="modalButtons">
+                    <button @click="closeModal" class="modalButton">
+                        <Icon type="x" />
+                    </button>
+                </div>
+            </div>
+            <div class="modalContent">
+                <h4 class="settingHeading">Appearence</h4>
+                <div class="setting">
+                    <input id="useSystemFont" type="checkbox" name="Use system font">
+                    <label for="useSystemFont" class="settingOption">Use system font</label>
+                    <p class="settingOptionDescription">If selected, the app will use your system's default font.</p>
+                </div>
+                <div class="setting">
+                    <input id="useSystemFont" type="checkbox" name="Hide interaction counts">
+                    <label for="useSystemFont" class="settingOption">Hide interaction counts</label>
+                    <p class="settingOptionDescription">If selected, you won't see how many reply, boost, or favorite counts.</p>
+                </div>
+
+                <h4 class="settingHeading">Publising Toots</h4>
+                <div class="setting">
+                    <input id="sendTootOnEnter" type="checkbox" name="Use Syetem Font">
+                    <label for="sendTootOnEnter" class="settingOption">Send toot on enter</label>
+                    <p class="settingOptionDescription">If selected, when you hit the enter key, whatever textbox you have focused will send it's contents.</p>
+                </div>
+                <div class="setting">
+                    <input id="tootConfirmation" type="checkbox" name="Confirm before sending toot">
+                    <label for="tootConfirmation" class="settingOption">Confirm before sending toot</label>
+                    <p class="settingOptionDescription">If selected, you will get a popup with a preview of your toot before sending it.</p>
+                </div>
+
+                <h4 class="settingHeading">Interactions</h4>
+                <div class="setting">
+                    <input id="tootConfirmation" type="checkbox" name="Confirm before boosting toot">
+                    <label for="tootConfirmation" class="settingOption">Confirm before boosting toot</label>
+                    <p class="settingOptionDescription">If selected, you will get a popup with a preview of the toot you are boosting before boosting it.</p>
+                </div>
+                <div class="setting">
+                    <input id="tootConfirmation" type="checkbox" name="Confirm before favoriting toot">
+                    <label for="tootConfirmation" class="settingOption">Confirm before favoriting toot</label>
+                    <p class="settingOptionDescription">If selected, you will get a popup with a preview of the toot you are favoriting before favoriting it.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div v-if="this.loginstate !== 'done'">
@@ -384,11 +435,10 @@ export default {
                 <div class="mColumnHeader">
                     <div class="mCH-left">
                         <div class="mCH-text">
-                        <p>Aster <span class="betaTag">BETA</span></p>
-                    </div>
+                            <p>Aster <span class="betaTag">BETA</span></p>
+                        </div>
                         <div class="mCH-instanceSpecific mCH-instanceSpecific-wetdryworld">
-                            <img class="logoImage"
-                                aria-hidden="true"
+                            <img class="logoImage" aria-hidden="true" title="skeeter"
                                 src="https://media.wetdry.world/site_uploads/files/000/000/002/original/skeeter.png"
                                 v-if="this.instanceurl === 'wetdry.world'">
                         </div>

@@ -606,6 +606,8 @@ textarea {
     justify-content: center;
     align-content: center;
     align-items: center;
+
+    padding-left: 10px;
 }
 
 .post-infoIcons-lang, .post-infoIcons-time {
@@ -681,4 +683,81 @@ blockquote::before {
 
 .mCH-instanceSpecific-wetdryworld {
     margin-bottom: -5px;
+}
+
+.settingHeading:first-child {
+    margin-top: 10px;
+}
+
+.settingHeading {
+    margin-top: 30px;
+    color: var(--txt1);
+    font-size: 18px;
+}
+
+.modal {
+    background-color: var(--bg1);
+
+    height: 70%;
+    width: 550px;
+
+    border-radius: 10px;
+}
+
+.modalContent {
+    height: calc(100% - 60px);
+    box-sizing: border-box;
+
+    overflow-y: scroll;
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.modalHeader {
+    display: flex;
+    align-items: center;
+    align-content: center;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.modalText {
+    flex-grow: 3;
+
+    display: flex;
+    align-items: center;
+    align-content: center;
+
+    padding-left: 5px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    color: var(--txt1);
+}
+
+.modalButton {
+    background-color: transparent;
+    border: none;
+
+    color: var(--txt1);
+}
+
+.modalButton:hover {
+    color: var(--txt2);
+}
+
+.setting {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.settingOption {
+    color: var(--txt1);
+}
+
+.settingOptionDescription {
+    color: var(--txt2);
+    font-size: 14px;
 }
