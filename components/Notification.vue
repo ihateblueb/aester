@@ -29,7 +29,7 @@ export default {
         <div v-if="this.content.type === 'favourite'">
             <div class="notificationTop">
                 <Icon type="star" size="18px" color="var(--favorite)" fill=true />
-                <span>{{ content.account.display_name }} favorited your post</span>
+                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> favorited your post</span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
@@ -38,7 +38,7 @@ export default {
         <div v-if="this.content.type === 'reblog'">
             <div class="notificationTop">
                 <Icon type="repeat" size="18px" color="var(--reblog)" />
-                <span>{{ content.account.display_name }} boosted your post</span>
+                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink>boosted your post</span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
@@ -47,13 +47,13 @@ export default {
         <div v-if="this.content.type === 'follow'">
             <div class="notificationTop">
                 <Icon type="user-plus" size="18px" color="var(--accent1)" />
-                <span>{{ content.account.display_name }} followed you</span>
+                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> followed you</span>
             </div>
         </div>
         <div v-if="this.content.type === 'mention'">
             <div class="notificationTop">
                 <Icon type="at-sign" size="18px" color="var(--accent1)" />
-                <span>{{ content.account.display_name }} mentioned you</span>
+                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> mentioned you</span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
@@ -62,7 +62,7 @@ export default {
         <div v-if="this.content.type === 'status'">
             <div class="notificationTop">
                 <Icon type="message-circle" size="18px" color="var(--accent1)" />
-                <span>{{ content.account.display_name }} published a toot</span>
+                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> published a toot</span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
@@ -80,7 +80,7 @@ export default {
         <div v-if="this.content.type === 'reaction'">
             <div class="notificationTop">
                 <Icon type="plus" size="18px" color="var(--accent1)" />
-                <span>{{ content.account.display_name }} reacted to your post</span>
+                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> reacted to your post</span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>

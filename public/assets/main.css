@@ -13,7 +13,11 @@
     --txt2: #dcc7f7;
 
     --bg-danger: #ff5f5f;
+    --bg-danger-25: #ff5f5f25;
     --bg-warning: #ffc75f;
+    --bg-warning-25: #ffc75f25;
+    --bg-success: #4de487;
+    --bg-success-25: #4de48725;
 
     --favorite: #ffc75f;
     --reblog: #4de461;
@@ -760,4 +764,16 @@ blockquote::before {
 .settingOptionDescription {
     color: var(--txt2);
     font-size: 14px;
+}
+
+/* Links */
+
+.mCC-hb-fieldValue a, .mention, .post-content a, .mCC-hb-bio a {
+    color: var(--accent1);
+    text-decoration: none;
+}
+
+.notificationMention {
+    color: var(--txt1);
+    text-decoration: none;
 }

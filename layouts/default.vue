@@ -104,6 +104,7 @@ export default {
             this.removeLocalStorage("user_avatar")
             this.removeLocalStorage("user_displayname")
             this.removeLocalStorage("user_username")
+            this.removeLocalStorage("user_id")
 
             await this.createApplication()
 
@@ -147,10 +148,12 @@ export default {
             this.user.avatar = accountdetails_response.avatar;
             this.user.displayname = accountdetails_response.display_name;
             this.user.username = accountdetails_response.username;
+            this.user.id = accountdetails_response.id;
 
             this.setLocalStorage("user_avatar", this.user.avatar)
             this.setLocalStorage("user_displayname", this.user.displayname)
             this.setLocalStorage("user_username", this.user.username)
+            this.setLocalStorage("user_id", this.user.id)
         },
 
         async afterLogin() {
@@ -168,6 +171,7 @@ export default {
             this.removeLocalStorage("user_avatar")
             this.removeLocalStorage("user_displayname")
             this.removeLocalStorage("user_username")
+            this.removeLocalStorage("user_id")
 
             this.removeLocalStorage("token")
             this.removeLocalStorage("instanceurl")
