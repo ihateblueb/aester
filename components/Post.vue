@@ -275,10 +275,6 @@ export default {
                 </span>
             </button>
 
-            <button class="postInteraction">
-                <Icon type="plus" size="18px" color="var(--txt2)" />
-            </button>
-
             <button @click="postInteraction('bookmark', content.id)" class="postInteraction" v-if="!content.bookmarked">
                 <Icon type="bookmark" size="18px" color="var(--txt2)" />
             </button>
@@ -327,10 +323,6 @@ export default {
                 <span>
                     {{ content.reblog.favourites_count }}
                 </span>
-            </button>
-
-            <button class="postInteraction">
-                <Icon type="plus" size="18px" color="var(--txt2)" />
             </button>
 
             <button @click="postInteraction('bookmark', content.id)" class="postInteraction"
