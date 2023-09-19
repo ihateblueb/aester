@@ -3,10 +3,10 @@ import Icon from '../components/Icon.vue';
 </script>
 
 <script>
+/*
+
 export default {
     data: () => ({
-        content: [],
-        ready: false,
         showCwContent: false
     }),
     mounted() {
@@ -18,6 +18,8 @@ export default {
 
     }
 }
+
+*/
 </script>
 
 <template>

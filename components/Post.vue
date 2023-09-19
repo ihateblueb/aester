@@ -126,14 +126,14 @@ export default {
                 <img class="post-userAvatar" :src="content.reblog.account.avatar" loading="lazy" v-if="content.reblog">
             </div>
             <div class="post-userNames">
-                <a :href="'/@' + content.account.acct" v-if="!content.reblog" class="post-displayName">{{
-                    content.account.display_name }}</a>
-                <a :href="'/@' + content.account.acct" v-if="!content.reblog" class="post-userName">@{{ content.account.acct
-                }}</a>
-                <a :href="'/@' + content.reblog.account.acct" v-if="content.reblog" class="post-displayName">{{
-                    content.reblog.account.display_name }}</a>
-                <a :href="'/@' + content.reblog.account.acct" v-if="content.reblog" class="post-userName">@{{
-                    content.reblog.account.acct }}</a>
+                <NuxtLink :to="'/@' + content.account.acct" v-if="!content.reblog" class="post-displayName">{{
+                    content.account.display_name }}</NuxtLink>
+                <NuxtLink :to="'/@' + content.account.acct" v-if="!content.reblog" class="post-userName">@{{ content.account.acct
+                }}</NuxtLink>
+                <NuxtLink :to="'/@' + content.reblog.account.acct" v-if="content.reblog" class="post-displayName">{{
+                    content.reblog.account.display_name }}</NuxtLink>
+                <NuxtLink :to="'/@' + content.reblog.account.acct" v-if="content.reblog" class="post-userName">@{{
+                    content.reblog.account.acct }}</NuxtLink>
             </div>
             <div class="post-infoIcons" v-if="content.reblog">
                 <div class="post-infoIcon post-infoIcons-lang">{{ content.reblog.language }}</div>
