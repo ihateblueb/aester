@@ -397,8 +397,7 @@ export default {
         </div>
     </div>
 
-    <div v-if="this.loginstate !== 'done'">
-        <div class="loginArea" v-if="this.loginstate === 'start'">
+        <div class="loginArea" v-if="loginstate === 'start'">
             <div class="loginContainer">
                 <div class="loginContainerHeader">
                     <h1 class="loginContainerHeading">Welcome to Aster</h1>
@@ -412,7 +411,7 @@ export default {
                 </div>
             </div>
         </div>
-        <div class="loginArea" v-if="this.loginstate === 'almost'">
+        <div class="loginArea" v-if="loginstate === 'almost'">
             <div class="loginContainer">
                 <div class="loginContainerHeader">
                     <h1 class="loginContainerHeading">Welcome to Aster</h1>
@@ -427,9 +426,8 @@ export default {
                 </div>
             </div>
         </div>
-    </div>
 
-    <div v-if="this.loginstate === 'done'">
+    <div v-if="loginstate === 'done'">
         <div class="mColumns">
             <div class="mColumn">
                 <div class="mColumnHeader">
