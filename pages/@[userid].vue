@@ -5,6 +5,7 @@ import Icon from '../components/Icon.vue';
 <script>
 export default {
     data: () => ({
+        ready: false,
         token: "",
         instanceurl: "",
         acct: "",
@@ -19,6 +20,8 @@ export default {
         this.acct = this.$route.params.userid
 
         this.getOtherUserDetails()
+
+        this.ready = true
     },
     methods: {
         setLocalStorage(key, value) {
@@ -66,9 +69,18 @@ export default {
 
 <template>
     <div class="mColumnHeader">
-        <p>{{ user.display_name }}</p>
+        <div class="mCH-left">
+            <div class="mCH-text">
+                <p>{{ user.display_name }}</p>
+            </div>
+        </div>
+        <div class="mCH-buttons">
+            <NuxtLink to="/" class="btn btn-header">
+                <Icon name="home" size="16px" />
+            </NuxtLink>
+        </div>
     </div>
-    <div class="mColumnContent">
+    <div class="mColumnContent" v-if="ready">
         <div class="mCC-profileHeading">
             <div class="mCC-accountHeaderContainer">
                 <img class="mCC-accountHeader" :src="this.user.header">
@@ -123,8 +135,11 @@ export default {
                 </div>
             </div>
         </div>
-        <div>
+        <div class="mCC-userPinned">
             
+        </div>
+        <div class="mCC-userContent">
+
         </div>
     </div>
 </template>
@@ -137,14 +152,17 @@ export default {
 .mCC-stats .stat:first-child {
     border-radius: 10px 0px 0px 10px;
 }
+
 .mCC-stats .stat:last-child {
     border-radius: 0px 10px 10px 0px;
 }
+
 .mCC-stats .stat {
     background-color: var(--bg3);
     padding: 7px 12px 7px 12px;
     border: 1px solid var(--bg2);
 }
+
 .mCC-stats {
     display: flex;
     justify-content: center;

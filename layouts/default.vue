@@ -443,11 +443,6 @@ export default {
                         <div class="mCH-text">
                             <p>Aster <span class="betaTag">BETA</span></p>
                         </div>
-                        <div class="mCH-instanceSpecific mCH-instanceSpecific-wetdryworld">
-                            <img class="logoImage" aria-hidden="true" title="skeeter"
-                                src="https://media.wetdry.world/site_uploads/files/000/000/002/original/skeeter.png"
-                                v-if="this.instanceurl === 'wetdry.world'">
-                        </div>
                     </div>
                     <div class="mCH-buttons">
                         <button @click="openModal('settings')" class="btn btn-header">

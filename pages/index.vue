@@ -27,6 +27,12 @@ export default {
         <p class="noSelection">No Selection...</p>
     </div>
     <div class="mColumnContent">
-
+        <NuxtLink to="/trending">Trending</NuxtLink>
+        <NuxtLink to="/local">Local Timeline</NuxtLink>
+        <NuxtLink to="/federated">Federated Timeline</NuxtLink>
     </div>
 </template>
+
+<style>
+
+</style>

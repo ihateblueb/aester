@@ -170,8 +170,12 @@ export default {
                 <button class="cwButton" @click="toggleShowCW()">{{ showcwtext }}</button>
             </div>
             <div class="cwContent" v-if="this.showCwContent">
-                <span v-html="content.reblog.content" class="post-content" v-if="content.reblog"></span>
-                <span v-html="content.content" class="post-content" v-if="!content.reblog"></span>
+            <NuxtLink :to="'/toot/'+content.reblog.id" v-if="content.reblog">
+                <span v-html="content.reblog.content" class="post-content"></span>
+            </NuxtLink>
+            <NuxtLink :to="'/toot/'+content.id" v-if="!content.reblog">
+                <span v-html="content.content" class="post-content"></span>
+            </NuxtLink>
                 <div class="post-attachments"
                     v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
                     v-if="!content.reblog">
@@ -199,8 +203,12 @@ export default {
             </div>
         </div>
         <div v-if="!content.spoiler_text">
-            <span v-html="content.reblog.content" class="post-content" v-if="content.reblog"></span>
-            <span v-html="content.content" class="post-content" v-if="!content.reblog"></span>
+            <NuxtLink :to="'/toot/'+content.reblog.id" v-if="content.reblog">
+                <span v-html="content.reblog.content" class="post-content"></span>
+            </NuxtLink>
+            <NuxtLink :to="'/toot/'+content.id" v-if="!content.reblog">
+                <span v-html="content.content" class="post-content"></span>
+            </NuxtLink>
             <div class="post-attachments"
                 v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
                 v-if="!content.reblog">

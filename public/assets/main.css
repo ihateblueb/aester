@@ -54,6 +54,11 @@ p {
     margin: 0px;
 }
 
+a {
+    text-decoration: inherit;
+    color: inherit;
+}
+
 button,
 input,
 textarea {
