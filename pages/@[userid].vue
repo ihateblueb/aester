@@ -50,6 +50,10 @@ export default {
 
             console.log(getotheruserdetails_response)
 
+            this.getRelationships()
+        },
+
+        async getRelationships() {
             const getrelationships = await fetch("https://" + this.instanceurl + "/api/v1/accounts/relationships/?id=" + this.user.id, {
                 method: "GET",
                 headers: {
@@ -61,6 +65,34 @@ export default {
             this.relationships = getrelationships_response[0]
 
             console.log(getrelationships_response[0])
+        },
+
+        async userInteraction(type) {
+            if (type === 'follow') {
+                const sendinteraction = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/follow", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + this.token,
+                    }
+                })
+                const sendinteraction_response = await sendinteraction.json()
+
+                if (sendinteraction_response.following === true) {
+                    this.getRelationships()
+                }
+            } else if (type === 'unfollow') {
+                const sendinteraction = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/unfollow", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + this.token,
+                    }
+                })
+                const sendinteraction_response = await sendinteraction.json()
+
+                if (sendinteraction_response.following === false) {
+                    this.getRelationships()
+                }
+            }
         }
     }
 }
@@ -92,10 +124,10 @@ export default {
                     </div>
                     <div class="mCC-hT-right">
                         <button class="mCC-button edit" v-if="user.id === selfid">Edit Profile</button>
-                        <button class="mCC-button follow"
-                            v-if="user.id !== selfid && !this.relationships.following">Follow</button>
-                        <button class="mCC-button unfollow"
-                            v-if="user.id !== selfid && this.relationships.following">Unfollow</button>
+                        <button class="mCC-button follow" v-if="user.id !== selfid && !this.relationships.following"
+                            @click="userInteraction('follow')">Follow</button>
+                        <button class="mCC-button unfollow" v-if="user.id !== selfid && this.relationships.following"
+                            @click="userInteraction('unfollow')">Unfollow</button>
                         <button class="mCC-button bell" v-if="user.id !== selfid">
                             <Icon type="bell" size="20px" />
                         </button>
@@ -136,7 +168,7 @@ export default {
             </div>
         </div>
         <div class="mCC-userPinned">
-            
+
         </div>
         <div class="mCC-userContent">
 
@@ -308,4 +340,5 @@ export default {
     object-fit: cover;
 
     border: none;
-}</style>
+}
+</style>
