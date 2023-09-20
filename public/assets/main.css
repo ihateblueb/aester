@@ -559,7 +559,7 @@ textarea {
 }
 
 .cwText {
-    margin-left: 5px;
+    margin-left: 10px;
     color: var(--bg-warning);
 }
 
@@ -781,4 +781,14 @@ blockquote::before {
 .notificationMention {
     color: var(--txt1);
     text-decoration: none;
+}
+
+/* Toots */
+
+.post-content p:last-child {
+    margin-bottom: 0px;
+}
+
+.post-content p {
+    margin-bottom: 15px;
 }
