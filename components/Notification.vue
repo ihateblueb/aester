@@ -38,7 +38,7 @@ export default {
         <div v-if="this.content.type === 'reblog'">
             <div class="notificationTop">
                 <Icon type="repeat" size="18px" color="var(--reblog)" />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink>boosted your post</span>
+                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> boosted your post</span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>

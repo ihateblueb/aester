@@ -149,19 +149,19 @@ export default {
                     </div>
                     <div class="mCC-hb-fields">
                         <div class="mCC-hb-field" v-for="field in user.fields">
-                            <span class="mCC-hb-fieldName" v-html="field.name"></span>
-                            <span class="mCC-hb-fieldValue" v-html="field.value"></span>
+                            <span class="mCC-hb-fieldName" :title="field.name" v-html="field.name"></span>
+                            <span class="mCC-hb-fieldValue" :title="field.value" v-html="field.value"></span>
                         </div>
                     </div>
                     <div class="mCC-stats">
                         <div class="stat">
-                            {{ user.statuses_count }}<br>posts
+                            <strong>{{ user.statuses_count }}</strong><br>posts
                         </div>
                         <div class="stat">
-                            {{ user.following_count }}<br>following
+                            <strong>{{ user.following_count }}</strong><br>following
                         </div>
                         <div class="stat">
-                            {{ user.followers_count }}<br>followers
+                            <strong>{{ user.followers_count }}</strong><br>followers
                         </div>
                     </div>
                 </div>
@@ -244,6 +244,7 @@ export default {
 
 .mCC-hb-field {
     margin-bottom: 2px;
+    overflow-wrap: break-word;
 }
 
 .mCC-hb-fieldValue {
@@ -340,5 +341,9 @@ export default {
     object-fit: cover;
 
     border: none;
+}
+
+.mCC-stats .stat {
+    width: 100%;
 }
 </style>

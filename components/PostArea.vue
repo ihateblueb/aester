@@ -152,8 +152,10 @@ export default {
                 <img class="postArea-avatar" :src="user.avatar" :alt="user.displayname + 's avatar'">
             </div>
             <div class="postArea-names">
-                <p class="postArea-displayName">{{ user.displayname }}</p>
-                <p class="postArea-userName">@{{ user.username }}@{{ instanceurl }}</p>
+                <NuxtLink :to="'/@'+user.username">
+                    <p class="postArea-displayName">{{ user.displayname }}</p>
+                    <p class="postArea-userName">@{{ user.username }}@{{ instanceurl }}</p>
+                </NuxtLink>
             </div>
         </div>
         <div>
