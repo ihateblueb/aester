@@ -792,3 +792,13 @@ blockquote::before {
 .post-content p {
     margin-bottom: 15px;
 }
+
+/* idk */
+
+.notificationTop .notificationMention {
+    font-weight: 600;
+}
+
+.mCC-stat {
+    width: 100%;
+}

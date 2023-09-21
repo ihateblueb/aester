@@ -155,13 +155,13 @@ export default {
                     </div>
                     <div class="mCC-stats">
                         <div class="stat">
-                            {{ user.statuses_count }} posts
+                            {{ user.statuses_count }}<br>posts
                         </div>
                         <div class="stat">
-                            {{ user.following_count }} following
+                            {{ user.following_count }}<br>following
                         </div>
                         <div class="stat">
-                            {{ user.followers_count }} followers
+                            {{ user.followers_count }}<br>followers
                         </div>
                     </div>
                 </div>
