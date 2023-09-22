@@ -213,7 +213,7 @@ export default {
             </NuxtLink>
 
             <div class="post-attachments"
-                v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
+                v-bind:class="{ visible: this.content.media_attachments.length > 0, multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
                 v-if="!content.reblog">
                 <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
                     <div class="post-media">
@@ -225,7 +225,7 @@ export default {
                 </div>
             </div>
             <div class="post-attachments"
-                v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
+                v-bind:class="{ visible: this.content.reblog.media_attachments.length > 0, multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
                 v-if="content.reblog">
                 <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
                     <div class="post-media">
@@ -521,6 +521,11 @@ export default {
 }
 
 .post-attachments {
-    margin-top: 15px !important;
+    display: none;
+}
+
+.post-attachments.visible {
+    margin-top: 15px;
+    display: block;
 }
 </style>
