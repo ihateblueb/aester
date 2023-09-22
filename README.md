@@ -9,6 +9,7 @@ if ur looking for the main file its layouts/default.vue cause im cool like that
 - [ ] allow for multiple accounts
 - [ ] quote posts
 - [ ] party mode 🎉
+- [ ] support both glitch and chuckya madtodon instances
 
 ## what's next up:
 - [x] following
