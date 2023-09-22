@@ -241,11 +241,13 @@ export default {
         <div class="postReactionBar" v-if="content.reactions.length > 0">
             <div v-for="reaction in content.reactions">
                 <div class="postReaction" @click="postInteraction('react', content.id)" v-if="!reaction.me">
-                    <span>{{ reaction.name }}</span>
+                    <img :src="reaction.url" class="emojiReaction" v-if="reaction.url">
+                    <span v-if="!reaction.url">{{ reaction.name }}</span>
                     <span class="postReactionCounter">{{ reaction.count }}</span>
                 </div>
                 <div class="postReaction pRme" @click="postInteraction('unreact', content.id)" v-if="reaction.me">
-                    <span>{{ reaction.name }}</span>
+                    <img :src="reaction.url" class="emojiReaction" v-if="reaction.url">
+                    <span v-if="!reaction.url">{{ reaction.name }}</span>
                     <span class="postReactionCounter">{{ reaction.count }}</span>
                 </div>
             </div>
@@ -418,7 +420,7 @@ export default {
 }
 
 .postReaction {
-    padding: 2px;
+    padding: 3px;
     padding-left: 6px !important;
     padding-right: 6px !important;
 

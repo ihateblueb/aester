@@ -798,3 +798,10 @@ blockquote::before {
 .notificationTop .notificationMention {
     font-weight: 600;
 }
+
+.postReaction {
+    display: flex;
+}
+.emojiReaction {
+    height: 18px;
+}

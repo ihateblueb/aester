@@ -128,6 +128,15 @@ export default {
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
+                <div v-for="reaction in content.status.reactions">
+                    <div class="postReactionBar">
+                        <div class="postReaction">
+                            <img :src="reaction.url" class="emojiReaction" v-if="reaction.url">
+                            <span v-if="!reaction.url">{{ reaction.name }}</span>
+                            <span class="postReactionCounter">{{ reaction.count }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div v-if="content.type === 'follow_request'">
@@ -163,6 +172,12 @@ export default {
 
 .notificationTop {
     font-size: 16px;
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+}
+
+.notificationTop .notificationMention {
+    word-break: break-all;
 }
 
 .notificationTop span {

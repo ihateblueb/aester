@@ -19,6 +19,7 @@ if ur looking for the main file its layouts/default.vue cause im cool like that
 - [ ] profile editing
 - [ ] post dropdown (delete/edit/pin, yk)
 - [ ] custom emojis
+    - [x] custom emojis for reactions
 - [ ] client settings
 - [ ] polls and media uploads
 - [ ] working nice looking links
