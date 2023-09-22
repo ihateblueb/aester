@@ -59,6 +59,9 @@ export default {
         </div>
     </div>
     <div class="mColumnContent">
+        <div class="mCC-accountHeaderContainer">
+                <img class="mCC-accountHeader" :src="this.instance.thumbnail.url">
+            </div>
         <div class="aboutContent">
             <h3>{{ instance.title }} <p class="aboutVersion">{{ instance.version }}</p>
             </h3>
