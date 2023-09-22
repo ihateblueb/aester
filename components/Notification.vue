@@ -131,7 +131,7 @@ export default {
                 <div v-for="reaction in content.status.reactions">
                     <div class="postReactionBar">
                         <div class="postReaction">
-                            <img :src="reaction.url" class="emojiReaction" v-if="reaction.url">
+                            <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction" v-if="reaction.url">
                             <span v-if="!reaction.url">{{ reaction.name }}</span>
                             <span class="postReactionCounter">{{ reaction.count }}</span>
                         </div>

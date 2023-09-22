@@ -93,6 +93,20 @@ export default {
                     this.getRelationships()
                 }
             }
+        },
+
+        replaceEmojis(content) {
+            let emojiregex = /:[^:\s]*(?:::[^:\s]*)*:/g;
+            let emojimatches = Array.from(content.matchAll(emojiregex))
+            console.log(emojimatches)
+            const emojis = this.user.emojis
+            let i = 0 // it cant be inside the return part for some reason
+            return content.replace(emojiregex, function () {
+                let emoji = emojimatches[(i++)].toString()
+                return `<img :src="${emojis.find((element) => { console.log(element); if (element.shortcode === emoji) { return element.url; } })}" :alt="reaction.name" :title="reaction.name" class="emojiReaction"> `
+                // ${emoji.replaceAll(":", "")}
+                // <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction" v-if="reaction.url"> 
+            })
         }
     }
 }
@@ -100,10 +114,10 @@ export default {
 </script>
 
 <template>
-    <div class="mColumnHeader">
+    <div class="mColumnHeader" v-if="ready === true">
         <div class="mCH-left">
             <div class="mCH-text">
-                <p>{{ user.display_name }}</p>
+                <p v-html="replaceEmojis(user.display_name)"></p>
             </div>
         </div>
         <div class="mCH-buttons">
@@ -124,9 +138,9 @@ export default {
                     </div>
                     <div class="mCC-hT-right">
                         <button class="mCC-button edit" v-if="user.id === selfid">Edit Profile</button>
-                        <button class="mCC-button follow" v-if="user.id !== selfid && !this.relationships.following"
+                        <button class="mCC-button follow" v-if="user.id !== selfid && !relationships.following"
                             @click="userInteraction('follow')">Follow</button>
-                        <button class="mCC-button unfollow" v-if="user.id !== selfid && this.relationships.following"
+                        <button class="mCC-button unfollow" v-if="user.id !== selfid && relationships.following"
                             @click="userInteraction('unfollow')">Unfollow</button>
                         <button class="mCC-button bell" v-if="user.id !== selfid">
                             <Icon type="bell" size="20px" />
@@ -134,8 +148,8 @@ export default {
                     </div>
                 </div>
                 <div class="mCC-headerBottom">
-                    <p class="mCC-accountDisplayName">{{ this.user.display_name }}</p>
-                    <p class="mCC-accountUserName">@{{ this.user.acct }}</p>
+                    <p class="mCC-accountDisplayName" v-html="replaceEmojis(user.display_name)"></p>
+                    <p class="mCC-accountUserName">@{{ user.acct }}</p>
                     <div class="mCC-followsYouContainer" v-if="relationships.followed_by">
                         <span class="mCC-followsYou" v-if="!relationships.following">
                             Follows You
@@ -145,12 +159,12 @@ export default {
                         </span>
                     </div>
                     <div class="mCC-hb-bio">
-                        <p v-html="user.note"></p>
+                        <p v-html="replaceEmojis(user.note)"></p>
                     </div>
                     <div class="mCC-hb-fields">
                         <div class="mCC-hb-field" v-for="field in user.fields">
-                            <span class="mCC-hb-fieldName" :title="field.name" v-html="field.name"></span>
-                            <span class="mCC-hb-fieldValue" :title="field.value" v-html="field.value"></span>
+                            <span class="mCC-hb-fieldName" :title="field.name" v-html="replaceEmojis(field.name)"></span>
+                            <span class="mCC-hb-fieldValue" :title="field.value" v-html="replaceEmojis(field.value)"></span>
                         </div>
                     </div>
                     <div class="mCC-stats">
