@@ -91,18 +91,18 @@ export default {
             <h3>Aster <p class="aboutVersion"></p>
             </h3>
             <div class="aboutInnerContent">
-                <p>Made by blueb</p>
+                <p>GitHub <span><a href="https://github.com/ihateblueb/aster">ihateblueb/aster</a></span></p>
             </div>
         </div>
     </div>
 </template>
 
 <style>
-.contactInfo p span {
-    color: var(--txt1);
+.contactInfo p span, .aboutInnerContent p span {
+    color: var(--txt1)!important;
 }
 
-.contactInfo p {
+.contactInfo p, .aboutInnerContent p {
     color: var(--txt2);
 }
 
