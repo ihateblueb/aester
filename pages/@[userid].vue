@@ -309,6 +309,7 @@ export default {
 
 .mCC-accountPicture {
     height: 80px;
+    width: 80px;
 
     border: 3px solid var(--bg2);
     border-radius: 10px;
