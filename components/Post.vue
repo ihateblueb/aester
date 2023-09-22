@@ -213,7 +213,7 @@ export default {
             </NuxtLink>
 
             <div class="post-attachments"
-                v-bind:class="{ visible: this.content.media_attachments.length > 0, multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
+                v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4, visible: this.content.media_attachments.length > 0, }"
                 v-if="!content.reblog">
                 <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
                     <div class="post-media">
@@ -225,7 +225,7 @@ export default {
                 </div>
             </div>
             <div class="post-attachments"
-                v-bind:class="{ visible: this.content.reblog.media_attachments.length > 0, multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
+                v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4, visible: this.content.reblog.media_attachments.length > 0 }"
                 v-if="content.reblog">
                 <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
                     <div class="post-media">
@@ -498,20 +498,20 @@ export default {
     width: 100%;
 }
 
-.post-attachments.multiple {
+.post-attachments.multiple.visible {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
 
-.post-attachments.three {
+.post-attachments.three.visible {
     grid-template-columns: repeat(3, 1fr) !important;
 }
 
-.post-attachments.four img {
+.post-attachments.four.visible img {
     max-height: 100px;
 }
 
-.post-attachments.four video {
+.post-attachments.four.visible video {
     max-height: 100px !important;
 }
 
