@@ -69,8 +69,8 @@ export default {
 </script>
 
 <template>
-    <div class="post" v-if="this.ready && fr_notaccepted">
-        <div v-if="this.content.type === 'favourite'">
+    <div class="post" v-if="ready && fr_notaccepted">
+        <div v-if="content.type === 'favourite'">
             <div class="notificationTop">
                 <Icon type="star" size="18px" color="var(--favorite)" fill=true />
                 <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> favorited your post</span>
@@ -79,7 +79,7 @@ export default {
                 <span v-html="content.status.content"></span>
             </div>
         </div>
-        <div v-if="this.content.type === 'reblog'">
+        <div v-if="content.type === 'reblog'">
             <div class="notificationTop">
                 <Icon type="repeat" size="18px" color="var(--reblog)" />
                 <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> boosted your post</span>
@@ -88,13 +88,13 @@ export default {
                 <span v-html="content.status.content"></span>
             </div>
         </div>
-        <div v-if="this.content.type === 'follow'">
+        <div v-if="content.type === 'follow'">
             <div class="notificationTop">
                 <Icon type="user-plus" size="18px" color="var(--accent1)" />
                 <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> followed you</span>
             </div>
         </div>
-        <div v-if="this.content.type === 'mention'">
+        <div v-if="content.type === 'mention'">
             <div class="notificationTop">
                 <Icon type="at-sign" size="18px" color="var(--accent1)" />
                 <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> mentioned you</span>
@@ -103,7 +103,7 @@ export default {
                 <span v-html="content.status.content"></span>
             </div>
         </div>
-        <div v-if="this.content.type === 'status'">
+        <div v-if="content.type === 'status'">
             <div class="notificationTop">
                 <Icon type="message-circle" size="18px" color="var(--accent1)" />
                 <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> published a toot</span>
@@ -112,7 +112,7 @@ export default {
                 <span v-html="content.status.content"></span>
             </div>
         </div>
-        <div v-if="this.content.type === 'poll'">
+        <div v-if="content.type === 'poll'">
             <div class="notificationTop">
                 <Icon type="bar-chart-2" size="18px" color="var(--accent1)" />
                 <span>A poll you have voted in has ended</span>
@@ -121,7 +121,7 @@ export default {
                 <span v-html="'@' + content.account.acct + ':' + content.status.content"></span>
             </div>
         </div>
-        <div v-if="this.content.type === 'reaction'">
+        <div v-if="content.type === 'reaction'">
             <div class="notificationTop">
                 <Icon type="plus" size="18px" color="var(--accent1)" />
                 <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> reacted to your post</span>
@@ -130,7 +130,7 @@ export default {
                 <span v-html="content.status.content"></span>
             </div>
         </div>
-        <div v-if="this.content.type === 'follow_request'">
+        <div v-if="content.type === 'follow_request'">
             <div class="notificationTop">
                 <Icon type="user" size="18px" color="var(--accent1)" />
                 <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> requested to follow you</span>
@@ -140,7 +140,7 @@ export default {
             </div>
         </div>
         <div
-            v-if="this.content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status' && this.content.type !== 'poll' && this.content.type !== 'reaction' && this.content.type !== 'follow_request'">
+            v-if="content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status' && this.content.type !== 'poll' && this.content.type !== 'reaction' && this.content.type !== 'follow_request'">
             <div class="notificationTop">
                 <Icon type="alert-circle" size="18px" color="var(--bg-danger)" />
                 <span>{{ content }}</span>

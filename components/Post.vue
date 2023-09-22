@@ -115,7 +115,7 @@ export default {
 </script>
 
 <template>
-    <div class="post" v-if="this.ready">
+    <div class="post" v-if="ready">
         <div class="boostAlertContainer" v-if="content.reblog">
             <Icon class="boostAlertIcon" name="repeat" size="14px" color="var(--txt2)" />
             <span class="boostAlert">{{ content.account.display_name }} boosted</span>
@@ -139,26 +139,26 @@ export default {
             <div class="post-infoIcons" v-if="content.reblog">
                 <div class="post-infoIcon post-infoIcons-lang">{{ content.reblog.language }}</div>
                 <div class="post-infoIcon post-infoIcons-visibility">
-                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'public'"
+                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'public'"
                         :title="this.content.reblog.visibility" />
-                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'unlisted'"
+                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'unlisted'"
                         :title="this.content.reblog.visibility" />
-                    <Icon name="users" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'private'"
+                    <Icon name="users" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'private'"
                         :title="this.content.reblog.visibility" />
-                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="this.content.reblog.visibility === 'direct'"
+                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'direct'"
                         :title="this.content.reblog.visibility" />
                 </div>
             </div>
             <div class="post-infoIcons" v-if="!content.reblog">
                 <div class="post-infoIcon post-infoIcons-lang">{{ content.language }}</div>
                 <div class="post-infoIcon post-infoIcons-visibility">
-                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'public'"
+                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.visibility === 'public'"
                         :title="this.content.visibility" />
-                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'unlisted'"
+                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="content.visibility === 'unlisted'"
                         :title="this.content.visibility" />
-                    <Icon name="users" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'private'"
+                    <Icon name="users" size="14px" color="var(--txt2)" v-if="content.visibility === 'private'"
                         :title="this.content.visibility" />
-                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="this.content.visibility === 'direct'"
+                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.visibility === 'direct'"
                         :title="this.content.visibility" />
                 </div>
             </div>
@@ -170,7 +170,7 @@ export default {
                 <p class="cwText">{{ content.spoiler_text }}</p>
                 <button class="cwButton" @click="toggleShowCW()">{{ showcwtext }}</button>
             </div>
-            <div class="cwContent" v-if="this.showCwContent">
+            <div class="cwContent" v-if="showCwContent">
                 <NuxtLink :to="'/toot/' + content.reblog.id" v-if="content.reblog">
                     <span v-html="content.reblog.content" class="post-content"></span>
                 </NuxtLink>

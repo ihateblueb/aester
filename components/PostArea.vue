@@ -160,7 +160,7 @@ export default {
         </div>
         <div>
             <input class="postArea-contentwarning" placeholder="Write your content warning here..."
-                v-if="this.app.postArea.contentWarning === 'true'" v-model="this.toot.spoiler_text">
+                v-if="app.postArea.contentWarning === 'true'" v-model="this.toot.spoiler_text">
             <textarea class="postArea-textArea" placeholder="What's up?" v-model="toot.content"></textarea>
             <div>
                 <div class="postArea-buttons">
@@ -175,10 +175,10 @@ export default {
                         </button>
                         <button class="btn postArea-btn" @click="setPostAreaButton('visibility')"
                             v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'visibility' }">
-                            <Icon name="globe" size="18px" v-if="this.toot.visibility === 'public'" />
-                            <Icon name="lock" size="18px" v-if="this.toot.visibility === 'unlisted'" />
-                            <Icon name="users" size="18px" v-if="this.toot.visibility === 'private'" />
-                            <Icon name="at-sign" size="18px" v-if="this.toot.visibility === 'direct'" />
+                            <Icon name="globe" size="18px" v-if="toot.visibility === 'public'" />
+                            <Icon name="lock" size="18px" v-if="toot.visibility === 'unlisted'" />
+                            <Icon name="users" size="18px" v-if="toot.visibility === 'private'" />
+                            <Icon name="at-sign" size="18px" v-if="toot.visibility === 'direct'" />
                         </button>
                         <button class="btn postArea-btn" @click="setPostAreaToggle('contentwarning')"
                             v-bind:class="{ pAbtnselected: this.app.postArea.contentWarning === 'true' }">CW</button>
@@ -188,21 +188,21 @@ export default {
                 </div>
 
 
-                <div class="postArea-attatchments-selector" v-if="this.app.postArea.dropdown === 'attatchment'">
+                <div class="postArea-attatchments-selector" v-if="app.postArea.dropdown === 'attatchment'">
                     <div class="postArea-attatchments-selector-option">
                         <Icon name="upload" color="var(--txt1)" size="20px" /> <span>Upload a file</span>
                     </div>
                 </div>
 
-                <div class="postArea-pollmaker" v-if="this.app.postArea.dropdown === 'poll'">
+                <div class="postArea-pollmaker" v-if="app.postArea.dropdown === 'poll'">
                     <input class="postArea-pollmaker-option" placeholder="Choice 1" v-model="this.toot.poll.options[1]">
                     <input class="postArea-pollmaker-option" placeholder="Choice 2" v-model="this.toot.poll.options[2]">
                     <input class="postArea-pollmaker-option" placeholder="Choice 3" v-model="this.toot.poll.options[3]"
-                        v-if="this.app.postArea.poll.option >= 3">
+                        v-if="app.postArea.poll.option >= 3">
                     <input class="postArea-pollmaker-option" placeholder="Choice 4" v-model="this.toot.poll.options[4]"
-                        v-if="this.app.postArea.poll.option >= 4">
+                        v-if="app.postArea.poll.option >= 4">
                     <input class="postArea-pollmaker-option" placeholder="Choice 5" v-model="this.toot.poll.options[5]"
-                        v-if="this.app.postArea.poll.option >= 5">
+                        v-if="app.postArea.poll.option >= 5">
                     <select class="postArea-pollmaker-select">
                         <option @click="this.app.postArea.poll.option = 2">2 choices</option>
                         <option @click="this.app.postArea.poll.option = 3">3 choices</option>
@@ -225,7 +225,7 @@ export default {
                     </select>
                 </div>
 
-                <div class="postArea-visibility" v-if="this.app.postArea.dropdown === 'visibility'">
+                <div class="postArea-visibility" v-if="app.postArea.dropdown === 'visibility'">
                     <div class="postArea-visibility-option" @click="setTootOption('visibility', 'public')"
                         v-bind:class="{ pAoption: this.toot.visibility === 'public' }">
                         <Icon name="globe" color="var(--txt1)" size="18px" /> <span>Global</span>
