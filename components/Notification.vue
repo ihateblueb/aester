@@ -73,7 +73,8 @@ export default {
         <div v-if="content.type === 'favourite'">
             <div class="notificationTop">
                 <Icon type="star" size="18px" color="var(--favorite)" fill=true />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> favorited your post</span>
+                <span><NuxtLink class="notificationMention" :to="'/@'+content
+                .account.acct">{{ content.account.display_name }}</NuxtLink> favorited your post</span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
