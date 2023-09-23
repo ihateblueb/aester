@@ -103,7 +103,7 @@ export default {
             let i = 0 // it cant be inside the return part for some reason
             return content.replace(emojiregex, function () {
                 let emoji = emojimatches[(i++)].toString()
-                return `<img :src="${emojis.find((element) => { console.log(element); if (element.shortcode === emoji) { return element.url; } })}" :alt="reaction.name" :title="reaction.name" class="emojiReaction"> `
+                return `<img src="${emojis.find((element) => { console.log(element.url); return element.url.toString() })}" alt="${emoji}" title="${emoji}" class="emojiReaction">`
                 // ${emoji.replaceAll(":", "")}
                 // <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction" v-if="reaction.url"> 
             })

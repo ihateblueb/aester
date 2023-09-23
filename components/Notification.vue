@@ -7,7 +7,7 @@ export default {
     data: () => ({
         content: [],
         token: "",
-        fr_notaccepted: true,
+        fr_show: true,
         ready: false,
         showCwContent: false
     }),
@@ -47,7 +47,7 @@ export default {
                 })
                 const acceptfollowrequest_response = await acceptfollowrequest.json()
 
-                this.fr_notaccepted = false
+                this.fr_show = false
 
                 console.log(acceptfollowrequest_response)
             } else if (response === 'deny') {
@@ -59,7 +59,7 @@ export default {
                 })
                 const denyfollowrequest_response = await denyfollowrequest.json()
 
-                this.fr_notaccepted = true
+                this.fr_show = false
 
                 console.log(denyfollowrequest_response)
             }
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <template>
-    <div class="post" v-if="ready && fr_notaccepted">
+    <div class="post" v-if="ready && fr_show">
         <div v-if="content.type === 'favourite'">
             <div class="notificationTop">
                 <Icon type="star" size="18px" color="var(--favorite)" fill=true />
@@ -145,11 +145,26 @@ export default {
                 <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> requested to follow you</span>
             </div>
             <div class="notificationStatus">
-                <a class="acceptFollowRequest" @click="followRequest('accept', content.account.id)">Accept</a><a class="denyFollowRequest" @click="followRequest('deny', content.account.id)">Deny</a>
+                <div class="notificationAttachmentContainer">
+                    <NuxtLink class="notificationAttachment acceptFollowRequests" @click="followRequest('accept', content.account.id)">Accept</NuxtLink>
+                    <NuxtLink class="notificationAttachment denyFollowRequests" @click="followRequest('deny', content.account.id)">Deny</NuxtLink>
+                </div>
+            </div>
+        </div>
+        <div v-if="content.type === 'update'">
+            <div class="notificationTop">
+                <Icon type="edit-3" size="18px" color="var(--accent1)" />
+                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> updated a toot</span>
+            </div>
+            <div class="notificationStatus">
+                <span v-html="content.status.content"></span>
+                <div class="notificationAttachmentContainer">
+                    <NuxtLink class="notificationAttachment" :to="'/toot/'+content.status.id">View Toot</NuxtLink>
+                </div>
             </div>
         </div>
         <div
-            v-if="content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status' && this.content.type !== 'poll' && this.content.type !== 'reaction' && this.content.type !== 'follow_request'">
+            v-if="content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status' && this.content.type !== 'poll' && this.content.type !== 'reaction' && this.content.type !== 'follow_request' && this.content.type !== 'update'">
             <div class="notificationTop">
                 <Icon type="alert-circle" size="18px" color="var(--bg-danger)" />
                 <span>{{ content }}</span>
