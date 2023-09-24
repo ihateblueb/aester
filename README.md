@@ -23,7 +23,8 @@ Here's an overview of what I want to do:
     - [ ] Firefish type (eg. "RE: \[link\]")
 - [ ] Support making quote posts
 - [ ] Premade themes and color schemes
- 
+- [ ] Have a command palatte-like thing
+  
 Here's what I'm currently doing:
 - Profile Rendering
 - Custom Emoji Rendering (total shitshow)

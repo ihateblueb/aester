@@ -5,6 +5,7 @@ import Icon from '../components/Icon.vue';
 <script>
 export default {
     data: () => ({
+        ready: false,
         instanceurl: "",
         instance: {}
     }),
@@ -46,22 +47,30 @@ export default {
 </script>
 
 <template>
-    <div class="mColumnHeader">
+    <div class="mColumnHeader" v-if="ready">
         <div class="mCH-left">
             <div class="mCH-text">
                 <p>About</p>
             </div>
         </div>
         <div class="mCH-buttons">
+            <NuxtLink to="/about" class="btn btn-header">
+                <Icon name="info" size="16px" />
+            </NuxtLink>
             <NuxtLink to="/" class="btn btn-header">
                 <Icon name="home" size="16px" />
             </NuxtLink>
         </div>
     </div>
     <div class="mColumnContent">
+        <!--
+
+
         <div class="mCC-accountHeaderContainer">
                 <img class="mCC-accountHeader" :src="this.instance.thumbnail.url">
             </div>
+
+        -->
         <div class="aboutContent">
             <h3>{{ instance.title }} <p class="aboutVersion">{{ instance.version }}</p>
             </h3>
@@ -69,49 +78,57 @@ export default {
                 <p class="aIC-description">{{ instance.description }}</p>
             </div>
             <div class="rules">
-                <h3>Instance Rules</h3>
+                <h4>Instance Rules</h4>
                 <div class="rule" v-for="rule in instance.rules">
                     <span class="ruleID">#{{ rule.id }}</span> {{ rule.text }}
                 </div>
             </div>
             <div class="contact">
-                <h3>Contact</h3>
-                <!--
-
+                <h4>Contact</h4>
                 <div class="contactInfo">
+                    <!--
+
                     <p>Admin Email <span>{{ instance.contact.email }}</span></p>
-
                     <p>Admin Account <span><NuxtLink :to="'/@'+instance.contact.account.acct">@{{ instance.contact.account.acct }}</NuxtLink></span></p>
-                </div>
 
-                -->
+                    -->
+                </div>
             </div>
         </div>
         <div class="aboutContent">
             <h3>Aster <p class="aboutVersion"></p>
             </h3>
             <div class="aboutInnerContent">
-                <p>GitHub <span><a href="https://github.com/ihateblueb/aster">ihateblueb/aster</a></span></p>
+                <p><a href="https://github.com/ihateblueb/aster">ihateblueb/aster</a> <span>branch@commit</span></p>
+                <div class="contact">
+                    <h4>Contact</h4>
+                    <p>Fediverse <span>
+                            <NuxtLink to="@ihateblueb@wetdry.world">@ihateblueb@wetdry.world</NuxtLink>
+                        </span></p>
+                    <p>Discord <span>@ihateblueb</span></p>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <style>
-.contactInfo p span, .aboutInnerContent p span {
-    color: var(--txt1)!important;
-}
-
-.contactInfo p, .aboutInnerContent p {
-    color: var(--txt2);
-}
-
-.contactInfo p:first-child {
-    margin-bottom: 15px;
-}
-
-.contactInfo {
+.aboutContent h4 {
     margin-top: 15px;
+}
+
+.contact h4 {
+    color: var(--txt1);
+}
+
+.contactInfo p span,
+.aboutInnerContent p span {
+    color: var(--txt1) !important;
+}
+
+.contactInfo p,
+.aboutInnerContent p {
+    color: var(--txt2);
 }
 
 .contact h3 {

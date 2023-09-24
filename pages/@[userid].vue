@@ -121,6 +121,9 @@ export default {
             </div>
         </div>
         <div class="mCH-buttons">
+            <NuxtLink to="/about" class="btn btn-header">
+                <Icon name="info" size="16px" />
+            </NuxtLink>
             <NuxtLink to="/" class="btn btn-header">
                 <Icon name="home" size="16px" />
             </NuxtLink>

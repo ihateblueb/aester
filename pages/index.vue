@@ -46,13 +46,17 @@ export default {
 
 <template>
     <div class="mColumnHeader">
-        <p class="noSelection">No Selection...</p>
-    </div>
-    <div class="mColumnContent">
-
+        <div class="mCH-left">
+            <div class="mCH-text">
+                <p class="noSelection">No Selection...</p>
+            </div>
+        </div>
+        <div class="mCH-buttons">
+            <NuxtLink to="/about" class="btn btn-header">
+                <Icon name="info" size="16px" />
+            </NuxtLink>
+        </div>
     </div>
 </template>
 
-<style>
-
-</style>
+<style></style>
