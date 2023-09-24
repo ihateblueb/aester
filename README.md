@@ -29,8 +29,8 @@ Here's what I'm currently doing:
 - Custom Emoji Rendering (total shitshow)
 
 Here's what is already working:
-- [ ] Home Timeline Rendering\*
-- [ ] Notification Timeline Rendering\*\*
+- Home Timeline Rendering\*
+- Notification Timeline Rendering\*\*
  
 \* Home Timeline Rendering: Media rendering isn't that great right now, and content warnings frequently break with boosted posts.  
 \*\* Notification Timeline Rendering: You can't scroll through notifications past the 30 fetched when you first load the page, there's no "unread" indicators or anything, it's just "Current Session" and "Previous Session" for now. 
