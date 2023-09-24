@@ -176,7 +176,7 @@ export default {
                         <button class="btn postArea-btn" @click="setPostAreaButton('visibility')"
                             v-bind:class="{ pAbtnselected: this.app.postArea.selectedBtn === 'visibility' }">
                             <Icon name="globe" size="18px" v-if="toot.visibility === 'public'" />
-                            <Icon name="lock" size="18px" v-if="toot.visibility === 'unlisted'" />
+                            <Icon name="unlock" size="18px" v-if="toot.visibility === 'unlisted'" />
                             <Icon name="users" size="18px" v-if="toot.visibility === 'private'" />
                             <Icon name="at-sign" size="18px" v-if="toot.visibility === 'direct'" />
                         </button>
@@ -236,7 +236,7 @@ export default {
                     </div>
                     <div class="postArea-visibility-option" @click="setTootOption('visibility', 'unlisted')"
                         v-bind:class="{ pAoption: this.toot.visibility === 'unlisted' }">
-                        <Icon name="lock" color="var(--txt1)" size="18px" /> <span>Unlisted</span>
+                        <Icon name="unlock" color="var(--txt1)" size="18px" /> <span>Unlisted</span>
                     </div>
                     <div class="postArea-visibility-option" @click="setTootOption('visibility', 'private')"
                         v-bind:class="{ pAoption: this.toot.visibility === 'private' }">
