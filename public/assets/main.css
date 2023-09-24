@@ -293,6 +293,7 @@ textarea {
     margin-right: 5px;
 
     color: var(--txt1);
+    font-family: var(--font1);
 }
 
 .postArea-btn-post {
@@ -859,4 +860,8 @@ blockquote::before {
 
 .mCH-text .betaTag {
     font-weight: 400;
+}
+
+.postArea-cw-btn {
+    height: 34px;
 }

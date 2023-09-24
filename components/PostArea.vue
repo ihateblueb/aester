@@ -180,8 +180,12 @@ export default {
                             <Icon name="users" size="18px" v-if="toot.visibility === 'private'" />
                             <Icon name="at-sign" size="18px" v-if="toot.visibility === 'direct'" />
                         </button>
-                        <button class="btn postArea-btn" @click="setPostAreaToggle('contentwarning')"
-                            v-bind:class="{ pAbtnselected: this.app.postArea.contentWarning === 'true' }">CW</button>
+                        <button class="btn postArea-btn postArea-cw-btn" @click="setPostAreaToggle('contentwarning')"
+                            v-bind:class="{ pAbtnselected: this.app.postArea.contentWarning === 'true' }">
+                            <span>
+                                CW
+                            </span>
+                        </button>
                     </div>
                     <button class="btn postArea-btn postArea-btn-post" @click="sendToot()"
                         v-bind:class="{ pAbtnpostdisabled: this.toot.content === '' }">Toot</button>
