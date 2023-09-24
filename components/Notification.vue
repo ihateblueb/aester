@@ -165,7 +165,7 @@ export default {
             </div>
         </div>
         <div
-            v-if="content.type !== 'reblog' && this.content.type !== 'favourite' && this.content.type !== 'follow' && this.content.type !== 'mention' && this.content.type !== 'status' && this.content.type !== 'poll' && this.content.type !== 'reaction' && this.content.type !== 'follow_request' && this.content.type !== 'update'">
+            v-if="content.type !== 'reblog' && content.type !== 'favourite' && content.type !== 'follow' && content.type !== 'mention' && content.type !== 'status' && content.type !== 'poll' && content.type !== 'reaction' && content.type !== 'follow_request' && content.type !== 'update'">
             <div class="notificationTop">
                 <Icon type="alert-circle" size="18px" color="var(--bg-danger)" />
                 <span>{{ content }}</span>
