@@ -10,8 +10,8 @@ Aster is BETA SOFTWARE. There's a lot of missing features, broken parts, and lac
 Here's what is already working is more so used when a huge part of the feature is done. Here's what I'm currently doing is used for when the start of the feature is mostly done, and more is coming along.
 
 Here's an overview of what I want to do:
-- [-] Support Glitch and Chuckya Mastodon instances
-    - [-] Support Chuckya reactions
+- [ ] Support Glitch and Chuckya Mastodon instances
+    - [ ] Support Chuckya reactions
         - [x] Reactions show on posts (both unicode and custom emojis, including non-local)
         - [x] Reaction notifications work
         - [ ] Add reactions to posts
@@ -29,9 +29,9 @@ Here's what I'm currently doing:
 - Custom Emoji Rendering (total shitshow)
 
 Here's what is already working:
-- [-] Home Timeline Rendering\*
-- [-] Notification Timeline Rendering\*\*
-- [-] Profile Rendering\*\*\*
+- [ ] Home Timeline Rendering\*
+- [ ] Notification Timeline Rendering\*\*
+- [ ] Profile Rendering\*\*\*
  
 \* Home Timeline Rendering: Media rendering isn't that great right now, and content warnings frequently break with boosted posts.  
 \*\* Notification Timeline Rendering: You can't scroll through notifications past the 30 fetched when you first load the page, there's no "unread" indicators or anything, it's just "Current Session" and "Previous Session" for now. 
