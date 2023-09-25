@@ -152,17 +152,22 @@ export default {
                 <img class="postArea-avatar" :src="user.avatar" :alt="user.displayname + 's avatar'">
             </div>
             <div class="postArea-names">
-                <NuxtLink :to="'/@'+user.username">
+                <NuxtLink :to="'/@' + user.username">
                     <p class="postArea-displayName">{{ user.displayname }}</p>
                     <p class="postArea-userName">@{{ user.username }}@{{ instanceurl }}</p>
                 </NuxtLink>
             </div>
         </div>
         <div>
+            <p class="mopAlert" v-if="toot.visibility === 'direct'">Mentioned People Only posts are still visible by
+                instance admins and moderators, and are not end to end encrypted. <a class="underline"
+                    :href="'https://' + instanceurl + '/privacy-policy'" target="_blank">Learn more</a>.</p>
+
             <input class="postArea-contentwarning" placeholder="Write your content warning here..."
                 v-if="app.postArea.contentWarning === 'true'" v-model="this.toot.spoiler_text">
             <textarea class="postArea-textArea" placeholder="What's up?" v-model="toot.content"></textarea>
             <div>
+
                 <div class="postArea-buttons">
                     <div class="postArea-buttons-left">
                         <button class="btn postArea-btn" @click="setPostAreaButton('attatchment')"

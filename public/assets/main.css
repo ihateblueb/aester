@@ -38,7 +38,7 @@ body.system-font {
 }
 
 body.reduced-motion {
-    transition: 0s!important;
+    transition: 0s !important;
 }
 
 body {
@@ -632,7 +632,8 @@ textarea {
     padding-left: 10px;
 }
 
-.post-infoIcons-lang, .post-infoIcons-time {
+.post-infoIcons-lang,
+.post-infoIcons-time {
     text-transform: uppercase;
     font-size: 12px;
     color: var(--txt2);
@@ -669,7 +670,7 @@ blockquote {
     display: flex;
     color: var(--txt2);
     margin: 10px;
-    margin-bottom: 0px!important;
+    margin-bottom: 0px !important;
 }
 
 blockquote::before {
@@ -786,7 +787,10 @@ blockquote::before {
 
 /* Links */
 
-.mCC-hb-fieldValue a, .mention, .post-content a, .mCC-hb-bio a {
+.mCC-hb-fieldValue a,
+.mention,
+.post-content a,
+.mCC-hb-bio a {
     color: var(--accent1);
     text-decoration: none;
 }
@@ -815,6 +819,7 @@ blockquote::before {
 .postReaction {
     display: flex;
 }
+
 .emojiReaction {
     height: 18px;
 }
@@ -846,7 +851,8 @@ blockquote::before {
     cursor: pointer;
 }
 
-.mCH-text, .mColumnHeader p {
+.mCH-text,
+.mColumnHeader p {
     font-weight: 600;
 }
 
@@ -856,4 +862,19 @@ blockquote::before {
 
 .postArea-cw-btn {
     height: 34px;
+}
+
+.mopAlert {
+    margin-bottom: 10px;
+    font-size: 14px;
+
+    color: var(--bg-warning);
+    background-color: var(--bg-warning-25);
+
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.underline {
+    text-decoration: underline;
 }
