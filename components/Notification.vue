@@ -9,7 +9,8 @@ export default {
         token: "",
         fr_show: true,
         ready: false,
-        showCwContent: false
+        showCwContent: false,
+        showcwtext: "Show More"
     }),
     props: {
         instanceurl: String,
@@ -63,6 +64,16 @@ export default {
 
                 console.log(denyfollowrequest_response)
             }
+        },
+
+        async toggleShowCW() {
+            if (this.showCwContent === true) {
+                this.showCwContent = false;
+                this.showcwtext = "Show More"
+            } else {
+                this.showCwContent = true;
+                this.showcwtext = "Show Less"
+            }
         }
     }
 }
@@ -73,8 +84,10 @@ export default {
         <div v-if="content.type === 'favourite'">
             <div class="notificationTop">
                 <Icon type="star" size="18px" color="var(--favorite)" fill=true />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content
-                .account.acct">{{ content.account.display_name }}</NuxtLink> favorited your post</span>
+                <span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content
+                        .account.acct">{{ content.account.display_name }}</NuxtLink> favorited your post
+                </span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
@@ -83,7 +96,11 @@ export default {
         <div v-if="content.type === 'reblog'">
             <div class="notificationTop">
                 <Icon type="repeat" size="18px" color="var(--reblog)" />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> boosted your post</span>
+                <span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
+                    }}
+                    </NuxtLink> boosted your post
+                </span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
@@ -92,25 +109,69 @@ export default {
         <div v-if="content.type === 'follow'">
             <div class="notificationTop">
                 <Icon type="user-plus" size="18px" color="var(--accent1)" />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> followed you</span>
+                <span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
+                    }}
+                    </NuxtLink> followed you
+                </span>
             </div>
         </div>
         <div v-if="content.type === 'mention'">
             <div class="notificationTop">
                 <Icon type="at-sign" size="18px" color="var(--accent1)" />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> mentioned you</span>
+                <span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
+                    }}
+                    </NuxtLink> mentioned you
+                </span>
             </div>
             <div class="notificationStatus">
-                <span v-html="content.status.content"></span>
+
+                <div v-if="content.status.spoiler_text">
+                    <div class="cwAlert">
+                        <Icon type="alert-triangle" size="18px" color="var(--bg-warning)" />
+                        <p class="cwText">{{ content.status.spoiler_text }}</p>
+                        <button class="cwButton" @click="toggleShowCW()">{{ showcwtext }}</button>
+                    </div>
+                    <div v-if="showCwContent">
+                        <span v-html="content.status.content"></span>
+                    </div>
+                </div>
+                <div v-if="!content.status.spoiler_text">
+                    <div>
+                        <span v-html="content.status.content"></span>
+                    </div>
+                </div>
+                
             </div>
         </div>
         <div v-if="content.type === 'status'">
             <div class="notificationTop">
                 <Icon type="message-circle" size="18px" color="var(--accent1)" />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> published a toot</span>
+                <span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
+                    }}
+                    </NuxtLink> published a toot
+                </span>
             </div>
             <div class="notificationStatus">
-                <span v-html="content.status.content"></span>
+
+                <div v-if="content.status.spoiler_text">
+                    <div class="cwAlert">
+                        <Icon type="alert-triangle" size="18px" color="var(--bg-warning)" />
+                        <p class="cwText">{{ content.status.spoiler_text }}</p>
+                        <button class="cwButton" @click="toggleShowCW()">{{ showcwtext }}</button>
+                    </div>
+                    <div v-if="showCwContent">
+                        <span v-html="content.status.content"></span>
+                    </div>
+                </div>
+                <div v-if="!content.status.spoiler_text">
+                    <div>
+                        <span v-html="content.status.content"></span>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div v-if="content.type === 'poll'">
@@ -125,14 +186,19 @@ export default {
         <div v-if="content.type === 'reaction'">
             <div class="notificationTop">
                 <Icon type="plus" size="18px" color="var(--accent1)" />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> reacted to your post</span>
+                <span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
+                    }}
+                    </NuxtLink> reacted to your post
+                </span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
                 <div v-for="reaction in content.status.reactions">
                     <div class="postReactionBar">
                         <div class="postReaction">
-                            <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction" v-if="reaction.url">
+                            <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction"
+                                v-if="reaction.url">
                             <span v-if="!reaction.url">{{ reaction.name }}</span>
                             <span class="postReactionCounter">{{ reaction.count }}</span>
                         </div>
@@ -143,24 +209,34 @@ export default {
         <div v-if="content.type === 'follow_request'">
             <div class="notificationTop">
                 <Icon type="user" size="18px" color="var(--accent1)" />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> requested to follow you</span>
+                <span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
+                    }}
+                    </NuxtLink> requested to follow you
+                </span>
             </div>
             <div class="notificationStatus">
                 <div class="notificationAttachmentContainer">
-                    <NuxtLink class="notificationAttachment acceptFollowRequests" @click="followRequest('accept', content.account.id)">Accept</NuxtLink>
-                    <NuxtLink class="notificationAttachment denyFollowRequests" @click="followRequest('deny', content.account.id)">Deny</NuxtLink>
+                    <NuxtLink class="notificationAttachment acceptFollowRequests"
+                        @click="followRequest('accept', content.account.id)">Accept</NuxtLink>
+                    <NuxtLink class="notificationAttachment denyFollowRequests"
+                        @click="followRequest('deny', content.account.id)">Deny</NuxtLink>
                 </div>
             </div>
         </div>
         <div v-if="content.type === 'update'">
             <div class="notificationTop">
                 <Icon type="edit-3" size="18px" color="var(--accent1)" />
-                <span><NuxtLink class="notificationMention" :to="'/@'+content.account.acct">{{ content.account.display_name }}</NuxtLink> updated a toot</span>
+                <span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
+                    }}
+                    </NuxtLink> updated a toot
+                </span>
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
                 <div class="notificationAttachmentContainer">
-                    <NuxtLink class="notificationAttachment" :to="'/toot/'+content.status.id">View Toot</NuxtLink>
+                    <NuxtLink class="notificationAttachment" :to="'/toot/' + content.status.id">View Toot</NuxtLink>
                 </div>
             </div>
         </div>
@@ -180,6 +256,7 @@ export default {
     cursor: pointer;
     margin-left: 5px;
 }
+
 .acceptFollowRequest {
     color: var(--bg-success);
     cursor: pointer;
@@ -203,5 +280,4 @@ export default {
 .notificationTop .vue-feather {
     min-width: 18px;
     margin-bottom: 0px;
-}
-</style>
+}</style>

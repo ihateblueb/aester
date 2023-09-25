@@ -616,14 +616,6 @@ textarea {
     color: var(--txt2);
 }
 
-.notificationSessionHeader {
-    background-color: var(--bg3);
-    border-bottom: 1px solid var(--bg1);
-    color: var(--txt1);
-
-    padding: 15px;
-}
-
 .post-infoIcon {
     padding-top: 2px;
     padding-bottom: 2px;

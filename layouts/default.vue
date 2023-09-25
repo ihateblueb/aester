@@ -384,6 +384,9 @@ export default {
                     </div>
                 </div>
                 <div class="mColumnContent">
+                    <div class="searchArea">
+
+                    </div>
                     <PostArea />
                 </div>
             </div>
@@ -416,14 +419,11 @@ export default {
                 <div class="mColumnContent" @scroll="onNotificationsScroll">
                     <div class="timelineNewPosts">
                         <div v-for="notification in this.timeline.notifications_new">
-                            <Notification :data="notification" :instanceurl="this.instanceurl" :token="this.token" />
+                            <Notification :data="notification" :instanceurl="this.instanceurl" />
                         </div>
                     </div>
-                    <div class="notificationSessionHeader">
-                        <span>Previous Sessions</span>
-                    </div>
                     <div v-for="notification in this.timeline.notifications">
-                        <Notification :data="notification" :instanceurl="this.instanceurl" :token="this.token" />
+                        <Notification :data="notification" :instanceurl="this.instanceurl" />
                     </div>
                 </div>
             </div>
