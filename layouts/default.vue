@@ -271,7 +271,7 @@ export default {
 
         async sendPush(msg) {
             if (!("Notification" in window)) {
-                alert("This browser does not support desktop notification");
+                alert("This browser does not support desktop notifications");
             } else if (Notification.permission === "granted") {
                 if (msg.type === 'favourite') {
                     const notification = new Notification(msg.account.display_name, { body: "@" + msg.account.acct + " favorited your post\n\"" + msg.status.content + "\"", icon: msg.account.avatar_static, });
@@ -291,7 +291,7 @@ export default {
             } else if (Notification.permission !== "denied") {
                 Notification.requestPermission().then((permission) => {
                     if (permission === "granted") {
-                        const notification = new Notification("Hi there!");
+                        const notification = new Notification("Aster will now send you notifications. You can disable these in settings.");
                     }
                 });
             }
@@ -340,7 +340,7 @@ export default {
             </div>
             <div>
                 <p class="iptlabel">Please type your instances URL</p>
-                <input type="text" placeholder="eg. wetdry.world" class="ipt instanceTextArea" v-model="instanceurl">
+                <input type="text" placeholder="yourinstance.social" class="ipt instanceTextArea" v-model="instanceurl">
                 <div class="instanceLoginButtons">
                     <button class="loginbtn" @click="startlogin()">Next</button>
                 </div>
