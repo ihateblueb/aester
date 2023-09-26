@@ -25,13 +25,25 @@ export default {
                     General
                 </NuxtLink>
                 <NuxtLink to="/settings/appearance" class="sidebarCategoryItem">
-                    Appearance
+                    Appearence
+                </NuxtLink>
+                <NuxtLink to="/settings/accessibility" class="sidebarCategoryItem">
+                    Accessibility
                 </NuxtLink>
             </div>
 
             <div class="sidebarCategory">
                 <NuxtLink to="/settings/account" class="sidebarCategoryItem">
                     Account
+                </NuxtLink>
+            </div>
+
+            <div class="sidebarCategory">
+                <NuxtLink to="/settings/debug" class="sidebarCategoryItem">
+                    Debug
+                </NuxtLink>
+                <NuxtLink to="/settings/experiments" class="sidebarCategoryItem">
+                    Experiments
                 </NuxtLink>
             </div>
 
