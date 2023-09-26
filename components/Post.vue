@@ -187,6 +187,18 @@ export default {
                                 <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
                                     v-if="attachment.type === 'image'">
                             </a>
+                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'video'">
+                                <video :alt="attachment.description" :title="attachment.description"
+                                    v-if="attachment.type === 'video'" controls>
+                                    <source :src="attachment.url">
+                                </video>
+                            </a>
+                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
+                                <video :alt="attachment.description" :title="attachment.description"
+                                    v-if="attachment.type === 'gifv'" loop autoplay>
+                                    <source :src="attachment.url">
+                                </video>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -198,6 +210,18 @@ export default {
                             <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
                                 <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
                                     v-if="attachment.type === 'image'">
+                            </a>
+                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'video'">
+                                <video :alt="attachment.description" :title="attachment.description"
+                                    v-if="attachment.type === 'video'" controls>
+                                    <source :src="attachment.url">
+                                </video>
+                            </a>
+                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
+                                <video :alt="attachment.description" :title="attachment.description"
+                                    v-if="attachment.type === 'gifv'" loop autoplay>
+                                    <source :src="attachment.url">
+                                </video>
                             </a>
                         </div>
                     </div>
@@ -221,6 +245,18 @@ export default {
                             <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
                                 v-if="attachment.type === 'image'">
                         </a>
+                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'video'">
+                            <video :alt="attachment.description" :title="attachment.description"
+                                v-if="attachment.type === 'video'" controls>
+                                <source :src="attachment.url">
+                            </video>
+                        </a>
+                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
+                                <video :alt="attachment.description" :title="attachment.description"
+                                    v-if="attachment.type === 'gifv'" loop autoplay>
+                                    <source :src="attachment.url">
+                                </video>
+                            </a>
                     </div>
                 </div>
             </div>
@@ -233,6 +269,19 @@ export default {
                             <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
                                 v-if="attachment.type === 'image'">
                         </a>
+
+                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'video'">
+                            <video :alt="attachment.description" :title="attachment.description"
+                                v-if="attachment.type === 'video'" controls>
+                                <source :src="attachment.url" :type="'video'">
+                            </video>
+                        </a>
+                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
+                                <video :alt="attachment.description" :title="attachment.description"
+                                    v-if="attachment.type === 'gifv'" loop autoplay>
+                                    <source :src="attachment.url">
+                                </video>
+                            </a>
                     </div>
                 </div>
             </div>
@@ -472,13 +521,26 @@ export default {
 }
 
 .post-mediaContainer {
-    box-sizing: border-box;
-    max-height: 200px;
+    max-height: 300px;
     min-height: 175px;
     display: flex;
-    background-color: #000000;
+    background-color: #000000; 
     justify-content: space-around;
     align-content: center;
+}
+
+.post-media {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.post-mediaContainer img {
+    aspect-ratio: 16 / 9;
+}
+
+video {
+    aspect-ratio: 16 / 9;
+    width: 100%;
 }
 
 .post-mediaContainerMargin {
