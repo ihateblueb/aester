@@ -141,7 +141,7 @@ export default {
                 <div class="post-infoIcon post-infoIcons-visibility">
                     <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'public'"
                         :title="this.content.reblog.visibility" />
-                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'unlisted'"
+                    <Icon name="unlock" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'unlisted'"
                         :title="this.content.reblog.visibility" />
                     <Icon name="users" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'private'"
                         :title="this.content.reblog.visibility" />
@@ -154,7 +154,7 @@ export default {
                 <div class="post-infoIcon post-infoIcons-visibility">
                     <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.visibility === 'public'"
                         :title="this.content.visibility" />
-                    <Icon name="lock" size="14px" color="var(--txt2)" v-if="content.visibility === 'unlisted'"
+                    <Icon name="unlock" size="14px" color="var(--txt2)" v-if="content.visibility === 'unlisted'"
                         :title="this.content.visibility" />
                     <Icon name="users" size="14px" color="var(--txt2)" v-if="content.visibility === 'private'"
                         :title="this.content.visibility" />
