@@ -7,6 +7,27 @@ definePageMeta({
 <template>
     <div class="settingsPage">
         <h2>Account</h2>
+        <div>
+            <div>
+                <!-- banner -->
+                <img>
+            </div>
+            <div>
+                <!-- pfp -->
+                <img>
+            </div>
+            <div>
+                <p>harper</p>
+                <p>@ihateblueb@wetdry.world</p>
+                <!-- lock icon -->
+            </div>
+        </div>
+        <div>
+            <!-- bio -->
+        </div>
+        <div>
+            <!-- fields -->
+        </div>
     </div>
 </template>
 

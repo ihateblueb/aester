@@ -251,12 +251,12 @@ export default {
                                 <source :src="attachment.url">
                             </video>
                         </a>
-                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
-                                <video :alt="attachment.description" :title="attachment.description"
-                                    v-if="attachment.type === 'gifv'" loop autoplay>
-                                    <source :src="attachment.url">
-                                </video>
-                            </a>
+                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
+                            <video :alt="attachment.description" :title="attachment.description"
+                                v-if="attachment.type === 'gifv'" loop autoplay>
+                                <source :src="attachment.url">
+                            </video>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -276,12 +276,12 @@ export default {
                                 <source :src="attachment.url" :type="'video'">
                             </video>
                         </a>
-                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
-                                <video :alt="attachment.description" :title="attachment.description"
-                                    v-if="attachment.type === 'gifv'" loop autoplay>
-                                    <source :src="attachment.url">
-                                </video>
-                            </a>
+                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
+                            <video :alt="attachment.description" :title="attachment.description"
+                                v-if="attachment.type === 'gifv'" loop autoplay>
+                                <source :src="attachment.url">
+                            </video>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -399,6 +399,27 @@ export default {
             <button class="postInteraction">
                 <Icon type="more-horizontal" size="18px" color="var(--txt2)" />
             </button>
+
+                <!--
+
+                    open in sidebar
+copy link to post
+-- if me
+Pin on profile
+Mute conversation
+--
+Edit
+Delete
+Delete & re-draft
+-- if not me
+mention 
+privately mention 
+--
+mute
+block
+report
+
+                -->
         </div>
     </div>
 </template>
@@ -473,7 +494,7 @@ export default {
     padding-left: 6px !important;
     padding-right: 6px !important;
 
-    border: 2px solid var(--bg4);
+    border: 1px solid var(--bg4);
     border-radius: 7px;
     background-color: var(--bg2);
 
@@ -524,7 +545,7 @@ export default {
     max-height: 300px;
     min-height: 175px;
     display: flex;
-    background-color: #000000; 
+    background-color: #000000;
     justify-content: space-around;
     align-content: center;
 }
