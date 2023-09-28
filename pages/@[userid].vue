@@ -166,8 +166,19 @@ export default {
                     </div>
                     <div class="mCC-hb-fields">
                         <div class="mCC-hb-field" v-for="field in user.fields">
-                            <span class="mCC-hb-fieldName" :title="field.name" v-html="replaceEmojis(field.name)"></span>
-                            <span class="mCC-hb-fieldValue" :title="field.value" v-html="replaceEmojis(field.value)"></span>
+                            <div v-if="field.verified_at">
+                                <span class="mCC-hb-fieldName verified" :title="field.name"
+                                    v-html="replaceEmojis(field.name)"></span>
+                                <span class="mCC-hb-fieldValue verified" :title="field.value"
+                                    v-html="replaceEmojis(field.value)"></span>
+                                <Icon class="verifiedIcon" type="check" size="14px" color="var(--bg-success)" />
+                            </div>
+                            <div v-if="!field.verified_at">
+                                <span class="mCC-hb-fieldName" :title="field.name"
+                                    v-html="replaceEmojis(field.name)"></span>
+                                <span class="mCC-hb-fieldValue" :title="field.value"
+                                    v-html="replaceEmojis(field.value)"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="mCC-stats">

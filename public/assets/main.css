@@ -46,7 +46,6 @@ body {
     margin: 0px;
     background-color: var(--bg1);
     overflow-y: hidden;
-    font-feature-settings: "tnum";
     line-height: 1.35;
 }
 
@@ -877,4 +876,15 @@ blockquote::before {
 
 .underline {
     text-decoration: underline;
+}
+
+.verifiedIcon {
+    margin-left: 5px;
+    background-color: var(--bg-success-25);
+    border-radius: 7px;
+    padding: 2px;
+}
+
+.mCC-hb-fieldValue.verified, .mCC-hb-fieldValue.verified a {
+    color: var(--bg-success);
 }
