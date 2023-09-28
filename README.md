@@ -36,5 +36,9 @@ Here's what is already working:
 \* Home Timeline Rendering: Media rendering isn't that great right now, and content warnings frequently break with boosted posts.  
 \*\* Notification Timeline Rendering: You can't scroll through notifications past the 30 fetched when you first load the page, there's no "unread" indicators or anything, it's just "Current Session" and "Previous Session" for now. 
 
+## Bugs
+
+I personally use the issues tab to keep track of problems, without the little number there I'll forget. That's why some of the things in there by me are kind of written poorly or make no sense. Feel free to add a comment or open your own if you find something that's broken.
+
 ## Other Stuff
 I've never really made something like this that's so complex, so it might be kind of a mess towards the start and on early versions. If you think something should be added or have a feature that you frequently see neglected by alternative clients, let me know on fedi (@ihateblueb@wetdry.world) or discord (@ihateblueb). I also post a lot about the development of this, so if you'd like to see that you can check it out there on fedi.
