@@ -390,7 +390,7 @@ export default {
 }
 
 .mCC-hT-right {
-    margin-top: 55px;
+    margin-top: 56px;
 }
 
 .mCC-button.bell {
