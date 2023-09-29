@@ -56,6 +56,7 @@ export default {
             console.log(getotheruserdetails_response)
 
             this.getRelationships()
+            this.loadToots()
         },
 
         async getRelationships() {
@@ -100,6 +101,47 @@ export default {
             }
         },
 
+        async loadToots() {
+            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/"+this.user.id+"/statuses?limit=40", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            let initialtoots_response = await initialtoots.json()
+
+            initialtoots_response.forEach((element) =>
+                this.timeline.profile.push(element) &&
+                console.log(element)
+            )
+
+            this.timeline.profile_last = initialtoots_response.at(-1).id;
+
+            this.startStream()
+        },
+        async loadMoreToots(id) {
+            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/"+this.user.id+"/statuses?max_id=" + id + "?limit=40", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            let moretoots_response = await moretoots.json()
+            
+            moretoots_response.forEach((element) =>
+                this.timeline.profile.push(element)
+            )
+
+            this.timeline.profile_last = moretoots_response.at(-1).id;
+        },
+
+        async onProfileScroll(e) {
+            const { scrollTop, offsetHeight, scrollHeight } = e.target
+            if ((scrollTop + offsetHeight) >= scrollHeight) {
+                this.loadMoreToots(this.timeline.profile_last)
+            }
+        },
+
         replaceEmojis(content) {
             let emojiregex = /:[^:\s]*(?:::[^:\s]*)*:/g;
             let emojimatches = Array.from(content.matchAll(emojiregex))
@@ -134,7 +176,7 @@ export default {
             </NuxtLink>
         </div>
     </div>
-    <div class="mColumnContent" v-if="ready">
+    <div class="mColumnContent" @scroll="onProfileScroll" v-if="ready">
         <div class="mCC-profileHeading">
             <div class="mCC-accountHeaderContainer">
                 <img class="mCC-accountHeader" :src="this.user.header">
@@ -203,10 +245,19 @@ export default {
             </div>
         </div>
         <div class="mCC-userPinned">
-            
+
         </div>
         <div class="mCC-userContent">
-
+            <div>
+                <div class="timelineNewPosts">
+                    <div v-for="toot in this.timeline.profile_new">
+                        <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                    </div>
+                </div>
+                <div v-for="toot in this.timeline.profile">
+                    <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                </div>
+            </div>
         </div>
     </div>
 </template>
