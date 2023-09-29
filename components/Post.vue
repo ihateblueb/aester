@@ -22,7 +22,7 @@ export default {
         this.ready = true
         this.timer = setInterval(() => {
             this.timer += 1; 
-        }, 1000)
+        }, 5000)
     },
     methods: {
         timeAgo(time) {
