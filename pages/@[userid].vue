@@ -256,13 +256,15 @@ export default {
 }
 
 .mCC-button.follow:hover {
-    border-color: var(--accent1);
-    background-color: var(--accent1);
+    border-color: transparent;
+    background-color: var(--accent1-50);
+    color: var(--accent1);
 }
 
 .mCC-button.unfollow:hover {
-    border-color: var(--bg-danger);
-    background-color: var(--bg-danger);
+    border-color: transparent;
+    background-color: var(--bg-danger-50);
+    color: var(--bg-danger);
 }
 
 
