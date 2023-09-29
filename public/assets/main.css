@@ -680,7 +680,7 @@ blockquote::before {
     font-size: 0px;
     margin-right: 10px;
     background-color: var(--bg4);
-    width: 7px;
+    width: 5px;
     border-radius: 10px;
 }
 
