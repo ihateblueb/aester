@@ -13,6 +13,7 @@ export default {
         user: {},
         relationships: {},
         timeline: {
+            pins: [],
             profile: [],
             profile_new: [],
             profile_last: "",
@@ -56,6 +57,7 @@ export default {
             console.log(getotheruserdetails_response)
 
             this.getRelationships()
+            this.loadPins()
             this.loadToots()
         },
 
@@ -101,8 +103,22 @@ export default {
             }
         },
 
+        async loadPins() {
+            let pinnedtoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses?pinned=true&limit=40", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + this.token,
+                }
+            })
+            let pinnedtoots_response = await pinnedtoots.json()
+
+            pinnedtoots_response.forEach((element) =>
+                this.timeline.pins.push(element) &&
+                console.log(element)
+            )
+        },
         async loadToots() {
-            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/"+this.user.id+"/statuses?limit=40", {
+            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses?limit=40", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
@@ -120,14 +136,14 @@ export default {
             this.startStream()
         },
         async loadMoreToots(id) {
-            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/"+this.user.id+"/statuses?max_id=" + id + "?limit=40", {
+            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses?max_id=" + id + "?limit=40", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
                 }
             })
             let moretoots_response = await moretoots.json()
-            
+
             moretoots_response.forEach((element) =>
                 this.timeline.profile.push(element)
             )
@@ -245,7 +261,9 @@ export default {
             </div>
         </div>
         <div class="mCC-userPinned">
-
+            <div v-for="toot in this.timeline.pins">
+                <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" pinned=true />
+            </div>
         </div>
         <div class="mCC-userContent">
             <div>

@@ -14,6 +14,7 @@ export default {
     props: {
         instanceurl: String,
         token: String,
+        pinned: Boolean,
         data: Object,
     },
     mounted() {
@@ -164,6 +165,10 @@ export default {
         <div class="boostAlertContainer" v-if="content.reblog">
             <Icon class="boostAlertIcon" name="repeat" size="14px" color="var(--txt2)" />
             <span class="boostAlert">{{ content.account.display_name }} boosted</span>
+        </div>
+        <div class="boostAlertContainer" v-if="pinned"> 
+            <Icon class="boostAlertIcon" name="corner-left-down" size="14px" color="var(--txt2)" />
+            <span class="boostAlert">Pinned toot</span>
         </div>
         <div class="post-userInfo">
             <div class="post-userAvatars">
