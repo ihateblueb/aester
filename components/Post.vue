@@ -9,6 +9,7 @@ export default {
         ready: false,
         showCwContent: false,
         showcwtext: "Show More",
+        timer: 0,
     }),
     props: {
         instanceurl: String,
@@ -18,8 +19,52 @@ export default {
     mounted() {
         this.content = this.data
         this.ready = true
+        this.timer = setInterval(() => {
+            this.timer += 1; 
+        }, 1000)
     },
     methods: {
+        timeAgo(time) {
+            switch (typeof time) {
+                case 'number':
+                    break;
+                case 'string':
+                    time = +new Date(time);
+                    break;
+                case 'object':
+                    if (time.constructor === Date) time = time.getTime();
+                    break;
+                default:
+                    time = +new Date();
+            }
+            var time_formats = [
+                [60, 's', 1],
+                [120, '1m', '1m'],
+                [3600, 'm', 60],
+                [7200, '1h', '1h'],
+                [86400, 'h', 3600],
+                [604800, 'd', 86400],
+                [2419200, 'w', 604800],
+                [29030400, 'm', 2419200],
+                [2903040000, 'y', 29030400],
+                [58060800000, 'c', 2903040000]
+            ];
+            var seconds = (+new Date() - time) / 1000,
+                list_choice = 1;
+            if (seconds == 0) {
+                return 'now'
+            }
+            var i = 0,
+                format;
+            while (format = time_formats[i++])
+                if (seconds < format[0]) {
+                    if (typeof format[2] == 'string')
+                        return format[list_choice];
+                    else
+                        return Math.floor(seconds / format[2]) + format[1];
+                }
+            return time;
+        },
         async postInteraction(type, id) {
             if (type === 'boost') {
                 let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/reblog", {
@@ -137,7 +182,6 @@ export default {
                     content.reblog.account.acct }}</NuxtLink>
             </div>
             <div class="post-infoIcons" v-if="content.reblog">
-                <div class="post-infoIcon post-infoIcons-lang">{{ content.reblog.language }}</div>
                 <div class="post-infoIcon post-infoIcons-visibility">
                     <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'public'"
                         :title="this.content.reblog.visibility" />
@@ -148,9 +192,12 @@ export default {
                     <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'direct'"
                         :title="this.content.reblog.visibility" />
                 </div>
+                <div class="post-infoIcon post-infoIcons-created"
+                    :title="new Date(content.reblog.created_at).toLocaleDateString()" :key="timer">
+                    {{ timeAgo(content.reblog.created_at) }}
+                </div>
             </div>
             <div class="post-infoIcons" v-if="!content.reblog">
-                <div class="post-infoIcon post-infoIcons-lang">{{ content.language }}</div>
                 <div class="post-infoIcon post-infoIcons-visibility">
                     <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.visibility === 'public'"
                         :title="this.content.visibility" />
@@ -160,6 +207,10 @@ export default {
                         :title="this.content.visibility" />
                     <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.visibility === 'direct'"
                         :title="this.content.visibility" />
+                </div>
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
+                    {{ timeAgo(content.created_at) }}
                 </div>
             </div>
         </div>
@@ -290,12 +341,14 @@ export default {
         <div class="postReactionBar" v-if="content.reactions.length > 0">
             <div v-for="reaction in content.reactions">
                 <div class="postReaction" @click="postInteraction('react', content.id)" v-if="!reaction.me">
-                    <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction" v-if="reaction.url">
+                    <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction"
+                        v-if="reaction.url">
                     <span v-if="!reaction.url">{{ reaction.name }}</span>
                     <span class="postReactionCounter">{{ reaction.count }}</span>
                 </div>
                 <div class="postReaction pRme" @click="postInteraction('unreact', content.id)" v-if="reaction.me">
-                    <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction" v-if="reaction.url">
+                    <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction"
+                        v-if="reaction.url">
                     <span v-if="!reaction.url">{{ reaction.name }}</span>
                     <span class="postReactionCounter">{{ reaction.count }}</span>
                 </div>
@@ -400,7 +453,7 @@ export default {
                 <Icon type="more-horizontal" size="18px" color="var(--txt2)" />
             </button>
 
-                <!--
+            <!--
 
                     open in sidebar
 copy link to post

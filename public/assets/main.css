@@ -616,8 +616,8 @@ textarea {
 }
 
 .post-infoIcon {
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     min-width: 14px;
 }
 
@@ -887,4 +887,9 @@ blockquote::before {
 
 .mCC-hb-fieldValue.verified, .mCC-hb-fieldValue.verified a {
     color: var(--bg-success);
+}
+
+.post-infoIcon.post-infoIcons-created {
+    font-size: 13px;
+    color: var(--txt2);
 }
