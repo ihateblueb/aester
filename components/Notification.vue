@@ -142,7 +142,7 @@ export default {
                         <span v-html="content.status.content"></span>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <div v-if="content.type === 'status'">
@@ -194,8 +194,8 @@ export default {
             </div>
             <div class="notificationStatus">
                 <span v-html="content.status.content"></span>
-                <div v-for="reaction in content.status.reactions">
-                    <div class="postReactionBar">
+                <div class="postReactionBar">
+                    <div v-for="reaction in content.status.reactions">
                         <div class="postReaction">
                             <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction"
                                 v-if="reaction.url">
@@ -280,4 +280,5 @@ export default {
 .notificationTop .vue-feather {
     min-width: 18px;
     margin-bottom: 0px;
-}</style>
+}
+</style>

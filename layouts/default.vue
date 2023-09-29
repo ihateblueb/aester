@@ -258,7 +258,7 @@ export default {
             let morenotifications_response = await morenotifications.json()
 
             morenotifications_response.forEach((element) =>
-                this.timeline.home.push(element)
+                this.timeline.notifications.push(element)
             )
 
             this.timeline.notifications_last = morenotifications_response.at(-1).id;
