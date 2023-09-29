@@ -140,7 +140,9 @@ export default {
                         <img class="mCC-accountPicture" :src="this.user.avatar">
                     </div>
                     <div class="mCC-hT-right">
-                        <button class="mCC-button edit" v-if="user.id === selfid">Edit Profile</button>
+                        <NuxtLink to="settings/account" v-if="user.id === selfid">
+                            <button class="mCC-button edit">Edit Profile</button>
+                        </NuxtLink>
                         <button class="mCC-button follow" v-if="user.id !== selfid && !relationships.following"
                             @click="userInteraction('follow')">Follow</button>
                         <button class="mCC-button unfollow" v-if="user.id !== selfid && relationships.following"
@@ -251,8 +253,9 @@ export default {
 
 
 .mCC-button.edit:hover {
-    border-color: var(--accent1);
-    background-color: var(--accent1);
+    border-color: transparent;
+    background-color: var(--accent1-50);
+    color: var(--accent1);
 }
 
 .mCC-button.follow:hover {
