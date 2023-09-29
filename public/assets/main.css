@@ -303,11 +303,13 @@ textarea {
     padding-right: 12px;
     margin-right: 0px;
 
-    background-color: var(--accent1);
-    border: 2px solid var(--accent1);
+    color: var(--accent1);
+    background-color: var(--accent1-25);
+    border: 2px solid transparent;
 }
 
 .postArea-btn-post.pAbtnpostdisabled {
+    color: var(--txt2);
     background-color: var(--bg3) !important;
     border: 2px solid var(--bg3) !important;
 }

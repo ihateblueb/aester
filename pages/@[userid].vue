@@ -11,7 +11,12 @@ export default {
         acct: "",
         selfid: "",
         user: {},
-        relationships: {}
+        relationships: {},
+        timeline: {
+            profile: [],
+            profile_new: [],
+            profile_last: "",
+        }
     }),
     mounted() {
         this.selfid = this.getLocalStorage("user_id")
@@ -198,7 +203,7 @@ export default {
             </div>
         </div>
         <div class="mCC-userPinned">
-
+            
         </div>
         <div class="mCC-userContent">
 
@@ -254,7 +259,7 @@ export default {
 
 .mCC-button.edit:hover {
     border-color: transparent;
-    background-color: var(--accent1-50);
+    background-color: var(--accent1-25);
     color: var(--accent1);
 }
 
