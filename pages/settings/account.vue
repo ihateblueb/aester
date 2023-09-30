@@ -47,6 +47,10 @@ export default {
 
             console.log(getotheruserdetails_response)
         },
+
+        async avatarInteraction() {
+            
+        }
     }
 }
 </script>

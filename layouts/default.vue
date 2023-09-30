@@ -85,7 +85,7 @@ export default {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
-                body: `client_name=Aster&redirect_uris=urn:ietf:wg:oauth:2.0:oob&scopes=read write push&website=https://as.blueb.me/`,
+                body: `client_name=Aster&redirect_uris=urn:ietf:wg:oauth:2.0:oob&scopes=read write push&website=https://github.com/ihateblueb/aster`,
             })
             const gettingapp_response = await gettingapp.json()
 
