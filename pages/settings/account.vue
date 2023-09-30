@@ -82,7 +82,7 @@ export default {
         </div>
         <div class="bio">
             <p class="label">Bio</p>
-            <div class="bioEditor" contenteditable="true" v-html="user.note"></div>
+            <textarea class="bioEditor">{{ user.note }}</textarea>
         </div>
         <div>
             <!-- fields -->
@@ -91,6 +91,15 @@ export default {
 </template>
 
 <style>
+.bioEditor {
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+    border: none;
+    color: var(--txt1);
+    
+    max-width: 520px!important;
+}
 .settingsPage .avatarLabel {
     margin-top: 15px;
     margin-bottom: 5px;
