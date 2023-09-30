@@ -289,11 +289,6 @@ export default {
                             <span v-if="!reaction.url">{{ reaction.name }}</span>
                             <span class="postReactionCounter">{{ reaction.count }}</span>
                         </div>
-                        <!-- time since notification, you know. -->
-                        <div class="post-infoIcon post-infoIcons-created"
-                            :title="new Date(content.created_at).toLocaleDateString()" :key="timer">
-                            {{ timeAgo(content.created_at) }}
-                        </div>
                     </div>
                 </div>
             </div>
