@@ -191,12 +191,12 @@ export default {
     <div class="mColumnContent" @scroll="onProfileScroll" v-if="ready">
         <div class="mCC-profileHeading">
             <div class="mCC-accountHeaderContainer">
-                <img class="mCC-accountHeader" :src="this.user.header">
+                <img class="mCC-accountHeader" :src="user.header">
             </div>
             <div>
                 <div class="mCC-headerTop">
                     <div class="mCC-hT-left">
-                        <img class="mCC-accountPicture" :src="this.user.avatar">
+                        <img class="mCC-accountPicture" :src="user.avatar">
                     </div>
                     <div class="mCC-hT-right">
                         <NuxtLink to="settings/profile" v-if="user.id === selfid">
@@ -257,19 +257,19 @@ export default {
             </div>
         </div>
         <div class="mCC-userPinned">
-            <div v-for="toot in this.timeline.pins">
-                <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" pinned=true />
+            <div v-for="toot in timeline.pins">
+                <Post :data="toot" :instanceurl="instanceurl" :token="token" pinned=true />
             </div>
         </div>
         <div class="mCC-userContent">
             <div>
                 <div class="timelineNewPosts">
-                    <div v-for="toot in this.timeline.profile_new">
-                        <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                    <div v-for="toot in timeline.profile_new">
+                        <Post :data="toot" :instanceurl="instanceurl" :token="token" />
                     </div>
                 </div>
-                <div v-for="toot in this.timeline.profile">
-                    <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                <div v-for="toot in timeline.profile">
+                    <Post :data="toot" :instanceurl="instanceurl" :token="token" />
                 </div>
             </div>
         </div>

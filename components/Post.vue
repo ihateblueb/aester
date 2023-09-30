@@ -190,13 +190,13 @@ export default {
             <div class="post-infoIcons" v-if="content.reblog">
                 <div class="post-infoIcon post-infoIcons-visibility">
                     <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'public'"
-                        :title="this.content.reblog.visibility" />
+                        :title="content.reblog.visibility" />
                     <Icon name="unlock" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'unlisted'"
-                        :title="this.content.reblog.visibility" />
+                        :title="content.reblog.visibility" />
                     <Icon name="users" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'private'"
-                        :title="this.content.reblog.visibility" />
+                        :title="content.reblog.visibility" />
                     <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'direct'"
-                        :title="this.content.reblog.visibility" />
+                        :title="content.reblog.visibility" />
                 </div>
                 <div class="post-infoIcon post-infoIcons-created"
                     :title="new Date(content.reblog.created_at).toLocaleDateString()" :key="timer">
@@ -206,13 +206,13 @@ export default {
             <div class="post-infoIcons" v-if="!content.reblog">
                 <div class="post-infoIcon post-infoIcons-visibility">
                     <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.visibility === 'public'"
-                        :title="this.content.visibility" />
+                        :title="content.visibility" />
                     <Icon name="unlock" size="14px" color="var(--txt2)" v-if="content.visibility === 'unlisted'"
-                        :title="this.content.visibility" />
+                        :title="content.visibility" />
                     <Icon name="users" size="14px" color="var(--txt2)" v-if="content.visibility === 'private'"
-                        :title="this.content.visibility" />
+                        :title="content.visibility" />
                     <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.visibility === 'direct'"
-                        :title="this.content.visibility" />
+                        :title="content.visibility" />
                 </div>
                 <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
@@ -236,7 +236,7 @@ export default {
                 </NuxtLink>
 
                 <div class="post-attachments"
-                    v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4 }"
+                    v-bind:class="{ multiple: content.media_attachments.length > 1, three: content.media_attachments.length === 3, four: content.media_attachments.length === 4 }"
                     v-if="!content.reblog">
                     <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
                         <div class="post-media">
@@ -260,7 +260,7 @@ export default {
                     </div>
                 </div>
                 <div class="post-attachments"
-                    v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4 }"
+                    v-bind:class="{ multiple: content.reblog.media_attachments.length > 1, three: content.reblog.media_attachments.length === 3, four: content.reblog.media_attachments.length === 4 }"
                     v-if="content.reblog">
                     <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
                         <div class="post-media">
@@ -294,7 +294,7 @@ export default {
             </NuxtLink>
 
             <div class="post-attachments"
-                v-bind:class="{ multiple: this.content.media_attachments.length > 1, three: this.content.media_attachments.length === 3, four: this.content.media_attachments.length === 4, visible: this.content.media_attachments.length > 0, }"
+                v-bind:class="{ multiple: content.media_attachments.length > 1, three: content.media_attachments.length === 3, four: content.media_attachments.length === 4, visible: content.media_attachments.length > 0, }"
                 v-if="!content.reblog">
                 <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
                     <div class="post-media">
@@ -318,7 +318,7 @@ export default {
                 </div>
             </div>
             <div class="post-attachments"
-                v-bind:class="{ multiple: this.content.reblog.media_attachments.length > 1, three: this.content.reblog.media_attachments.length === 3, four: this.content.reblog.media_attachments.length === 4, visible: this.content.reblog.media_attachments.length > 0 }"
+                v-bind:class="{ multiple: content.reblog.media_attachments.length > 1, three: content.reblog.media_attachments.length === 3, four: content.reblog.media_attachments.length === 4, visible: content.reblog.media_attachments.length > 0 }"
                 v-if="content.reblog">
                 <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
                     <div class="post-media">

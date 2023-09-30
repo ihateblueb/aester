@@ -64,7 +64,7 @@ export default {
     </div>
     <div class="mColumnContent" v-if="ready">
         <div class="mCC-accountHeaderContainer">
-                <img class="mCC-accountHeader" :src="this.instance.thumbnail.url">
+                <img class="mCC-accountHeader" :src="instance.thumbnail.url">
             </div>
 
         <div class="aboutContent">

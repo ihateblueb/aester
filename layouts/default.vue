@@ -419,12 +419,12 @@ export default {
                 </div>
                 <div class="mColumnContent" @scroll="onHomeScroll">
                     <div class="timelineNewPosts">
-                        <div v-for="toot in this.timeline.home_new">
-                            <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                        <div v-for="toot in timeline.home_new">
+                            <Post :data="toot" :instanceurl="instanceurl" :token="token" />
                         </div>
                     </div>
-                    <div v-for="toot in this.timeline.home">
-                        <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+                    <div v-for="toot in timeline.home">
+                        <Post :data="toot" :instanceurl="instanceurl" :token="token" />
                     </div>
                 </div>
             </div>
@@ -434,12 +434,12 @@ export default {
                 </div>
                 <div class="mColumnContent" @scroll="onNotificationsScroll">
                     <div class="timelineNewPosts">
-                        <div v-for="notification in this.timeline.notifications_new">
-                            <Notification :data="notification" :instanceurl="this.instanceurl" />
+                        <div v-for="notification in timeline.notifications_new">
+                            <Notification :data="notification" :instanceurl="instanceurl" />
                         </div>
                     </div>
-                    <div v-for="notification in this.timeline.notifications">
-                        <Notification :data="notification" :instanceurl="this.instanceurl" />
+                    <div v-for="notification in timeline.notifications">
+                        <Notification :data="notification" :instanceurl="instanceurl" />
                     </div>
                 </div>
             </div>

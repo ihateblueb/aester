@@ -114,12 +114,12 @@ export default {
     </div>
     <div class="mColumnContent" @scroll="onFederatedScroll">
         <div class="timelineNewPosts">
-            <div v-for="toot in this.timeline.federated_new">
-                <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+            <div v-for="toot in timeline.federated_new">
+                <Post :data="toot" :instanceurl="instanceurl" :token="token" />
             </div>
         </div>
-        <div v-for="toot in this.timeline.federated">
-            <Post :data="toot" :instanceurl="this.instanceurl" :token="this.token" />
+        <div v-for="toot in timeline.federated">
+            <Post :data="toot" :instanceurl="instanceurl" :token="token" />
         </div>
     </div>
 </template>
