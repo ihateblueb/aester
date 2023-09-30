@@ -325,11 +325,10 @@ export default {
                             <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
                                 v-if="attachment.type === 'image'">
                         </a>
-
                         <a :href="attachment.url" target="_blank" v-if="attachment.type === 'video'">
                             <video :alt="attachment.description" :title="attachment.description"
                                 v-if="attachment.type === 'video'" controls>
-                                <source :src="attachment.url" :type="'video'">
+                                <source :src="attachment.url">
                             </video>
                         </a>
                         <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">

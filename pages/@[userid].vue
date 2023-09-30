@@ -132,8 +132,6 @@ export default {
             )
 
             this.timeline.profile_last = initialtoots_response.at(-1).id;
-
-            this.startStream()
         },
         async loadMoreToots(id) {
             let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses?max_id=" + id + "?limit=40", {
