@@ -167,11 +167,25 @@ export default {
                     </div>
                 </div>
             </div>
+            <p class="attribution">
+                <p>Catppuccin color themes are open source <a href="https://github.com/catppuccin/catppuccin#-palette">on GitHub</a>, some colors may have been modified to better fit the UI.</p>
+            </p>
         </div>
     </div>
 </template>
 
 <style>
+.attribution {
+    margin-top: 15px;
+
+    color: var(--txt2);
+    font-size: 14px;
+}
+
+.attribution a {
+    text-decoration: underline;
+}
+
 .ctheme {
     margin-top: 10px;
 }
