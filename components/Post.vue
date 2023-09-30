@@ -21,7 +21,7 @@ export default {
         this.content = this.data
         this.ready = true
         this.timer = setInterval(() => {
-            this.timer += 1; 
+            this.timer += 1;
         }, 5000)
     },
     methods: {
@@ -66,6 +66,7 @@ export default {
                 }
             return time;
         },
+
         async postInteraction(type, id) {
             if (type === 'boost') {
                 let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/reblog", {
@@ -166,7 +167,7 @@ export default {
             <Icon class="boostAlertIcon" name="repeat" size="14px" color="var(--txt2)" />
             <span class="boostAlert">{{ content.account.display_name }} boosted</span>
         </div>
-        <div class="boostAlertContainer" v-if="pinned"> 
+        <div class="boostAlertContainer" v-if="pinned">
             <Icon class="boostAlertIcon" name="pin" size="14px" color="var(--txt2)" />
             <span class="boostAlert">Pinned toot</span>
         </div>

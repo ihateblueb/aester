@@ -903,3 +903,9 @@ blockquote::before {
 .post-infoIcons-created {
     font-feature-settings: "tnum";
 }
+
+.customEmoji {
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+}
