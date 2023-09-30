@@ -898,3 +898,7 @@ blockquote::before {
     font-size: 13px;
     color: var(--txt2);
 }
+
+.settingsMain {
+    overflow-y: scroll;
+}
