@@ -30,6 +30,7 @@ export default {
 
             // remove previous
             document.body.classList.remove("cs_purpura")
+            document.body.classList.remove("cs_purpura-light")
             document.body.classList.remove("cs_catppuccin-latte")
             document.body.classList.remove("cs_catppuccin-frappe")
             document.body.classList.remove("cs_catppuccin-macchiato")

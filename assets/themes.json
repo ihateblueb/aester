@@ -1,0 +1,41 @@
+{
+    "base": {
+        "default": {
+            "id": "default",
+            "name": "Default",
+            "tags": ["default"]
+        }
+    },
+    "color": {
+        "purpura": {
+            "id": "purpura",
+            "name": "Purpura",
+            "tags": ["dark", "purple", "default"]
+        },
+        "catppuccin-latte": {
+            "id": "catppuccin-latte",
+            "name": "Catppuccin Latte",
+            "tags": ["catppuccin", "light", "orange"]
+        },
+        "catppuccin-frappe": {
+            "id": "catppuccin-frappe",
+            "name": "Catppuccin Frappe",
+            "tags": ["catppuccin", "dark", "pink"]
+        },
+        "catppuccin-macchiato": {
+            "id": "catppuccin-macchiato",
+            "name": "Catppuccin Macchiato",
+            "tags": ["catppuccin", "dark", "blue"]
+        },
+        "catppuccin-mocha": {
+            "id": "catppuccin-mocha",
+            "name": "Catppuccin Mocha",
+            "tags": ["catppuccin", "dark", "blue"]
+        },
+        "rosepine": {
+            "id": "rosepine",
+            "name": "Rosé Pine",
+            "tags": ["rosepine", "dark", "purple", "pink"]
+        }
+    }
+}

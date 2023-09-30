@@ -2,6 +2,7 @@
 import Icon from '../components/Icon.vue';
 import Post from '../components/Post.vue';
 import PostArea from '../components/PostArea.vue';
+import themes from 'assets/themes.json';
 </script>
 
 <script>
@@ -53,7 +54,7 @@ export default {
     }),
     mounted() {
         this.setColorTheme()
-        
+
         if (this.getLocalStorage("loginstate") === 'done') {
             this.loginstate = this.getLocalStorage("loginstate");
             this.afterLogin()
@@ -81,17 +82,16 @@ export default {
             }
         },
 
-        async setColorTheme() {
+        setColorTheme() {
             this.colortheme = this.getLocalStorage("ui_colortheme")
 
-            console.log("[Aster Startup] Color Theme: " + this.colortheme)
-
             // remove previous
-            document.body.classList.remove("cs_purpura")
-            document.body.classList.remove("cs_catppuccin-latte")
-            document.body.classList.remove("cs_catppuccin-frappe")
-            document.body.classList.remove("cs_catppuccin-macchiato")
-            document.body.classList.remove("cs_catppuccin-mocha")
+            let themearray = Object.entries(JSON.parse(JSON.stringify(themes.color)))
+
+            themearray.forEach((element) => {
+                console.log(element[1].id)
+                document.body.classList.remove("cs_" + element[1].id)
+            })
 
             document.body.classList.add(this.colortheme)
         },

@@ -1,3 +1,8 @@
+<script setup>
+import ColorSwatches from '../../components/ColorSwatches.vue';
+import themes from 'assets/themes.json';
+</script>
+
 <script>
 definePageMeta({
     layout: "settings",
@@ -35,15 +40,16 @@ export default {
             }
         },
 
-        async setColorTheme() {
+        setColorTheme() {
             this.colortheme = this.getLocalStorage("ui_colortheme")
 
             // remove previous
-            document.body.classList.remove("cs_purpura")
-            document.body.classList.remove("cs_catppuccin-latte")
-            document.body.classList.remove("cs_catppuccin-frappe")
-            document.body.classList.remove("cs_catppuccin-macchiato")
-            document.body.classList.remove("cs_catppuccin-mocha")
+            let themearray = Object.entries(JSON.parse(JSON.stringify(themes.color)))
+
+            themearray.forEach((element) => {
+                console.log(element[1].id)
+                document.body.classList.remove("cs_" + element[1].id)
+            })
 
             document.body.classList.add(this.colortheme)
         },
@@ -61,116 +67,43 @@ export default {
         <div class="settingContainer">
             <h3>Color Theme</h3>
             <div>
-                <div class="ctheme">
-                    <input type="radio" id="cs_purpura" name="cs" value="cs_purpura"
-                        @click="colorThemeAction('set', 'cs_purpura')" :checked="colortheme === 'cs_purpura'">
-                    <label for="cs_purpura"> Purpura (default)</label>
-                    <div class="themePreview">
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--bg1);"></div>
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--bg2);"></div>
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--bg3);"></div>
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--bg4);"></div>
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--txt1);"></div>
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--txt2);"></div>
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--accent1);"></div>
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--bg-danger);"></div>
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--bg-warning);"></div>
-                        <div class="cs_purpura themePreviewSwatch" style="background-color: var(--bg-success);"></div>
-                    </div>
-                </div>
-                <div class="ctheme">
-                    <input type="radio" id="cs_catppuccin-latte" name="cs" value="cs_catppuccin-latte"
-                        @click="colorThemeAction('set', 'cs_catppuccin-latte')" :checked="colortheme === 'cs_catppuccin-latte'">
-                    <label for="cs_catppuccin-latte"> Catppuccin Latte</label>
-                    <div class="themePreview">
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--bg1);"></div>
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--bg2);"></div>
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--bg3);"></div>
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--bg4);"></div>
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--txt1);"></div>
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--txt2);"></div>
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--accent1);"></div>
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--bg-danger);">
+                <div class="ctheme" v-for="theme in themes.color">
+                    <input type="radio" :id="'cs_' + theme.id" name="cs" :value="'cs_' + theme.id"
+                        @click="colorThemeAction('set', 'cs_' + theme.id)" :checked="colortheme === 'cs_' + theme.id">
+                    <label :for="'cs_' + theme.id">{{ theme.name }}
+                        <div class="cthemeTags">
+                            <span class="cthemeTag" v-for="tag in theme.tags">{{ tag }}</span>
                         </div>
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--bg-warning);">
-                        </div>
-                        <div class="cs_catppuccin-latte themePreviewSwatch" style="background-color: var(--bg-success);">
-                        </div>
-                    </div>
-                </div>
-                <div class="ctheme">
-                    <input type="radio" id="cs_catppuccin-frappe" name="cs" value="cs_catppuccin-frappe"
-                        @click="colorThemeAction('set', 'cs_catppuccin-frappe')" :checked="colortheme === 'cs_catppuccin-frappe'">
-                    <label for="cs_catppuccin-frappe"> Catppuccin Frappe</label>
-                    <div class="themePreview">
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--bg1);"></div>
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--bg2);"></div>
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--bg3);"></div>
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--bg4);"></div>
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--txt1);"></div>
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--txt2);"></div>
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--accent1);">
-                        </div>
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--bg-danger);">
-                        </div>
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--bg-warning);">
-                        </div>
-                        <div class="cs_catppuccin-frappe themePreviewSwatch" style="background-color: var(--bg-success);">
-                        </div>
-                    </div>
-                </div>
-                <div class="ctheme">
-                    <input type="radio" id="cs_catppuccin-macchiato" name="cs" value="cs_catppuccin-macchiato"
-                        @click="colorThemeAction('set', 'cs_catppuccin-macchiato')" :checked="colortheme === 'cs_catppuccin-macchiato'">
-                    <label for="cs_catppuccin-macchiato"> Catppuccin Macchiato</label>
-                    <div class="themePreview">
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch" style="background-color: var(--bg1);"></div>
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch" style="background-color: var(--bg2);"></div>
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch" style="background-color: var(--bg3);"></div>
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch" style="background-color: var(--bg4);"></div>
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch" style="background-color: var(--txt1);">
-                        </div>
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch" style="background-color: var(--txt2);">
-                        </div>
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch" style="background-color: var(--accent1);">
-                        </div>
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch" style="background-color: var(--bg-danger);">
-                        </div>
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch"
-                            style="background-color: var(--bg-warning);"></div>
-                        <div class="cs_catppuccin-macchiato themePreviewSwatch"
-                            style="background-color: var(--bg-success);"></div>
-                    </div>
-                </div>
-                <div class="ctheme">
-                    <input type="radio" id="cs_catppuccin-mocha" name="cs" value="cs_catppuccin-mocha"
-                        @click="colorThemeAction('set', 'cs_catppuccin-mocha')" :checked="colortheme === 'cs_catppuccin-mocha'">
-                    <label for="cs_catppuccin-mocha"> Catppuccin Mocha</label>
-                    <div class="themePreview">
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--bg1);"></div>
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--bg2);"></div>
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--bg3);"></div>
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--bg4);"></div>
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--txt1);"></div>
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--txt2);"></div>
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--accent1);"></div>
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--bg-danger);">
-                        </div>
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--bg-warning);">
-                        </div>
-                        <div class="cs_catppuccin-mocha themePreviewSwatch" style="background-color: var(--bg-success);">
-                        </div>
-                    </div>
+                    </label>
+                    <ColorSwatches :theme="'cs_' + theme.id" />
                 </div>
             </div>
             <p class="attribution">
-                <p>Catppuccin color themes are open source <a href="https://github.com/catppuccin/catppuccin#-palette">on GitHub</a>, some colors may have been modified to better fit the UI.</p>
+            <p>Catppuccin color themes are open source <a href="https://github.com/catppuccin/catppuccin#-palette">on
+                    GitHub</a>, some colors may have been modified to better fit the UI.</p>
             </p>
         </div>
     </div>
 </template>
 
 <style>
+.cthemeTag:first-child {
+    margin-left: 5px;
+}
+
+.cthemeTag {
+    color: var(--txt2);
+    background-color: var(--bg3);
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 100px;
+    margin-right: 5px;
+}
+
+.cthemeTags {
+    display: inline-flex;
+}
+
 .attribution {
     margin-top: 15px;
 
@@ -196,6 +129,10 @@ export default {
 
     margin-top: 5px;
     margin-bottom: 5px;
+
+    border-radius: 5px;
+    border: 1px solid #ffffff25;
+    margin-right: 5px;
 }
 
 .settingsPage .settingContainer {
@@ -210,4 +147,5 @@ export default {
 
 .settingsPage h2 {
     margin-bottom: 20px;
-}</style>
+}
+</style>

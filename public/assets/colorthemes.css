@@ -125,9 +125,9 @@
     --reblog: #a6da95;
     --bookmark: #ee99a0;
 
-    --accent1: #c6a0f6;
-    --accent1-25: #c6a0f625;
-    --accent1-50: #c6a0f650;
+    --accent1: #8aadf4;
+    --accent1-25: #8aadf425;
+    --accent1-50: #8aadf450;
 }
 
 .cs_catppuccin-mocha {
@@ -161,4 +161,37 @@
     --accent1: #89b4fa;
     --accent1-25: #89b4fa25;
     --accent1-50: #89b4fa50;
+}
+
+.cs_rosepine {
+    --bg1: #09080e;
+    --bg2: #191724;
+    --bg3: #1f1d2e;
+    --bg4: #26233a;
+
+    --bg1-50: #08080e50;
+    --bg2-50: #18182550;
+    --bg3-50: #1e1e2e50;
+    --bg4-50: #31324450;
+
+    --txt1: #e0def4;
+    --txt2: #908caa;
+
+    --bg-danger: #eb6f92;
+    --bg-danger-50: #eb6f9250;
+    --bg-danger-25: #eb6f9225;
+    --bg-warning: #f6c177;
+    --bg-warning-50: #f6c17750;
+    --bg-warning-25: #f6c17725;
+    --bg-success: #9ccfd8;
+    --bg-success-50: #9ccfd850;
+    --bg-success-25: #9ccfd825;
+
+    --favorite: #f6c177;
+    --reblog: #9ccfd8;
+    --bookmark: #ebbcba;
+
+    --accent1: #eb6f92;
+    --accent1-25: #eb6f9225;
+    --accent1-50: #eb6f9250;
 }
