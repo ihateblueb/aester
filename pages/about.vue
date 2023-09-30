@@ -12,8 +12,6 @@ export default {
     mounted() {
         this.instanceurl = this.getLocalStorage("instanceurl")
         this.getInstance()
-
-        this.ready = true
     },
     methods: {
         setLocalStorage(key, value) {
@@ -41,13 +39,15 @@ export default {
             this.instance = getinstance_response
 
             console.log(getinstance_response)
+
+            this.ready = true
         },
     }
 }
 </script>
 
 <template>
-    <div class="mColumnHeader" v-if="ready">
+    <div class="mColumnHeader">
         <div class="mCH-left">
             <div class="mCH-text">
                 <p>About</p>
@@ -62,15 +62,11 @@ export default {
             </NuxtLink>
         </div>
     </div>
-    <div class="mColumnContent">
-        <!--
-
-
+    <div class="mColumnContent" v-if="ready">
         <div class="mCC-accountHeaderContainer">
                 <img class="mCC-accountHeader" :src="this.instance.thumbnail.url">
             </div>
 
-        -->
         <div class="aboutContent">
             <h3>{{ instance.title }} <p class="aboutVersion">{{ instance.version }}</p>
             </h3>
@@ -86,12 +82,8 @@ export default {
             <div class="contact">
                 <h4>Contact</h4>
                 <div class="contactInfo">
-                    <!--
-
                     <p>Admin Email <span>{{ instance.contact.email }}</span></p>
                     <p>Admin Account <span><NuxtLink :to="'/@'+instance.contact.account.acct">@{{ instance.contact.account.acct }}</NuxtLink></span></p>
-
-                    -->
                 </div>
             </div>
         </div>
@@ -169,4 +161,5 @@ export default {
 .aIC-description {
     margin-top: 15px;
     color: var(--txt1);
-}</style>
+}
+</style>
