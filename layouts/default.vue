@@ -52,6 +52,8 @@ export default {
         }
     }),
     mounted() {
+        this.setColorTheme()
+        
         if (this.getLocalStorage("loginstate") === 'done') {
             this.loginstate = this.getLocalStorage("loginstate");
             this.afterLogin()
@@ -77,6 +79,19 @@ export default {
             if (process.client) {
                 return localStorage.removeItem(key);
             }
+        },
+
+        async setColorTheme() {
+            this.colortheme = this.getLocalStorage("ui_colortheme")
+
+            // remove previous
+            document.body.classList.remove("cs_purpura")
+            document.body.classList.remove("cs_catppuccin-latte")
+            document.body.classList.remove("cs_catppuccin-frappe")
+            document.body.classList.remove("cs_catppuccin-macchiato")
+            document.body.classList.remove("cs_catppuccin-mocha")
+
+            document.body.classList.add(this.colortheme)
         },
 
         async createApplication() {

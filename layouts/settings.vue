@@ -4,8 +4,39 @@ export default {
         href: ""
     }),
     mounted() {
+        this.setColorTheme()
         const route = useRoute()
         this.href = route.href
+    },
+    methods: {
+        setLocalStorage(key, value) {
+            if (process.client) {
+                localStorage.setItem(key, value)
+            }
+        },
+        getLocalStorage(key) {
+            if (process.client) {
+                return localStorage.getItem(key);
+            }
+        },
+        removeLocalStorage(key) {
+            if (process.client) {
+                return localStorage.removeItem(key);
+            }
+        },
+        
+        async setColorTheme() {
+            this.colortheme = this.getLocalStorage("ui_colortheme")
+
+            // remove previous
+            document.body.classList.remove("cs_purpura")
+            document.body.classList.remove("cs_catppuccin-latte")
+            document.body.classList.remove("cs_catppuccin-frappe")
+            document.body.classList.remove("cs_catppuccin-macchiato")
+            document.body.classList.remove("cs_catppuccin-mocha")
+
+            document.body.classList.add(this.colortheme)
+        },
     }
 }
 </script>
