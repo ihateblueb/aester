@@ -130,16 +130,13 @@ export default {
         <div>
             <div class="notificationTop" v-if="content.type === 'favourite'">
                 <Icon type="star" size="18px" color="var(--favorite)" fill=true />
-                <div>
-                    <span>
-                        <NuxtLink class="notificationMention" :to="'/@' + content
-                            .account.acct">{{ content.account.display_name }}</NuxtLink> favorited your post
-                    </span>
-                    <!-- time since notification, you know. -->
-                    <div class="post-infoIcon post-infoIcons-created"
-                        :title="new Date(content.created_at).toLocaleDateString()" :key="timer">
-                        {{ timeAgo(content.created_at) }}
-                    </div>
+                <span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content
+                        .account.acct">{{ content.account.display_name }}</NuxtLink> favorited your post
+                </span> 
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
+                    {{ timeAgo(content.created_at) }}
                 </div>
             </div>
             <div class="notificationTop" v-if="content.type === 'reblog'">
@@ -148,8 +145,7 @@ export default {
                     <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
                     }}
                     </NuxtLink> boosted your post
-                </span>
-                <!-- time since notification, you know. -->
+                </span> 
                 <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
@@ -161,8 +157,7 @@ export default {
                     <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
                     }}
                     </NuxtLink> followed you
-                </span>
-                <!-- time since notification, you know. -->
+                </span> 
                 <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
@@ -174,8 +169,7 @@ export default {
                     <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
                     }}
                     </NuxtLink> mentioned you
-                </span>
-                <!-- time since notification, you know. -->
+                </span> 
                 <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
@@ -187,8 +181,7 @@ export default {
                     <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
                     }}
                     </NuxtLink> published a toot
-                </span>
-                <!-- time since notification, you know. -->
+                </span> 
                 <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
@@ -196,8 +189,7 @@ export default {
             </div>
             <div class="notificationTop" v-if="content.type === 'poll'">
                 <Icon type="bar-chart-2" size="18px" color="var(--accent1)" />
-                <span>A poll you're involved in has ended</span>
-                <!-- time since notification, you know. -->
+                <span>A poll you're involved in has ended</span> 
                 <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
@@ -209,8 +201,7 @@ export default {
                     <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
                     }}
                     </NuxtLink> reacted to your post
-                </span>
-                <!-- time since notification, you know. -->
+                </span> 
                 <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
@@ -222,8 +213,7 @@ export default {
                     <NuxtLink class="notificationMention" :to="'/@' + content.account.acct">{{ content.account.display_name
                     }}
                     </NuxtLink> requested to follow you
-                </span>
-                <!-- time since notification, you know. -->
+                </span> 
                 <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
@@ -236,7 +226,6 @@ export default {
                     }}
                     </NuxtLink> edited a toot
                 </span>
-                <!-- time since notification, you know. -->
                 <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
@@ -244,7 +233,7 @@ export default {
             </div>
 
 
-            <!-- Bottom Half -->
+            <!---->
 
 
             <div class="notificationStatus" v-if="content.type === 'favourite'">
@@ -335,6 +324,15 @@ export default {
 </template>
 
 <style>
+
+.notificationTop {
+    display: flex;
+}
+
+.notificationTop span {
+    flex-grow: 3;
+}
+
 .denyFollowRequest {
     color: var(--bg-danger);
     cursor: pointer;
