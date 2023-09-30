@@ -1,6 +1,6 @@
 <script>
 definePageMeta({
-  layout: "settings",
+    layout: "settings",
 });
 
 export default {
@@ -49,7 +49,7 @@ export default {
         },
 
         async avatarInteraction() {
-            
+
         }
     }
 }
@@ -57,8 +57,22 @@ export default {
 
 <template>
     <div class="settingsPage" v-if="ready">
-        <h2>Account</h2>
+        <h2>Profile</h2>
         <div>
+            <div>
+                <p class="avatarLabel">Banner</p>
+                <div class="avatarArea">
+                    <img class="banner" :src="user.header" alt="Your banner">
+                    <div class="avatarActions">
+                        <button>
+                            Remove
+                        </button>
+                        <button>
+                            Upload
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div>
                 <p class="avatarLabel">Avatar</p>
                 <div class="avatarArea">
@@ -91,30 +105,40 @@ export default {
 </template>
 
 <style>
+.banner {
+    height: 125px;
+    border-radius: 10px;
+}
+
 .bioEditor {
     width: 100%;
     height: 200px;
     box-sizing: border-box;
     border: none;
     color: var(--txt1);
-    
-    max-width: 520px!important;
+
+    max-width: 520px !important;
 }
+
 .settingsPage .avatarLabel {
     margin-top: 15px;
     margin-bottom: 5px;
     color: var(--txt2);
     font-size: 14px;
 }
-.settingsPage .names p, .settingsPage .bio p.label {
+
+.settingsPage .names p,
+.settingsPage .bio p.label {
     margin-top: 15px;
     margin-bottom: -10px;
     color: var(--txt2);
     font-size: 14px;
 }
+
 .settingsPage .names input:focus {
     outline: none;
 }
+
 .settingsPage .names input {
     border: none;
     margin-top: 15px;
@@ -126,6 +150,7 @@ export default {
 
     max-width: 500px;
 }
+
 .settingsPage .names {
     margin-top: 15px;
     display: flex;
@@ -136,6 +161,7 @@ export default {
     display: flex;
     align-items: center;
 }
+
 .avatarActions button {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -152,6 +178,7 @@ export default {
 
     min-width: 80px;
 }
+
 .avatarActions {
     margin-left: 10px;
     display: flex;
@@ -161,6 +188,7 @@ export default {
 .settingsPage .bioEditor:focus {
     outline: none;
 }
+
 .settingsPage .bioEditor {
     margin-top: 15px;
     background-color: var(--bg3);
@@ -168,7 +196,7 @@ export default {
     border-radius: 7px;
     resize: vertical;
     font-size: 16px;
-    
+
     max-width: 500px;
 }
 
@@ -185,5 +213,4 @@ export default {
 
 .settingsPage h2 {
     margin-bottom: 20px;
-}
-</style>
+}</style>

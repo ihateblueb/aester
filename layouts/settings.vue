@@ -33,8 +33,8 @@ export default {
             </div>
 
             <div class="sidebarCategory">
-                <NuxtLink to="/settings/account" class="sidebarCategoryItem">
-                    Account
+                <NuxtLink to="/settings/profile" class="sidebarCategoryItem">
+                    Profile
                 </NuxtLink>
             </div>
 

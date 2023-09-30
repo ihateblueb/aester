@@ -201,7 +201,7 @@ export default {
                         <img class="mCC-accountPicture" :src="this.user.avatar">
                     </div>
                     <div class="mCC-hT-right">
-                        <NuxtLink to="settings/account" v-if="user.id === selfid">
+                        <NuxtLink to="settings/profile" v-if="user.id === selfid">
                             <button class="mCC-button edit">Edit Profile</button>
                         </NuxtLink>
                         <button class="mCC-button follow" v-if="user.id !== selfid && !relationships.following"
