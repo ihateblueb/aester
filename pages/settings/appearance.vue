@@ -79,7 +79,12 @@ export default {
             </div>
             <p class="attribution">
             <p>Catppuccin color themes are open source <a href="https://github.com/catppuccin/catppuccin#-palette">on
-                    GitHub</a>, some colors may have been modified to better fit the UI.</p>
+                    GitHub</a>.</p>
+            <p>Rosé Pine color themes are also available <a href="https://rosepinetheme.com/palette/">from
+                    their website</a>.</p>
+            <p style="margin-top: 5px;">
+                Some colors have been modified to better fit the UI.
+            </p>
             </p>
         </div>
     </div>
