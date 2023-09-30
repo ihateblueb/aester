@@ -47,7 +47,6 @@ export default {
             let themearray = Object.entries(JSON.parse(JSON.stringify(themes.color)))
 
             themearray.forEach((element) => {
-                console.log(element[1].id)
                 document.body.classList.remove("cs_" + element[1].id)
             })
 
