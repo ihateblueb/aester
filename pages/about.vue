@@ -82,8 +82,8 @@ export default {
             <div class="contact">
                 <h4>Contact</h4>
                 <div class="contactInfo">
+                    <p>Admin Account <span><NuxtLink :to="'/@'+instance.contact.account.acct">@{{ instance.contact.account.acct+'@'+instanceurl }}</NuxtLink></span></p>
                     <p>Admin Email <span>{{ instance.contact.email }}</span></p>
-                    <p>Admin Account <span><NuxtLink :to="'/@'+instance.contact.account.acct">@{{ instance.contact.account.acct }}</NuxtLink></span></p>
                 </div>
             </div>
         </div>
