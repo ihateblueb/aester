@@ -908,6 +908,7 @@ blockquote::before {
     height: 16px;
     display: inline-flex;
     align-items: center;
+    margin-bottom: -2px;
 }
 
 .notificationTop .post-infoIcon.post-infoIcons-created {
