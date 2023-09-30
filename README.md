@@ -23,18 +23,19 @@ Here's an overview of what I want to do:
     - [ ] Firefish type (eg. "RE: \[link\]")
 - [ ] Support making quote posts
 - [ ] Premade themes and color schemes
-- [ ] Have a command palatte-like thing
   
 Here's what I'm currently doing:
 - Profile Rendering
+- Settings Pages (specifically base and color themes)
 - Custom Emoji Rendering (total shitshow)
 
 Here's what is already working:
 - Home Timeline Rendering\*
+- Profile Rendering\*
 - Notification Timeline Rendering\*\*
  
-\* Home Timeline Rendering: Media rendering isn't that great right now, and content warnings frequently break with boosted posts.  
-\*\* Notification Timeline Rendering: You can't scroll through notifications past the 30 fetched when you first load the page, there's no "unread" indicators or anything, it's just "Current Session" and "Previous Session" for now. 
+\* Home Timeline & Profile Rendering: Media rendering isn't that great right now, and content warnings frequently break with boosted posts.  
+\*\* Notification Timeline Rendering: There's no "unread" indicators.
 
 ## Bugs
 

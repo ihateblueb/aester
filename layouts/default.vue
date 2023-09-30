@@ -84,6 +84,8 @@ export default {
         async setColorTheme() {
             this.colortheme = this.getLocalStorage("ui_colortheme")
 
+            console.log("[Aster Startup] Color Theme: " + this.colortheme)
+
             // remove previous
             document.body.classList.remove("cs_purpura")
             document.body.classList.remove("cs_catppuccin-latte")
