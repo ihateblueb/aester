@@ -709,10 +709,6 @@ blockquote::before {
     align-items: center;
 }
 
-.mCH-instanceSpecific-wetdryworld {
-    margin-bottom: -5px;
-}
-
 .settingHeading:first-child {
     margin-top: 10px;
 }

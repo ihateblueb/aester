@@ -167,7 +167,7 @@ export default {
             <span class="boostAlert">{{ content.account.display_name }} boosted</span>
         </div>
         <div class="boostAlertContainer" v-if="pinned"> 
-            <Icon class="boostAlertIcon" name="corner-left-down" size="14px" color="var(--txt2)" />
+            <Icon class="boostAlertIcon" name="pin" size="14px" color="var(--txt2)" />
             <span class="boostAlert">Pinned toot</span>
         </div>
         <div class="post-userInfo">
