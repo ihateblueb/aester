@@ -80,7 +80,7 @@ export default {
                 </div>
                 <div class="ctheme">
                     <input type="radio" id="cs_catppuccin-latte" name="cs" value="cs_catppuccin-latte"
-                        @input="this.colortheme === 'cs_catppuccin-latte'"
+                        @input="this.getLocalStorage('ui_colortheme') === 'cs_catppuccin-latte'"
                         @click="colorThemeAction('set', 'cs_catppuccin-latte')">
                     <label for="cs_catppuccin-latte"> Catppuccin Latte</label>
                     <div class="themePreview">
@@ -101,7 +101,7 @@ export default {
                 </div>
                 <div class="ctheme">
                     <input type="radio" id="cs_catppuccin-frappe" name="cs" value="cs_catppuccin-frappe"
-                        @input="this.colortheme === 'cs_catppuccin-frappe'"
+                        @input="this.getLocalStorage('ui_colortheme') === 'cs_catppuccin-frappe'"
                         @click="colorThemeAction('set', 'cs_catppuccin-frappe')">
                     <label for="cs_catppuccin-frappe"> Catppuccin Frappe</label>
                     <div class="themePreview">
@@ -123,7 +123,7 @@ export default {
                 </div>
                 <div class="ctheme">
                     <input type="radio" id="cs_catppuccin-macchiato" name="cs" value="cs_catppuccin-macchiato"
-                        @input="this.colortheme === 'cs_catppuccin-macchiato'"
+                        @input="this.getLocalStorage('ui_colortheme') === 'cs_catppuccin-macchiato'"
                         @click="colorThemeAction('set', 'cs_catppuccin-macchiato')">
                     <label for="cs_catppuccin-macchiato"> Catppuccin Macchiato</label>
                     <div class="themePreview">
@@ -147,7 +147,7 @@ export default {
                 </div>
                 <div class="ctheme">
                     <input type="radio" id="cs_catppuccin-mocha" name="cs" value="cs_catppuccin-mocha"
-                        @input="this.colortheme === 'cs_catppuccin-mocha'"
+                        @input="this.getLocalStorage('ui_colortheme') === 'cs_catppuccin-mocha'"
                         @click="colorThemeAction('set', 'cs_catppuccin-mocha')">
                     <label for="cs_catppuccin-mocha"> Catppuccin Mocha</label>
                     <div class="themePreview">
