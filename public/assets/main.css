@@ -915,3 +915,11 @@ blockquote::before {
     min-width: 50px;
     text-align: right;
 }
+
+.cthemeTag {
+    font-size: 14px;
+}
+
+label {
+    margin-left: 5px;
+}

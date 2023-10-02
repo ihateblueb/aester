@@ -40,6 +40,6 @@ Here's what is already working:
 ## Bugs
 
 I personally use the issues tab to keep track of problems, without the little number there I'll forget. That's why some of the things in there by me are kind of written poorly or make no sense. Feel free to add a comment or open your own if you find something that's broken.
-
+ 
 ## Other Stuff
 I've never really made something like this that's so complex, so it might be kind of a mess towards the start and on early versions. If you think something should be added or have a feature that you frequently see neglected by alternative clients, let me know on fedi (@ihateblueb@wetdry.world) or discord (@ihateblueb). I also post a lot about the development of this, so if you'd like to see that you can check it out there on fedi.

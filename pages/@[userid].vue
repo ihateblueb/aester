@@ -156,13 +156,13 @@ export default {
             }
         },
 
-        replaceEmojis(content) {
+        replaceEmojis(input) {
             let emojiregex = /:[^:\s]*(?:::[^:\s]*)*:/g;
-            let emojimatches = Array.from(content.matchAll(emojiregex))
+            let emojimatches = Array.from(input.matchAll(emojiregex))
             console.log(emojimatches)
             const emojis = this.user.emojis
             let i = 0 // it cant be inside the return part for some reason
-            return content.replace(emojiregex, function () {
+            return input.replace(emojiregex, function () {
                 let emoji = emojimatches[(i++)].toString()
                 return `<img src="${emojis.find((element) => emoji === ':'+element.shortcode+':').url}" alt="${emoji}" title="${emoji}" class="customEmoji">`
             })
