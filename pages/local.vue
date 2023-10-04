@@ -74,7 +74,7 @@ export default {
         },
 
         async startStream() {
-            let userSocket = new WebSocket("wss://" + this.instanceurl + "/api/v1/streaming/public/local?access_token=" + this.token);
+            let userSocket = new WebSocket("wss://" + this.instanceurl + "/api/v1/streaming/public/?stream=public:local&access_token=" + this.token);
 
             userSocket.onmessage = (event) => {
                 let msg = JSON.parse(event.data)
