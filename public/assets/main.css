@@ -234,6 +234,7 @@ textarea {
 
 .postArea-avatar {
     height: 45px;
+    width: 45px;
     margin-right: 10px;
 
     border-radius: 7px;
