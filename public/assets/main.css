@@ -237,6 +237,8 @@ textarea {
     width: 45px;
     margin-right: 10px;
 
+    background-color: var(--bg3);
+
     border-radius: 7px;
 }
 
@@ -923,4 +925,8 @@ blockquote::before {
 
 label {
     margin-left: 5px;
+}
+
+.mCH-left .vue-feather {
+    margin-right: 5px;
 }

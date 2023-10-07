@@ -198,7 +198,7 @@ export default {
         },
 
         async loadToots() {
-            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home?limit=40", {
+            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
@@ -216,7 +216,7 @@ export default {
             this.startStream()
         },
         async loadMoreToots(id) {
-            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home?max_id=" + id + "?limit=40", {
+            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home?max_id=" + id, {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
@@ -233,7 +233,7 @@ export default {
         async resetFeed() {
             this.timeline.home = [];
             this.timeline.home_new = [];
-            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home?limit=40", {
+            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/home", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
@@ -249,7 +249,7 @@ export default {
             this.timeline.home_last = initialtoots_response.at(-1).id;
         },
         async loadNotifications() {
-            let initialnotifications = await fetch("https://" + this.instanceurl + "/api/v1/notifications?limit=30", {
+            let initialnotifications = await fetch("https://" + this.instanceurl + "/api/v1/notifications", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
@@ -265,7 +265,7 @@ export default {
             this.timeline.notifications_last = initialnotifications_response.at(-1).id;
         },
         async loadMoreNotifications(id) {
-            let morenotifications = await fetch("https://" + this.instanceurl + "/api/v1/notifications?max_id=" + id + "?limit=30", {
+            let morenotifications = await fetch("https://" + this.instanceurl + "/api/v1/notifications?max_id=" + id, {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,

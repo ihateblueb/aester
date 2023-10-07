@@ -40,7 +40,7 @@ export default {
         },
 
         async loadToots() {
-            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/public?local=true&limit=40", {
+            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/public?local=true", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
@@ -58,7 +58,7 @@ export default {
             this.startStream()
         },
         async loadMoreToots(id) {
-            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/public?local=true&max_id=" + id + "&limit=40", {
+            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/timelines/public?local=true&max_id=" + id, {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,

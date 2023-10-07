@@ -104,7 +104,7 @@ export default {
         },
 
         async loadPins() {
-            let pinnedtoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses?pinned=true&limit=40", {
+            let pinnedtoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses?pinned=true", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
@@ -118,7 +118,7 @@ export default {
             )
         },
         async loadToots() {
-            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses?limit=40", {
+            let initialtoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
@@ -134,7 +134,7 @@ export default {
             this.timeline.profile_last = initialtoots_response.at(-1).id;
         },
         async loadMoreToots(id) {
-            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses?max_id=" + id + "?limit=40", {
+            let moretoots = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/statuses?max_id=" + id, {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + this.token,
@@ -246,12 +246,12 @@ export default {
                         <div class="stat">
                             <strong>{{ user.statuses_count }}</strong><br>posts
                         </div>
-                        <div class="stat">
+                        <NuxtLink class="stat" :to="'@'+user.acct+'/following'">
                             <strong>{{ user.following_count }}</strong><br>following
-                        </div>
-                        <div class="stat">
+                        </NuxtLink>
+                        <NuxtLink class="stat" :to="'@'+user.acct+'/followers'">
                             <strong>{{ user.followers_count }}</strong><br>followers
-                        </div>
+                        </NuxtLink>
                     </div>
                 </div>
             </div>

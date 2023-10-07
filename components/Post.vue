@@ -52,7 +52,7 @@ export default {
             ];
             var seconds = (+new Date() - time) / 1000,
                 list_choice = 1;
-            if (seconds == 0) {
+            if (seconds === 0) {
                 return 'now'
             }
             var i = 0,
@@ -583,6 +583,7 @@ report
 
 .post-userAvatar {
     height: 45px;
+    width: 45px;
     border-radius: 7px;
 }
 
