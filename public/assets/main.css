@@ -930,3 +930,7 @@ label {
 .mCH-left .vue-feather {
     margin-right: 5px;
 }
+
+blockquote:not(:last-child) {
+    margin-bottom: 10px!important;
+}
