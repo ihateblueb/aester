@@ -934,3 +934,7 @@ label {
 blockquote:not(:last-child) {
     margin-bottom: 10px!important;
 }
+
+.emojiReaction {
+    max-width: 200px;
+}

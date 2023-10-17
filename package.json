@@ -1,10 +1,10 @@
 {
-  "name": "nuxt-app",
+  "name": "aster",
   "private": true,
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "prod": "npm i && nuxt build && PORT=9080 node .output/server/index.mjs",
+    "prod": "bun i && nuxt build && PORT=9080 bun run .output/server/index.mjs",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"

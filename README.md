@@ -2,6 +2,8 @@
 Aster is a Mastodon client (and should work seamlessly with GoToSocial. In the future I also want to support Firefish) that I'm working on. I intend on focusing on features that typical clients lack (such as Glitch and Chuckya specific feature support) and making the general look and layout different from the vanilla or glitch default clients. 
  
 Aster is BETA SOFTWARE. There's a lot of missing features, broken parts, and lacking accessibility. It's unusable as a main client as of right now. There's a lot of cases in where content warnings aren't shown, sensitive media isnt censored, or certain interactions breaking. 
+
+Aster requires the bun runtime (https://bun.sh/). 
  
 **Current Production Status: WORKS KINDA!**
 

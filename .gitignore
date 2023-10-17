@@ -25,3 +25,6 @@ logs
 
 # Visual Studio Code
 .vscode
+
+# bun
+bun.lockb
