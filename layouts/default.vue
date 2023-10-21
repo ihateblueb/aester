@@ -9,8 +9,9 @@ import themes from 'assets/themes.json'
 export default {
     data: () => ({
         code: '', // gets ignored after login
-        loginstate: 'start',
+        loginstate: 'start', // options: start, almost, done
         instanceurl: '',
+        asterurl: '',
         token: '',
         user: {
             displayname: 'none',
@@ -54,6 +55,11 @@ export default {
     }),
     mounted() {
         this.setColorTheme()
+        this.asterurl = window.location.origin
+
+        if (this.$route.query.continueAuth) {
+            this.endlogin()
+        }
 
         if (this.getLocalStorage('loginstate') === 'done') {
             this.loginstate = this.getLocalStorage('loginstate')
@@ -105,7 +111,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `client_name=Aster&redirect_uris=urn:ietf:wg:oauth:2.0:oob&scopes=read write push&website=https://github.com/ihateblueb/aster`,
+                    body: `client_name=Aster&redirect_uris=${this.asterurl}/validate&scopes=read write push&website=https://github.com/ihateblueb/aster`,
                 }
             )
             const gettingapp_response = await gettingapp.json()
@@ -125,20 +131,25 @@ export default {
             this.removeLocalStorage('user_id')
 
             await this.createApplication()
-
             window.open(
                 'https://' +
                     this.instanceurl +
                     '/oauth/authorize?client_id=' +
                     this.app.clientid +
-                    '&scope=read+write+push&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code',
-                '_blank'
+                    `&scope=read+write+push&redirect_uri=${this.asterurl}/validate&response_type=code`,
+                '_self'
             )
-            this.loginstate = 'almost'
             this.setLocalStorage('instanceurl', this.instanceurl)
         },
 
         async endlogin() {
+            this.instanceurl = this.getLocalStorage('instanceurl')
+            this.code = this.getLocalStorage('validator_code')
+
+            this.app.clientid = this.getLocalStorage('app_clientid')
+            this.app.secret = this.getLocalStorage('app_secret')
+            this.app.vapidkey = this.getLocalStorage('app_vapidkey')
+
             const gettingtoken = await fetch(
                 'https://' + this.instanceurl + '/oauth/token',
                 {
@@ -146,7 +157,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `client_id=${this.app.clientid}&client_secret=${this.app.secret}&redirect_uri=urn:ietf:wg:oauth:2.0:oob&grant_type=authorization_code&code=${this.code}&scope=read write push`,
+                    body: `client_id=${this.app.clientid}&client_secret=${this.app.secret}&redirect_uri=${this.asterurl}/validate&grant_type=authorization_code&code=${this.code}&scope=read write push`,
                 }
             )
             const gettingtoken_response = await gettingtoken.json()
@@ -161,10 +172,11 @@ export default {
             this.afterLogin()
 
             this.setLocalStorage('loginstate', 'done')
+            this.removeLocalStorage('validator_code')
 
             setTimeout(function () {
                 this.loginstate = 'done'
-                location.reload()
+                window.open('/', '_self')
             }, 500)
         },
 
@@ -498,27 +510,6 @@ export default {
                 />
                 <div class="instanceLoginButtons">
                     <button class="loginbtn" @click="startlogin()">Next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="loginArea" v-if="loginstate === 'almost'">
-        <div class="loginContainer">
-            <div class="loginContainerHeader">
-                <h1 class="loginContainerHeading">Welcome to Aster</h1>
-            </div>
-            <div>
-                <p class="iptlabel">Please type in your Authorization Code</p>
-                <input
-                    type="text"
-                    placeholder="Authorization Code"
-                    class="ipt instanceTextArea"
-                    v-model="code"
-                    @keypress.enter="endlogin()"
-                />
-                <div class="instanceLoginButtons">
-                    <button class="loginbtn" @click="logout()">Cancel</button>
-                    <button class="loginbtn" @click="endlogin()">Finish</button>
                 </div>
             </div>
         </div>
