@@ -1,20 +1,20 @@
 <script setup>
-import Icon from '../components/Icon.vue';
+import Icon from '../components/Icon.vue'
 </script>
 
 <script>
 export default {
     data: () => ({
         ready: false,
-        token: "",
-        instanceurl: "",
-        acct: "",
+        token: '',
+        instanceurl: '',
+        acct: '',
         user: {},
-        users: []
+        users: [],
     }),
     mounted() {
-        this.instanceurl = this.getLocalStorage("instanceurl")
-        this.token = this.getLocalStorage("token")
+        this.instanceurl = this.getLocalStorage('instanceurl')
+        this.token = this.getLocalStorage('token')
         this.acct = this.$route.params.userid
 
         this.getOtherUserDetails()
@@ -29,20 +29,27 @@ export default {
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key);
+                return localStorage.getItem(key)
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key);
+                return localStorage.removeItem(key)
             }
         },
 
         async getOtherUserDetails() {
-            const getotheruserdetails = await fetch("https://" + this.instanceurl + "/api/v1/accounts/lookup/?acct=" + this.acct, {
-                method: "GET"
-            })
-            const getotheruserdetails_response = await getotheruserdetails.json()
+            const getotheruserdetails = await fetch(
+                'https://' +
+                    this.instanceurl +
+                    '/api/v1/accounts/lookup/?acct=' +
+                    this.acct,
+                {
+                    method: 'GET',
+                }
+            )
+            const getotheruserdetails_response =
+                await getotheruserdetails.json()
 
             this.user = getotheruserdetails_response
 
@@ -52,22 +59,27 @@ export default {
         },
 
         async loadFollowers() {
-            let initialfollowers = await fetch("https://" + this.instanceurl + "/api/v1/accounts/" + this.user.id + "/following", {
-                method: "GET",
-                headers: {
-                    "Authorization": "Bearer " + this.token,
+            let initialfollowers = await fetch(
+                'https://' +
+                    this.instanceurl +
+                    '/api/v1/accounts/' +
+                    this.user.id +
+                    '/following',
+                {
+                    method: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + this.token,
+                    },
                 }
-            })
+            )
             let initialfollowers_response = await initialfollowers.json()
 
-            initialfollowers_response.forEach((element) =>
-                this.users.push(element) &&
-                console.log(element)
+            initialfollowers_response.forEach(
+                (element) => this.users.push(element) && console.log(element)
             )
-        }
-    }
+        },
+    },
 }
-
 </script>
 
 <template>
@@ -76,9 +88,7 @@ export default {
             <NuxtLink :to="'/@' + user.acct">
                 <Icon type="chevron-left" size="18" />
             </NuxtLink>
-            <div class="mCH-text">
-                Following
-            </div>
+            <div class="mCH-text">Following</div>
         </div>
         <div class="mCH-buttons">
             <NuxtLink to="/about" class="btn btn-header">
@@ -94,10 +104,12 @@ export default {
             <div class="userList">
                 <div class="userList-item" v-for="user in users">
                     <div class="userList-userTop">
-                        <img class="userList-avatar" :src="user.avatar">
+                        <img class="userList-avatar" :src="user.avatar" />
                         <div class="userList-names">
-                            <NuxtLink :to="'/@'+user.acct">
-                                <p class="displayname">{{ user.display_name }}</p>
+                            <NuxtLink :to="'/@' + user.acct">
+                                <p class="displayname">
+                                    {{ user.display_name }}
+                                </p>
                                 <p class="username">@{{ user.acct }}</p>
                             </NuxtLink>
                         </div>

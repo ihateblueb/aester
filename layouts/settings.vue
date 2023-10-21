@@ -1,7 +1,11 @@
+<script setup>
+import FloatingVue from 'floating-vue'
+</script>
+
 <script>
 export default {
     data: () => ({
-        href: ""
+        href: '',
     }),
     mounted() {
         this.setColorTheme()
@@ -16,29 +20,29 @@ export default {
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key);
+                return localStorage.getItem(key)
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key);
+                return localStorage.removeItem(key)
             }
         },
-        
+
         async setColorTheme() {
-            this.colortheme = this.getLocalStorage("ui_colortheme")
+            this.colortheme = this.getLocalStorage('ui_colortheme')
 
             // remove previous
-            document.body.classList.remove("cs_purpura")
-            document.body.classList.remove("cs_purpura-light")
-            document.body.classList.remove("cs_catppuccin-latte")
-            document.body.classList.remove("cs_catppuccin-frappe")
-            document.body.classList.remove("cs_catppuccin-macchiato")
-            document.body.classList.remove("cs_catppuccin-mocha")
+            document.body.classList.remove('cs_purpura')
+            document.body.classList.remove('cs_purpura-light')
+            document.body.classList.remove('cs_catppuccin-latte')
+            document.body.classList.remove('cs_catppuccin-frappe')
+            document.body.classList.remove('cs_catppuccin-macchiato')
+            document.body.classList.remove('cs_catppuccin-mocha')
 
             document.body.classList.add(this.colortheme)
         },
-    }
+    },
 }
 </script>
 
@@ -59,7 +63,10 @@ export default {
                 <NuxtLink to="/settings/appearance" class="sidebarCategoryItem">
                     Appearence
                 </NuxtLink>
-                <NuxtLink to="/settings/accessibility" class="sidebarCategoryItem">
+                <NuxtLink
+                    to="/settings/accessibility"
+                    class="sidebarCategoryItem"
+                >
                     Accessibility
                 </NuxtLink>
             </div>
@@ -74,11 +81,13 @@ export default {
                 <NuxtLink to="/settings/debug" class="sidebarCategoryItem">
                     Debug
                 </NuxtLink>
-                <NuxtLink to="/settings/experiments" class="sidebarCategoryItem">
+                <NuxtLink
+                    to="/settings/experiments"
+                    class="sidebarCategoryItem"
+                >
                     Experiments
                 </NuxtLink>
             </div>
-
         </div>
         <div class="settingsMain">
             <slot></slot>

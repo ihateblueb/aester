@@ -1,16 +1,16 @@
 <script setup>
-import Icon from '../components/Icon.vue';
+import Icon from '../components/Icon.vue'
 </script>
 
 <script>
 export default {
     data: () => ({
         ready: false,
-        instanceurl: "",
-        instance: {}
+        instanceurl: '',
+        instance: {},
     }),
     mounted() {
-        this.instanceurl = this.getLocalStorage("instanceurl")
+        this.instanceurl = this.getLocalStorage('instanceurl')
         this.getInstance()
     },
     methods: {
@@ -21,19 +21,22 @@ export default {
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key);
+                return localStorage.getItem(key)
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key);
+                return localStorage.removeItem(key)
             }
         },
 
         async getInstance() {
-            const getinstance = await fetch("https://" + this.instanceurl + "/api/v2/instance", {
-                method: "GET"
-            })
+            const getinstance = await fetch(
+                'https://' + this.instanceurl + '/api/v2/instance',
+                {
+                    method: 'GET',
+                }
+            )
             const getinstance_response = await getinstance.json()
 
             this.instance = getinstance_response
@@ -42,7 +45,7 @@ export default {
 
             this.ready = true
         },
-    }
+    },
 }
 </script>
 
@@ -64,11 +67,13 @@ export default {
     </div>
     <div class="mColumnContent" v-if="ready">
         <div class="mCC-accountHeaderContainer">
-                <img class="mCC-accountHeader" :src="instance.thumbnail.url">
-            </div>
+            <img class="mCC-accountHeader" :src="instance.thumbnail.url" />
+        </div>
 
         <div class="aboutContent">
-            <h3>{{ instance.title }} <p class="aboutVersion">{{ instance.version }}</p>
+            <h3>
+                {{ instance.title }}
+                <p class="aboutVersion">{{ instance.version }}</p>
             </h3>
             <div class="aboutInnerContent">
                 <p class="aIC-description">{{ instance.description }}</p>
@@ -82,21 +87,47 @@ export default {
             <div class="contact">
                 <h4>Contact</h4>
                 <div class="contactInfo">
-                    <p>Admin Account <span><NuxtLink :to="'/@'+instance.contact.account.acct">@{{ instance.contact.account.acct+'@'+instanceurl }}</NuxtLink></span></p>
-                    <p>Admin Email <span>{{ instance.contact.email }}</span></p>
+                    <p>
+                        Admin Account
+                        <span
+                            ><NuxtLink
+                                :to="'/@' + instance.contact.account.acct"
+                                >@{{
+                                    instance.contact.account.acct +
+                                    '@' +
+                                    instanceurl
+                                }}</NuxtLink
+                            ></span
+                        >
+                    </p>
+                    <p>
+                        Admin Email <span>{{ instance.contact.email }}</span>
+                    </p>
                 </div>
             </div>
         </div>
         <div class="aboutContent">
-            <h3>Aster <p class="aboutVersion"></p>
+            <h3>
+                Aster
+                <p class="aboutVersion"></p>
             </h3>
             <div class="aboutInnerContent">
-                <p><a href="https://github.com/ihateblueb/aster">ihateblueb/aster</a> <span>branch@commit</span></p>
+                <p>
+                    <a href="https://github.com/ihateblueb/aster"
+                        >ihateblueb/aster</a
+                    >
+                    <span>branch@commit</span>
+                </p>
                 <div class="contact">
                     <h4>Contact</h4>
-                    <p>Fediverse <span>
-                            <NuxtLink to="@ihateblueb@wetdry.world">@ihateblueb@wetdry.world</NuxtLink>
-                        </span></p>
+                    <p>
+                        Fediverse
+                        <span>
+                            <NuxtLink to="@ihateblueb@wetdry.world"
+                                >@ihateblueb@wetdry.world</NuxtLink
+                            >
+                        </span>
+                    </p>
                     <p>Discord <span>@ihateblueb</span></p>
                 </div>
             </div>

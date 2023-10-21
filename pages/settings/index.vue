@@ -1,7 +1,7 @@
 <script>
 definePageMeta({
-  layout: "settings",
-});
+    layout: 'settings',
+})
 </script>
 
 <template>

@@ -1,21 +1,21 @@
 <script setup>
-import Post from '../components/Post.vue';
-import Icon from '../components/Icon.vue';
+import Post from '../components/Post.vue'
+import Icon from '../components/Icon.vue'
 </script>
 
 <script>
 export default {
     data: () => ({
         ready: false,
-        token: "",
-        instanceurl: "",
-        tootid: "",
-        toot: {}
+        token: '',
+        instanceurl: '',
+        tootid: '',
+        toot: {},
     }),
     mounted() {
-        this.selfid = this.getLocalStorage("user_id")
-        this.instanceurl = this.getLocalStorage("instanceurl")
-        this.token = this.getLocalStorage("token")
+        this.selfid = this.getLocalStorage('user_id')
+        this.instanceurl = this.getLocalStorage('instanceurl')
+        this.token = this.getLocalStorage('token')
         this.tootid = this.$route.params.tootid
 
         this.getTootDetails()
@@ -30,31 +30,36 @@ export default {
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key);
+                return localStorage.getItem(key)
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key);
+                return localStorage.removeItem(key)
             }
         },
 
         async getTootDetails() {
-            const gettootdetails = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + this.tootid, {
-                method: "GET",
-                headers: {
-                    "Authorization": "Bearer " + this.token,
+            const gettootdetails = await fetch(
+                'https://' +
+                    this.instanceurl +
+                    '/api/v1/statuses/' +
+                    this.tootid,
+                {
+                    method: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + this.token,
+                    },
                 }
-            })
+            )
             const gettootdetails_response = await gettootdetails.json()
 
             this.toot = gettootdetails_response
 
             console.log(gettootdetails_response)
-        }
-    }
+        },
+    },
 }
-
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup>
-import Icon from '../components/Icon.vue';
+import Icon from '../components/Icon.vue'
 </script>
 
 <script>
@@ -8,7 +8,7 @@ export default {
         content: [],
         ready: false,
         showCwContent: false,
-        showcwtext: "Show More",
+        showcwtext: 'Show More',
         timer: 0,
     }),
     props: {
@@ -21,22 +21,22 @@ export default {
         this.content = this.data
         this.ready = true
         this.timer = setInterval(() => {
-            this.timer += 1;
+            this.timer += 1
         }, 5000)
     },
     methods: {
         timeAgo(time) {
             switch (typeof time) {
                 case 'number':
-                    break;
+                    break
                 case 'string':
-                    time = +new Date(time);
-                    break;
+                    time = +new Date(time)
+                    break
                 case 'object':
-                    if (time.constructor === Date) time = time.getTime();
-                    break;
+                    if (time.constructor === Date) time = time.getTime()
+                    break
                 default:
-                    time = +new Date();
+                    time = +new Date()
             }
             var time_formats = [
                 [60, 's', 1],
@@ -48,174 +48,335 @@ export default {
                 [2419200, 'w', 604800],
                 [29030400, 'mo', 2419200],
                 [2903040000, 'y', 29030400],
-                [58060800000, 'c', 2903040000]
-            ];
+                [58060800000, 'c', 2903040000],
+            ]
             var seconds = (+new Date() - time) / 1000,
-                list_choice = 1;
+                list_choice = 1
             if (seconds === 0) {
                 return 'now'
             }
             var i = 0,
-                format;
-            while (format = time_formats[i++])
+                format
+            while ((format = time_formats[i++]))
                 if (seconds < format[0]) {
-                    if (typeof format[2] == 'string')
-                        return format[list_choice];
-                    else
-                        return Math.floor(seconds / format[2]) + format[1];
+                    if (typeof format[2] == 'string') return format[list_choice]
+                    else return Math.floor(seconds / format[2]) + format[1]
                 }
-            return time;
+            return time
         },
 
         async postInteraction(type, id) {
             if (type === 'boost') {
-                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/reblog", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + this.token,
+                let response = await fetch(
+                    'https://' +
+                        this.instanceurl +
+                        '/api/v1/statuses/' +
+                        id +
+                        '/reblog',
+                    {
+                        method: 'POST',
+                        headers: {
+                            Authorization: 'Bearer ' + this.token,
+                        },
                     }
-                })
+                )
 
                 if (response.status === 200) {
                     this.content = await response.json()
                 } else {
-                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                    console.log(
+                        (await type) +
+                            ' failed. ' +
+                            response.status +
+                            ' ' +
+                            response.statusText
+                    )
                 }
             } else if (type === 'unboost') {
-                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/unreblog", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + this.token,
+                let response = await fetch(
+                    'https://' +
+                        this.instanceurl +
+                        '/api/v1/statuses/' +
+                        id +
+                        '/unreblog',
+                    {
+                        method: 'POST',
+                        headers: {
+                            Authorization: 'Bearer ' + this.token,
+                        },
                     }
-                })
+                )
 
                 if (response.status === 200) {
                     this.content = await response.json()
                 } else {
-                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                    console.log(
+                        (await type) +
+                            ' failed. ' +
+                            response.status +
+                            ' ' +
+                            response.statusText
+                    )
                 }
             } else if (type === 'favorite') {
-                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/favourite", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + this.token,
+                let response = await fetch(
+                    'https://' +
+                        this.instanceurl +
+                        '/api/v1/statuses/' +
+                        id +
+                        '/favourite',
+                    {
+                        method: 'POST',
+                        headers: {
+                            Authorization: 'Bearer ' + this.token,
+                        },
                     }
-                })
+                )
 
                 if (response.status === 200) {
                     this.content = await response.json()
                 } else {
-                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                    console.log(
+                        (await type) +
+                            ' failed. ' +
+                            response.status +
+                            ' ' +
+                            response.statusText
+                    )
                 }
             } else if (type === 'unfavorite') {
-                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/unfavourite", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + this.token,
+                let response = await fetch(
+                    'https://' +
+                        this.instanceurl +
+                        '/api/v1/statuses/' +
+                        id +
+                        '/unfavourite',
+                    {
+                        method: 'POST',
+                        headers: {
+                            Authorization: 'Bearer ' + this.token,
+                        },
                     }
-                })
+                )
 
                 if (response.status === 200) {
                     this.content = await response.json()
                 } else {
-                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                    console.log(
+                        (await type) +
+                            ' failed. ' +
+                            response.status +
+                            ' ' +
+                            response.statusText
+                    )
                 }
             } else if (type === 'bookmark') {
-                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/bookmark", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + this.token,
+                let response = await fetch(
+                    'https://' +
+                        this.instanceurl +
+                        '/api/v1/statuses/' +
+                        id +
+                        '/bookmark',
+                    {
+                        method: 'POST',
+                        headers: {
+                            Authorization: 'Bearer ' + this.token,
+                        },
                     }
-                })
+                )
 
                 if (response.status === 200) {
                     this.content = await response.json()
                 } else {
-                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                    console.log(
+                        (await type) +
+                            ' failed. ' +
+                            response.status +
+                            ' ' +
+                            response.statusText
+                    )
                 }
             } else if (type === 'unbookmark') {
-                let response = await fetch("https://" + this.instanceurl + "/api/v1/statuses/" + id + "/unbookmark", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + this.token,
+                let response = await fetch(
+                    'https://' +
+                        this.instanceurl +
+                        '/api/v1/statuses/' +
+                        id +
+                        '/unbookmark',
+                    {
+                        method: 'POST',
+                        headers: {
+                            Authorization: 'Bearer ' + this.token,
+                        },
                     }
-                })
+                )
 
                 if (response.status === 200) {
                     this.content = await response.json()
                 } else {
-                    console.log(await type + " failed. " + response.status + " " + response.statusText)
+                    console.log(
+                        (await type) +
+                            ' failed. ' +
+                            response.status +
+                            ' ' +
+                            response.statusText
+                    )
                 }
             }
         },
         async toggleShowCW() {
             if (this.showCwContent === true) {
-                this.showCwContent = false;
-                this.showcwtext = "Show More"
+                this.showCwContent = false
+                this.showcwtext = 'Show More'
             } else {
-                this.showCwContent = true;
-                this.showcwtext = "Show Less"
+                this.showCwContent = true
+                this.showcwtext = 'Show Less'
             }
-        }
-    }
+        },
+    },
 }
 </script>
 
 <template>
     <div class="post" v-if="ready">
         <div class="boostAlertContainer" v-if="content.reblog">
-            <Icon class="boostAlertIcon" name="repeat" size="14px" color="var(--txt2)" />
-            <span class="boostAlert">{{ content.account.display_name }} boosted</span>
+            <Icon
+                class="boostAlertIcon"
+                name="repeat"
+                size="14px"
+                color="var(--txt2)"
+            />
+            <span class="boostAlert"
+                >{{ content.account.display_name }} boosted</span
+            >
         </div>
         <div class="boostAlertContainer" v-if="pinned">
-            <Icon class="boostAlertIcon" name="pin" size="14px" color="var(--txt2)" />
+            <Icon
+                class="boostAlertIcon"
+                name="pin"
+                size="14px"
+                color="var(--txt2)"
+            />
             <span class="boostAlert">Pinned toot</span>
         </div>
         <div class="post-userInfo">
             <div class="post-userAvatars">
-                <img class="post-userAvatar" :src="content.account.avatar" loading="lazy" v-if="!content.reblog">
-                <img class="post-userAvatar" :src="content.reblog.account.avatar" loading="lazy" v-if="content.reblog">
+                <img
+                    class="post-userAvatar"
+                    :src="content.account.avatar"
+                    loading="lazy"
+                    v-if="!content.reblog"
+                />
+                <img
+                    class="post-userAvatar"
+                    :src="content.reblog.account.avatar"
+                    loading="lazy"
+                    v-if="content.reblog"
+                />
             </div>
             <div class="post-userNames">
-                <NuxtLink :to="'/@' + content.account.acct" v-if="!content.reblog" class="post-displayName">{{
-                    content.account.display_name }}</NuxtLink>
-                <NuxtLink :to="'/@' + content.account.acct" v-if="!content.reblog" class="post-userName">@{{
-                    content.account.acct
-                }}</NuxtLink>
-                <NuxtLink :to="'/@' + content.reblog.account.acct" v-if="content.reblog" class="post-displayName">{{
-                    content.reblog.account.display_name }}</NuxtLink>
-                <NuxtLink :to="'/@' + content.reblog.account.acct" v-if="content.reblog" class="post-userName">@{{
-                    content.reblog.account.acct }}</NuxtLink>
+                <NuxtLink
+                    :to="'/@' + content.account.acct"
+                    v-if="!content.reblog"
+                    class="post-displayName"
+                    >{{ content.account.display_name }}</NuxtLink
+                >
+                <NuxtLink
+                    :to="'/@' + content.account.acct"
+                    v-if="!content.reblog"
+                    class="post-userName"
+                    >@{{ content.account.acct }}</NuxtLink
+                >
+                <NuxtLink
+                    :to="'/@' + content.reblog.account.acct"
+                    v-if="content.reblog"
+                    class="post-displayName"
+                    >{{ content.reblog.account.display_name }}</NuxtLink
+                >
+                <NuxtLink
+                    :to="'/@' + content.reblog.account.acct"
+                    v-if="content.reblog"
+                    class="post-userName"
+                    >@{{ content.reblog.account.acct }}</NuxtLink
+                >
             </div>
             <div class="post-infoIcons" v-if="content.reblog">
                 <div class="post-infoIcon post-infoIcons-visibility">
-                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'public'"
-                        :title="content.reblog.visibility" />
-                    <Icon name="unlock" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'unlisted'"
-                        :title="content.reblog.visibility" />
-                    <Icon name="users" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'private'"
-                        :title="content.reblog.visibility" />
-                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'direct'"
-                        :title="content.reblog.visibility" />
+                    <Icon
+                        name="globe"
+                        size="14px"
+                        color="var(--txt2)"
+                        v-if="content.reblog.visibility === 'public'"
+                        :title="content.reblog.visibility"
+                    />
+                    <Icon
+                        name="unlock"
+                        size="14px"
+                        color="var(--txt2)"
+                        v-if="content.reblog.visibility === 'unlisted'"
+                        :title="content.reblog.visibility"
+                    />
+                    <Icon
+                        name="users"
+                        size="14px"
+                        color="var(--txt2)"
+                        v-if="content.reblog.visibility === 'private'"
+                        :title="content.reblog.visibility"
+                    />
+                    <Icon
+                        name="at-sign"
+                        size="14px"
+                        color="var(--txt2)"
+                        v-if="content.reblog.visibility === 'direct'"
+                        :title="content.reblog.visibility"
+                    />
                 </div>
-                <div class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.reblog.created_at).toLocaleDateString()" :key="timer">
+                <div
+                    class="post-infoIcon post-infoIcons-created"
+                    :title="
+                        new Date(content.reblog.created_at).toLocaleDateString()
+                    "
+                    :key="timer"
+                >
                     {{ timeAgo(content.reblog.created_at) }}
                 </div>
             </div>
             <div class="post-infoIcons" v-if="!content.reblog">
                 <div class="post-infoIcon post-infoIcons-visibility">
-                    <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.visibility === 'public'"
-                        :title="content.visibility" />
-                    <Icon name="unlock" size="14px" color="var(--txt2)" v-if="content.visibility === 'unlisted'"
-                        :title="content.visibility" />
-                    <Icon name="users" size="14px" color="var(--txt2)" v-if="content.visibility === 'private'"
-                        :title="content.visibility" />
-                    <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.visibility === 'direct'"
-                        :title="content.visibility" />
+                    <Icon
+                        name="globe"
+                        size="14px"
+                        color="var(--txt2)"
+                        v-if="content.visibility === 'public'"
+                        :title="content.visibility"
+                    />
+                    <Icon
+                        name="unlock"
+                        size="14px"
+                        color="var(--txt2)"
+                        v-if="content.visibility === 'unlisted'"
+                        :title="content.visibility"
+                    />
+                    <Icon
+                        name="users"
+                        size="14px"
+                        color="var(--txt2)"
+                        v-if="content.visibility === 'private'"
+                        :title="content.visibility"
+                    />
+                    <Icon
+                        name="at-sign"
+                        size="14px"
+                        color="var(--txt2)"
+                        v-if="content.visibility === 'direct'"
+                        :title="content.visibility"
+                    />
                 </div>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer">
+                <div
+                    class="post-infoIcon post-infoIcons-created"
+                    :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer"
+                >
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
@@ -223,61 +384,141 @@ export default {
 
         <div v-if="content.spoiler_text">
             <div class="cwAlert">
-                <Icon type="alert-triangle" size="18px" color="var(--bg-warning)" />
+                <Icon
+                    type="alert-triangle"
+                    size="18px"
+                    color="var(--bg-warning)"
+                />
                 <p class="cwText">{{ content.spoiler_text }}</p>
-                <button class="cwButton" @click="toggleShowCW()">{{ showcwtext }}</button>
+                <button class="cwButton" @click="toggleShowCW()">
+                    {{ showcwtext }}
+                </button>
             </div>
             <div class="cwContent" v-if="showCwContent">
-                <NuxtLink :to="'/toot/' + content.reblog.id" v-if="content.reblog">
-                    <span v-html="content.reblog.content" class="post-content"></span>
+                <NuxtLink
+                    :to="'/toot/' + content.reblog.id"
+                    v-if="content.reblog"
+                >
+                    <span
+                        v-html="content.reblog.content"
+                        class="post-content"
+                    ></span>
                 </NuxtLink>
                 <NuxtLink :to="'/toot/' + content.id" v-if="!content.reblog">
                     <span v-html="content.content" class="post-content"></span>
                 </NuxtLink>
 
-                <div class="post-attachments"
-                    v-bind:class="{ multiple: content.media_attachments.length > 1, three: content.media_attachments.length === 3, four: content.media_attachments.length === 4 }"
-                    v-if="!content.reblog">
-                    <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
+                <div
+                    class="post-attachments"
+                    v-bind:class="{
+                        multiple: content.media_attachments.length > 1,
+                        three: content.media_attachments.length === 3,
+                        four: content.media_attachments.length === 4,
+                    }"
+                    v-if="!content.reblog"
+                >
+                    <div
+                        class="post-mediaContainer"
+                        v-for="attachment in content.media_attachments"
+                    >
                         <div class="post-media">
-                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
-                                <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
-                                    v-if="attachment.type === 'image'">
+                            <a
+                                :href="attachment.url"
+                                target="_blank"
+                                v-if="attachment.type === 'image'"
+                            >
+                                <img
+                                    :src="attachment.url"
+                                    :alt="attachment.description"
+                                    :title="attachment.description"
+                                    v-if="attachment.type === 'image'"
+                                />
                             </a>
-                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'video'">
-                                <video :alt="attachment.description" :title="attachment.description"
-                                    v-if="attachment.type === 'video'" controls>
-                                    <source :src="attachment.url">
+                            <a
+                                :href="attachment.url"
+                                target="_blank"
+                                v-if="attachment.type === 'video'"
+                            >
+                                <video
+                                    :alt="attachment.description"
+                                    :title="attachment.description"
+                                    v-if="attachment.type === 'video'"
+                                    controls
+                                >
+                                    <source :src="attachment.url" />
                                 </video>
                             </a>
-                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
-                                <video :alt="attachment.description" :title="attachment.description"
-                                    v-if="attachment.type === 'gifv'" loop autoplay>
-                                    <source :src="attachment.url">
+                            <a
+                                :href="attachment.url"
+                                target="_blank"
+                                v-if="attachment.type === 'gifv'"
+                            >
+                                <video
+                                    :alt="attachment.description"
+                                    :title="attachment.description"
+                                    v-if="attachment.type === 'gifv'"
+                                    loop
+                                    autoplay
+                                >
+                                    <source :src="attachment.url" />
                                 </video>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="post-attachments"
-                    v-bind:class="{ multiple: content.reblog.media_attachments.length > 1, three: content.reblog.media_attachments.length === 3, four: content.reblog.media_attachments.length === 4 }"
-                    v-if="content.reblog">
-                    <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
+                <div
+                    class="post-attachments"
+                    v-bind:class="{
+                        multiple: content.reblog.media_attachments.length > 1,
+                        three: content.reblog.media_attachments.length === 3,
+                        four: content.reblog.media_attachments.length === 4,
+                    }"
+                    v-if="content.reblog"
+                >
+                    <div
+                        class="post-mediaContainer"
+                        v-for="attachment in content.reblog.media_attachments"
+                    >
                         <div class="post-media">
-                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
-                                <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
-                                    v-if="attachment.type === 'image'">
+                            <a
+                                :href="attachment.url"
+                                target="_blank"
+                                v-if="attachment.type === 'image'"
+                            >
+                                <img
+                                    :src="attachment.url"
+                                    :alt="attachment.description"
+                                    :title="attachment.description"
+                                    v-if="attachment.type === 'image'"
+                                />
                             </a>
-                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'video'">
-                                <video :alt="attachment.description" :title="attachment.description"
-                                    v-if="attachment.type === 'video'" controls>
-                                    <source :src="attachment.url">
+                            <a
+                                :href="attachment.url"
+                                target="_blank"
+                                v-if="attachment.type === 'video'"
+                            >
+                                <video
+                                    :alt="attachment.description"
+                                    :title="attachment.description"
+                                    v-if="attachment.type === 'video'"
+                                    controls
+                                >
+                                    <source :src="attachment.url" />
                                 </video>
                             </a>
-                            <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
-                                <video :alt="attachment.description" :title="attachment.description"
-                                    v-if="attachment.type === 'gifv'" loop autoplay>
-                                    <source :src="attachment.url">
+                            <a
+                                :href="attachment.url"
+                                target="_blank"
+                                v-if="attachment.type === 'gifv'"
+                            >
+                                <video
+                                    :alt="attachment.description"
+                                    :title="attachment.description"
+                                    v-if="attachment.type === 'gifv'"
+                                    loop
+                                    autoplay
+                                >
+                                    <source :src="attachment.url" />
                                 </video>
                             </a>
                         </div>
@@ -287,55 +528,128 @@ export default {
         </div>
         <div v-if="!content.spoiler_text">
             <NuxtLink :to="'/toot/' + content.reblog.id" v-if="content.reblog">
-                <span v-html="content.reblog.content" class="post-content"></span>
+                <span
+                    v-html="content.reblog.content"
+                    class="post-content"
+                ></span>
             </NuxtLink>
             <NuxtLink :to="'/toot/' + content.id" v-if="!content.reblog">
                 <span v-html="content.content" class="post-content"></span>
             </NuxtLink>
 
-            <div class="post-attachments"
-                v-bind:class="{ multiple: content.media_attachments.length > 1, three: content.media_attachments.length === 3, four: content.media_attachments.length === 4, visible: content.media_attachments.length > 0, }"
-                v-if="!content.reblog">
-                <div class="post-mediaContainer" v-for="attachment in content.media_attachments">
+            <div
+                class="post-attachments"
+                v-bind:class="{
+                    multiple: content.media_attachments.length > 1,
+                    three: content.media_attachments.length === 3,
+                    four: content.media_attachments.length === 4,
+                    visible: content.media_attachments.length > 0,
+                }"
+                v-if="!content.reblog"
+            >
+                <div
+                    class="post-mediaContainer"
+                    v-for="attachment in content.media_attachments"
+                >
                     <div class="post-media">
-                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
-                            <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
-                                v-if="attachment.type === 'image'">
+                        <a
+                            :href="attachment.url"
+                            target="_blank"
+                            v-if="attachment.type === 'image'"
+                        >
+                            <img
+                                :src="attachment.url"
+                                :alt="attachment.description"
+                                :title="attachment.description"
+                                v-if="attachment.type === 'image'"
+                            />
                         </a>
-                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'video'">
-                            <video :alt="attachment.description" :title="attachment.description"
-                                v-if="attachment.type === 'video'" controls>
-                                <source :src="attachment.url">
+                        <a
+                            :href="attachment.url"
+                            target="_blank"
+                            v-if="attachment.type === 'video'"
+                        >
+                            <video
+                                :alt="attachment.description"
+                                :title="attachment.description"
+                                v-if="attachment.type === 'video'"
+                                controls
+                            >
+                                <source :src="attachment.url" />
                             </video>
                         </a>
-                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
-                            <video :alt="attachment.description" :title="attachment.description"
-                                v-if="attachment.type === 'gifv'" loop autoplay>
-                                <source :src="attachment.url">
+                        <a
+                            :href="attachment.url"
+                            target="_blank"
+                            v-if="attachment.type === 'gifv'"
+                        >
+                            <video
+                                :alt="attachment.description"
+                                :title="attachment.description"
+                                v-if="attachment.type === 'gifv'"
+                                loop
+                                autoplay
+                            >
+                                <source :src="attachment.url" />
                             </video>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="post-attachments"
-                v-bind:class="{ multiple: content.reblog.media_attachments.length > 1, three: content.reblog.media_attachments.length === 3, four: content.reblog.media_attachments.length === 4, visible: content.reblog.media_attachments.length > 0 }"
-                v-if="content.reblog">
-                <div class="post-mediaContainer" v-for="attachment in content.reblog.media_attachments">
+            <div
+                class="post-attachments"
+                v-bind:class="{
+                    multiple: content.reblog.media_attachments.length > 1,
+                    three: content.reblog.media_attachments.length === 3,
+                    four: content.reblog.media_attachments.length === 4,
+                    visible: content.reblog.media_attachments.length > 0,
+                }"
+                v-if="content.reblog"
+            >
+                <div
+                    class="post-mediaContainer"
+                    v-for="attachment in content.reblog.media_attachments"
+                >
                     <div class="post-media">
-                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'image'">
-                            <img :src="attachment.url" :alt="attachment.description" :title="attachment.description"
-                                v-if="attachment.type === 'image'">
+                        <a
+                            :href="attachment.url"
+                            target="_blank"
+                            v-if="attachment.type === 'image'"
+                        >
+                            <img
+                                :src="attachment.url"
+                                :alt="attachment.description"
+                                :title="attachment.description"
+                                v-if="attachment.type === 'image'"
+                            />
                         </a>
-                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'video'">
-                            <video :alt="attachment.description" :title="attachment.description"
-                                v-if="attachment.type === 'video'" controls>
-                                <source :src="attachment.url">
+                        <a
+                            :href="attachment.url"
+                            target="_blank"
+                            v-if="attachment.type === 'video'"
+                        >
+                            <video
+                                :alt="attachment.description"
+                                :title="attachment.description"
+                                v-if="attachment.type === 'video'"
+                                controls
+                            >
+                                <source :src="attachment.url" />
                             </video>
                         </a>
-                        <a :href="attachment.url" target="_blank" v-if="attachment.type === 'gifv'">
-                            <video :alt="attachment.description" :title="attachment.description"
-                                v-if="attachment.type === 'gifv'" loop autoplay>
-                                <source :src="attachment.url">
+                        <a
+                            :href="attachment.url"
+                            target="_blank"
+                            v-if="attachment.type === 'gifv'"
+                        >
+                            <video
+                                :alt="attachment.description"
+                                :title="attachment.description"
+                                v-if="attachment.type === 'gifv'"
+                                loop
+                                autoplay
+                            >
+                                <source :src="attachment.url" />
                             </video>
                         </a>
                     </div>
@@ -345,17 +659,39 @@ export default {
 
         <div class="postReactionBar" v-if="content.reactions.length > 0">
             <div v-for="reaction in content.reactions">
-                <div class="postReaction" @click="postInteraction('react', content.id)" v-if="!reaction.me">
-                    <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction"
-                        v-if="reaction.url">
+                <div
+                    class="postReaction"
+                    @click="postInteraction('react', content.id)"
+                    v-if="!reaction.me"
+                >
+                    <img
+                        :src="reaction.url"
+                        :alt="reaction.name"
+                        :title="reaction.name"
+                        class="emojiReaction"
+                        v-if="reaction.url"
+                    />
                     <span v-if="!reaction.url">{{ reaction.name }}</span>
-                    <span class="postReactionCounter">{{ reaction.count }}</span>
+                    <span class="postReactionCounter">{{
+                        reaction.count
+                    }}</span>
                 </div>
-                <div class="postReaction pRme" @click="postInteraction('unreact', content.id)" v-if="reaction.me">
-                    <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction"
-                        v-if="reaction.url">
+                <div
+                    class="postReaction pRme"
+                    @click="postInteraction('unreact', content.id)"
+                    v-if="reaction.me"
+                >
+                    <img
+                        :src="reaction.url"
+                        :alt="reaction.name"
+                        :title="reaction.name"
+                        class="emojiReaction"
+                        v-if="reaction.url"
+                    />
                     <span v-if="!reaction.url">{{ reaction.name }}</span>
-                    <span class="postReactionCounter">{{ reaction.count }}</span>
+                    <span class="postReactionCounter">{{
+                        reaction.count
+                    }}</span>
                 </div>
             </div>
         </div>
@@ -367,40 +703,71 @@ export default {
                 </span>
             </button>
 
-            <button @click="postInteraction('boost', content.id)" class="postInteraction" v-if="!content.reblogged">
+            <button
+                @click="postInteraction('boost', content.id)"
+                class="postInteraction"
+                v-if="!content.reblogged"
+            >
                 <Icon type="repeat" size="18px" color="var(--txt2)" />
                 <span>
                     {{ content.reblogs_count }}
                 </span>
             </button>
-            <button @click="postInteraction('unboost', content.id)" class="postInteraction pIreblogged"
-                v-if="content.reblogged">
+            <button
+                @click="postInteraction('unboost', content.id)"
+                class="postInteraction pIreblogged"
+                v-if="content.reblogged"
+            >
                 <Icon type="repeat" size="18px" color="var(--reblog)" />
                 <span>
                     {{ content.reblogs_count }}
                 </span>
             </button>
 
-            <button @click="postInteraction('favorite', content.id)" class="postInteraction" v-if="!content.favourited">
+            <button
+                @click="postInteraction('favorite', content.id)"
+                class="postInteraction"
+                v-if="!content.favourited"
+            >
                 <Icon type="star" size="18px" color="var(--txt2)" />
                 <span>
                     {{ content.favourites_count }}
                 </span>
             </button>
-            <button @click="postInteraction('unfavorite', content.id)" class="postInteraction pIfavorited"
-                v-if="content.favourited">
-                <Icon type="star" size="18px" color="var(--favorite)" fill=true />
+            <button
+                @click="postInteraction('unfavorite', content.id)"
+                class="postInteraction pIfavorited"
+                v-if="content.favourited"
+            >
+                <Icon
+                    type="star"
+                    size="18px"
+                    color="var(--favorite)"
+                    fill="true"
+                />
                 <span>
                     {{ content.favourites_count }}
                 </span>
             </button>
 
-            <button @click="postInteraction('bookmark', content.id)" class="postInteraction" v-if="!content.bookmarked">
+            <button
+                @click="postInteraction('bookmark', content.id)"
+                class="postInteraction"
+                v-if="!content.bookmarked"
+            >
                 <Icon type="bookmark" size="18px" color="var(--txt2)" />
             </button>
-            <button @click="postInteraction('unbookmark', content.id)" class="postInteraction pIbookmarked"
-                v-if="content.bookmarked">
-                <Icon type="bookmark" size="18px" color="var(--bookmark)" fill=true />
+            <button
+                @click="postInteraction('unbookmark', content.id)"
+                class="postInteraction pIbookmarked"
+                v-if="content.bookmarked"
+            >
+                <Icon
+                    type="bookmark"
+                    size="18px"
+                    color="var(--bookmark)"
+                    fill="true"
+                />
             </button>
 
             <button class="postInteraction">
@@ -416,42 +783,71 @@ export default {
                 </span>
             </button>
 
-            <button @click="postInteraction('boost', content.id)" class="postInteraction" v-if="!content.reblog.reblogged">
+            <button
+                @click="postInteraction('boost', content.id)"
+                class="postInteraction"
+                v-if="!content.reblog.reblogged"
+            >
                 <Icon type="repeat" size="18px" color="var(--txt2)" />
                 <span>
                     {{ content.reblog.reblogs_count }}
                 </span>
             </button>
-            <button @click="postInteraction('unboost', content.id)" class="postInteraction pIreblogged"
-                v-if="content.reblog.reblogged">
+            <button
+                @click="postInteraction('unboost', content.id)"
+                class="postInteraction pIreblogged"
+                v-if="content.reblog.reblogged"
+            >
                 <Icon type="repeat" size="18px" color="var(--reblog)" />
                 <span>
                     {{ content.reblog.reblogs_count }}
                 </span>
             </button>
 
-            <button @click="postInteraction('favorite', content.id)" class="postInteraction"
-                v-if="!content.reblog.favourited">
+            <button
+                @click="postInteraction('favorite', content.id)"
+                class="postInteraction"
+                v-if="!content.reblog.favourited"
+            >
                 <Icon type="star" size="18px" color="var(--txt2)" />
                 <span>
                     {{ content.reblog.favourites_count }}
                 </span>
             </button>
-            <button @click="postInteraction('unfavorite', content.id)" class="postInteraction pIfavorited"
-                v-if="content.reblog.favourited">
-                <Icon type="star" size="18px" color="var(--favorite)" fill=true />
+            <button
+                @click="postInteraction('unfavorite', content.id)"
+                class="postInteraction pIfavorited"
+                v-if="content.reblog.favourited"
+            >
+                <Icon
+                    type="star"
+                    size="18px"
+                    color="var(--favorite)"
+                    fill="true"
+                />
                 <span>
                     {{ content.reblog.favourites_count }}
                 </span>
             </button>
 
-            <button @click="postInteraction('bookmark', content.id)" class="postInteraction"
-                v-if="!content.reblog.bookmarked">
+            <button
+                @click="postInteraction('bookmark', content.id)"
+                class="postInteraction"
+                v-if="!content.reblog.bookmarked"
+            >
                 <Icon type="bookmark" size="18px" color="var(--txt2)" />
             </button>
-            <button @click="postInteraction('unbookmark', content.id)" class="postInteraction pIbookmarked"
-                v-if="content.reblog.bookmarked">
-                <Icon type="bookmark" size="18px" color="var(--bookmark)" fill=true />
+            <button
+                @click="postInteraction('unbookmark', content.id)"
+                class="postInteraction pIbookmarked"
+                v-if="content.reblog.bookmarked"
+            >
+                <Icon
+                    type="bookmark"
+                    size="18px"
+                    color="var(--bookmark)"
+                    fill="true"
+                />
             </button>
 
             <button class="postInteraction">
@@ -511,7 +907,6 @@ report
 .postInteraction.pIbookmarked {
     color: var(--favorite) !important;
 }
-
 
 .postInteraction span {
     padding-left: 7px;
