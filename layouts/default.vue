@@ -2,7 +2,6 @@
 import Icon from '../components/Icon.vue'
 import Post from '../components/Post.vue'
 import PostArea from '../components/PostArea.vue'
-import FloatingVue from 'floating-vue'
 import themes from 'assets/themes.json'
 </script>
 

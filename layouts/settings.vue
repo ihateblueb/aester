@@ -1,5 +1,4 @@
 <script setup>
-import FloatingVue from 'floating-vue'
 </script>
 
 <script>
@@ -33,12 +32,13 @@ export default {
             this.colortheme = this.getLocalStorage('ui_colortheme')
 
             // remove previous
-            document.body.classList.remove('cs_purpura')
-            document.body.classList.remove('cs_purpura-light')
-            document.body.classList.remove('cs_catppuccin-latte')
-            document.body.classList.remove('cs_catppuccin-frappe')
-            document.body.classList.remove('cs_catppuccin-macchiato')
-            document.body.classList.remove('cs_catppuccin-mocha')
+            let themearray = Object.entries(
+                JSON.parse(JSON.stringify(themes.color))
+            )
+
+            themearray.forEach((element) => {
+                document.body.classList.remove('cs_' + element[1].id)
+            })
 
             document.body.classList.add(this.colortheme)
         },
