@@ -57,7 +57,7 @@ export default {
         this.setColorTheme()
         this.asterurl = window.location.origin
 
-        if (this.$route.query.continueAuth) {
+        if (this.$route.query.code) {
             this.endlogin()
         }
 
@@ -111,7 +111,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `client_name=Aster&redirect_uris=${this.asterurl}/validate&scopes=read write push&website=https://github.com/ihateblueb/aster`,
+                    body: `client_name=Aster&redirect_uris=${this.asterurl}/&scopes=read write push&website=https://github.com/ihateblueb/aster`,
                 }
             )
             const gettingapp_response = await gettingapp.json()
@@ -136,7 +136,7 @@ export default {
                     this.instanceurl +
                     '/oauth/authorize?client_id=' +
                     this.app.clientid +
-                    `&scope=read+write+push&redirect_uri=${this.asterurl}/validate&response_type=code`,
+                    `&scope=read+write+push&redirect_uri=${this.asterurl}/&response_type=code`,
                 '_self'
             )
             this.setLocalStorage('instanceurl', this.instanceurl)
@@ -144,7 +144,7 @@ export default {
 
         async endlogin() {
             this.instanceurl = this.getLocalStorage('instanceurl')
-            this.code = this.getLocalStorage('validator_code')
+            this.code = this.$route.query.code
 
             this.app.clientid = this.getLocalStorage('app_clientid')
             this.app.secret = this.getLocalStorage('app_secret')
@@ -157,7 +157,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `client_id=${this.app.clientid}&client_secret=${this.app.secret}&redirect_uri=${this.asterurl}/validate&grant_type=authorization_code&code=${this.code}&scope=read write push`,
+                    body: `client_id=${this.app.clientid}&client_secret=${this.app.secret}&redirect_uri=${this.asterurl}/&grant_type=authorization_code&code=${this.code}&scope=read write push`,
                 }
             )
             const gettingtoken_response = await gettingtoken.json()
@@ -172,7 +172,6 @@ export default {
             this.afterLogin()
 
             this.setLocalStorage('loginstate', 'done')
-            this.removeLocalStorage('validator_code')
 
             setTimeout(function () {
                 this.loginstate = 'done'
