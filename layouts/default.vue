@@ -161,7 +161,11 @@ export default {
             this.afterLogin()
 
             this.setLocalStorage('loginstate', 'done')
-            this.loginstate = 'done'
+
+            setTimeout(function () {
+                this.loginstate = 'done'
+                location.reload()
+            }, 500)
         },
 
         async getAccountDetails() {
@@ -490,6 +494,7 @@ export default {
                     placeholder="yourinstance.social"
                     class="ipt instanceTextArea"
                     v-model="instanceurl"
+                    @keypress.enter="startlogin()"
                 />
                 <div class="instanceLoginButtons">
                     <button class="loginbtn" @click="startlogin()">Next</button>
@@ -509,6 +514,7 @@ export default {
                     placeholder="Authorization Code"
                     class="ipt instanceTextArea"
                     v-model="code"
+                    @keypress.enter="endlogin()"
                 />
                 <div class="instanceLoginButtons">
                     <button class="loginbtn" @click="logout()">Cancel</button>
