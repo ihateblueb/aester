@@ -1,4 +1,5 @@
 <script setup>
+import Mfm from '../components/Mfm/MfmCore.vue'
 import Icon from '../components/Icon.vue'
 </script>
 
@@ -279,7 +280,7 @@ export default {
                     :to="'/@' + content.account.acct"
                     v-if="!content.reblog"
                     class="post-displayName"
-                    >{{ content.account.display_name }}</NuxtLink
+                    ><Mfm :input="content.account.display_name" /></NuxtLink
                 >
                 <NuxtLink
                     :to="'/@' + content.account.acct"
@@ -291,7 +292,7 @@ export default {
                     :to="'/@' + content.reblog.account.acct"
                     v-if="content.reblog"
                     class="post-displayName"
-                    >{{ content.reblog.account.display_name }}</NuxtLink
+                    ><Mfm :input="content.reblog.account.display_name" /></NuxtLink
                 >
                 <NuxtLink
                     :to="'/@' + content.reblog.account.acct"
@@ -395,18 +396,8 @@ export default {
                 </button>
             </div>
             <div class="cwContent" v-if="showCwContent">
-                <NuxtLink
-                    :to="'/toot/' + content.reblog.id"
-                    v-if="content.reblog"
-                >
-                    <span
-                        v-html="content.reblog.content"
-                        class="post-content"
-                    ></span>
-                </NuxtLink>
-                <NuxtLink :to="'/toot/' + content.id" v-if="!content.reblog">
-                    <span v-html="content.content" class="post-content"></span>
-                </NuxtLink>
+                <span class="post-content" v-if="content.reblog"><Mfm :input="content.reblog.content" /></span>
+                <span class="post-content" v-if="!content.reblog"><Mfm :input="content.content" /></span>
 
                 <div
                     class="post-attachments"
@@ -527,15 +518,8 @@ export default {
             </div>
         </div>
         <div v-if="!content.spoiler_text">
-            <NuxtLink :to="'/toot/' + content.reblog.id" v-if="content.reblog">
-                <span
-                    v-html="content.reblog.content"
-                    class="post-content"
-                ></span>
-            </NuxtLink>
-            <NuxtLink :to="'/toot/' + content.id" v-if="!content.reblog">
-                <span v-html="content.content" class="post-content"></span>
-            </NuxtLink>
+                <span class="post-content" v-if="content.reblog"><Mfm :input="content.reblog.content" /></span>
+                <span class="post-content" v-if="!content.reblog"><Mfm :input="content.content" /></span>
 
             <div
                 class="post-attachments"

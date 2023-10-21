@@ -1,4 +1,5 @@
 <script setup>
+import Mfm from '../components/Mfm/MfmCore.vue'
 import Icon from '../components/Icon.vue'
 </script>
 
@@ -26,8 +27,6 @@ export default {
         this.acct = this.$route.params.userid
 
         this.getOtherUserDetails()
-
-        this.ready = true
     },
     methods: {
         setLocalStorage(key, value) {
@@ -66,6 +65,8 @@ export default {
             this.getRelationships()
             this.loadPins()
             this.loadToots()
+
+            this.ready = true
         },
 
         async getRelationships() {
@@ -204,22 +205,6 @@ export default {
                 this.loadMoreToots(this.timeline.profile_last)
             }
         },
-
-        replaceEmojis(input) {
-            let emojiregex = /:[^:\s]*(?:::[^:\s]*)*:/g
-            let emojimatches = Array.from(input.matchAll(emojiregex))
-            console.log(emojimatches)
-            const emojis = this.user.emojis
-            let i = 0 // it cant be inside the return part for some reason
-            return input.replace(emojiregex, function () {
-                let emoji = emojimatches[i++].toString()
-                return `<img src="${
-                    emojis.find(
-                        (element) => emoji === ':' + element.shortcode + ':'
-                    ).url
-                }" alt="${emoji}" title="${emoji}" class="customEmoji">`
-            })
-        },
     },
 }
 </script>
@@ -228,7 +213,7 @@ export default {
     <div class="mColumnHeader" v-if="ready === true">
         <div class="mCH-left">
             <div class="mCH-text">
-                <p v-html="replaceEmojis(user.display_name)"></p>
+                <Mfm :input="user.display_name"></Mfm>
             </div>
         </div>
         <div class="mCH-buttons">
@@ -286,8 +271,7 @@ export default {
                 <div class="mCC-headerBottom">
                     <p
                         class="mCC-accountDisplayName"
-                        v-html="replaceEmojis(user.display_name)"
-                    ></p>
+                    ><Mfm :input="user.display_name"></Mfm></p>
                     <p class="mCC-accountUserName">@{{ user.acct }}</p>
                     <div
                         class="mCC-followsYouContainer"
@@ -307,7 +291,7 @@ export default {
                         </span>
                     </div>
                     <div class="mCC-hb-bio">
-                        <p v-html="replaceEmojis(user.note)"></p>
+                        <p><Mfm :input="user.note"></Mfm></p>
                     </div>
                     <div class="mCC-hb-fields">
                         <div class="mCC-hb-field" v-for="field in user.fields">
@@ -315,13 +299,11 @@ export default {
                                 <span
                                     class="mCC-hb-fieldName verified"
                                     :title="field.name"
-                                    v-html="replaceEmojis(field.name)"
-                                ></span>
+                                ><Mfm :input="field.name"></Mfm></span>
                                 <span
                                     class="mCC-hb-fieldValue verified"
                                     :title="field.value"
-                                    v-html="replaceEmojis(field.value)"
-                                ></span>
+                                ><Mfm :input="field.value"></Mfm></span>
                                 <Icon
                                     class="verifiedIcon"
                                     type="check"
@@ -333,13 +315,11 @@ export default {
                                 <span
                                     class="mCC-hb-fieldName"
                                     :title="field.name"
-                                    v-html="replaceEmojis(field.name)"
-                                ></span>
+                                ><Mfm :input="field.name"></Mfm></span>
                                 <span
                                     class="mCC-hb-fieldValue"
                                     :title="field.value"
-                                    v-html="replaceEmojis(field.value)"
-                                ></span>
+                                ><Mfm :input="field.value"></Mfm></span>
                             </div>
                         </div>
                     </div>
