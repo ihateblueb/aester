@@ -1,7 +1,5 @@
 <script setup>
 import { render } from './index.ts';
-import Emoji from './Emoji.vue';
-import Mention from './Mention.vue';
 </script>
 
 <script ts>
@@ -13,14 +11,28 @@ export default {
         input: String
     },
     mounted() {
-        let renderOutput = render(this.input.replace( /(<([^>]+)>)/ig, ''))
+        let renderOutput = render(this.input)
         renderOutput.forEach(element => {
             this.output += element
         })
     },
 }
 </script>
-
+/\w+/g
 <template>
     <span v-html="output"></span>
 </template>
+
+<style>
+.mfmMention {
+    background-color: var(--accent1-25);
+    padding: 1px 5px 1px 5px;
+    font-size: 15px;
+    border-radius: 6px;
+}
+
+.mfmHashtag {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+</style>./index.js

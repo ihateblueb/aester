@@ -1,4 +1,5 @@
 <script setup>
+import Afm from '../components/Afm/AfmCore.vue'
 import Icon from '../components/Icon.vue'
 </script>
 
@@ -153,7 +154,7 @@ export default {
                     <NuxtLink
                         class="notificationMention"
                         :to="'/@' + content.account.acct"
-                        >{{ content.account.display_name }}</NuxtLink
+                        ><Afm :input="content.account.display_name" /></NuxtLink
                     >
                     favorited your post
                 </span>
@@ -171,7 +172,7 @@ export default {
                     <NuxtLink
                         class="notificationMention"
                         :to="'/@' + content.account.acct"
-                        >{{ content.account.display_name }}
+                        ><Afm :input="content.account.display_name" />
                     </NuxtLink>
                     boosted your post
                 </span>
@@ -189,7 +190,7 @@ export default {
                     <NuxtLink
                         class="notificationMention"
                         :to="'/@' + content.account.acct"
-                        >{{ content.account.display_name }}
+                        ><Afm :input="content.account.display_name" />
                     </NuxtLink>
                     followed you
                 </span>
@@ -207,7 +208,7 @@ export default {
                     <NuxtLink
                         class="notificationMention"
                         :to="'/@' + content.account.acct"
-                        >{{ content.account.display_name }}
+                        ><Afm :input="content.account.display_name" />
                     </NuxtLink>
                     mentioned you
                 </span>
@@ -229,7 +230,7 @@ export default {
                     <NuxtLink
                         class="notificationMention"
                         :to="'/@' + content.account.acct"
-                        >{{ content.account.display_name }}
+                        ><Afm :input="content.account.display_name" />
                     </NuxtLink>
                     published a toot
                 </span>
@@ -258,7 +259,7 @@ export default {
                     <NuxtLink
                         class="notificationMention"
                         :to="'/@' + content.account.acct"
-                        >{{ content.account.display_name }}
+                        ><Afm :input="content.account.display_name" />
                     </NuxtLink>
                     reacted to your post
                 </span>
@@ -279,7 +280,7 @@ export default {
                     <NuxtLink
                         class="notificationMention"
                         :to="'/@' + content.account.acct"
-                        >{{ content.account.display_name }}
+                        ><Afm :input="content.account.display_name" />
                     </NuxtLink>
                     requested to follow you
                 </span>
@@ -297,7 +298,7 @@ export default {
                     <NuxtLink
                         class="notificationMention"
                         :to="'/@' + content.account.acct"
-                        >{{ content.account.display_name }}
+                        ><Afm :input="content.account.display_name" />
                     </NuxtLink>
                     edited a toot
                 </span>
@@ -488,8 +489,8 @@ export default {
     word-break: break-all;
 }
 
-.notificationTop span {
-    padding-left: 10px;
+.notificationTop .vue-feather {
+    padding-right: 10px;
 }
 
 .notificationTop .vue-feather {

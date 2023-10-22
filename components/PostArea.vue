@@ -1,3 +1,7 @@
+<script setup>
+import Afm from '../components/Afm/AfmCore.vue'
+</script>
+
 <script>
 export default {
     data: () => ({
@@ -173,7 +177,9 @@ export default {
             </div>
             <div class="postArea-names">
                 <NuxtLink :to="'/@' + user.username">
-                    <p class="postArea-displayName">{{ user.displayname }}</p>
+                    <p class="postArea-displayName">
+                        <Afm :input="user.displayname" />
+                    </p>
                     <p class="postArea-userName">
                         @{{ user.username }}@{{ instanceurl }}
                     </p>

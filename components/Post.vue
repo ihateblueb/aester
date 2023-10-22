@@ -1,5 +1,5 @@
 <script setup>
-import Mfm from '../components/Mfm/MfmCore.vue'
+import Afm from '../components/Afm/AfmCore.vue'
 import Icon from '../components/Icon.vue'
 </script>
 
@@ -280,7 +280,7 @@ export default {
                     :to="'/@' + content.account.acct"
                     v-if="!content.reblog"
                     class="post-displayName"
-                    ><Mfm :input="content.account.display_name" /></NuxtLink
+                    ><Afm :input="content.account.display_name" /></NuxtLink
                 >
                 <NuxtLink
                     :to="'/@' + content.account.acct"
@@ -292,7 +292,7 @@ export default {
                     :to="'/@' + content.reblog.account.acct"
                     v-if="content.reblog"
                     class="post-displayName"
-                    ><Mfm :input="content.reblog.account.display_name" /></NuxtLink
+                    ><Afm :input="content.reblog.account.display_name" /></NuxtLink
                 >
                 <NuxtLink
                     :to="'/@' + content.reblog.account.acct"
@@ -396,8 +396,8 @@ export default {
                 </button>
             </div>
             <div class="cwContent" v-if="showCwContent">
-                <span class="post-content" v-if="content.reblog"><Mfm :input="content.reblog.content" /></span>
-                <span class="post-content" v-if="!content.reblog"><Mfm :input="content.content" /></span>
+                <span class="post-content" v-if="content.reblog"><Afm :input="content.reblog.content" /></span>
+                <span class="post-content" v-if="!content.reblog"><Afm :input="content.content" /></span>
 
                 <div
                     class="post-attachments"
@@ -518,8 +518,8 @@ export default {
             </div>
         </div>
         <div v-if="!content.spoiler_text">
-                <span class="post-content" v-if="content.reblog"><Mfm :input="content.reblog.content" /></span>
-                <span class="post-content" v-if="!content.reblog"><Mfm :input="content.content" /></span>
+                <span class="post-content" v-if="content.reblog"><Afm :input="content.reblog.content" /></span>
+                <span class="post-content" v-if="!content.reblog"><Afm :input="content.content" /></span>
 
             <div
                 class="post-attachments"

@@ -1,5 +1,5 @@
 <script setup>
-import Mfm from '../components/Mfm/MfmCore.vue'
+import Afm from '../components/Afm/AfmCore.vue'
 import Icon from '../components/Icon.vue'
 </script>
 
@@ -213,7 +213,7 @@ export default {
     <div class="mColumnHeader" v-if="ready === true">
         <div class="mCH-left">
             <div class="mCH-text">
-                <Mfm :input="user.display_name"></Mfm>
+                <Afm :input="user.display_name"></Afm>
             </div>
         </div>
         <div class="mCH-buttons">
@@ -271,7 +271,7 @@ export default {
                 <div class="mCC-headerBottom">
                     <p
                         class="mCC-accountDisplayName"
-                    ><Mfm :input="user.display_name"></Mfm></p>
+                    ><Afm :input="user.display_name"></Afm></p>
                     <p class="mCC-accountUserName">@{{ user.acct }}</p>
                     <div
                         class="mCC-followsYouContainer"
@@ -291,7 +291,7 @@ export default {
                         </span>
                     </div>
                     <div class="mCC-hb-bio">
-                        <p><Mfm :input="user.note"></Mfm></p>
+                        <p><Afm :input="user.note"></Afm></p>
                     </div>
                     <div class="mCC-hb-fields">
                         <div class="mCC-hb-field" v-for="field in user.fields">
@@ -299,11 +299,11 @@ export default {
                                 <span
                                     class="mCC-hb-fieldName verified"
                                     :title="field.name"
-                                ><Mfm :input="field.name"></Mfm></span>
+                                ><Afm :input="field.name"></Afm></span>
                                 <span
                                     class="mCC-hb-fieldValue verified"
                                     :title="field.value"
-                                ><Mfm :input="field.value"></Mfm></span>
+                                ><Afm :input="field.value"></Afm></span>
                                 <Icon
                                     class="verifiedIcon"
                                     type="check"
@@ -315,11 +315,11 @@ export default {
                                 <span
                                     class="mCC-hb-fieldName"
                                     :title="field.name"
-                                ><Mfm :input="field.name"></Mfm></span>
+                                ><Afm :input="field.name"></Afm></span>
                                 <span
                                     class="mCC-hb-fieldValue"
                                     :title="field.value"
-                                ><Mfm :input="field.value"></Mfm></span>
+                                ><Afm :input="field.value"></Afm></span>
                             </div>
                         </div>
                     </div>

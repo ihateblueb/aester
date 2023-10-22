@@ -17,9 +17,10 @@
     "nuxt": "^3.7.0"
   },
   "dependencies": {
+    "afm-js": "https://github.com/ihateblueb/afm.js",
     "feather-icons": "^4.29.1",
     "floating-vue": "^2.0.0-beta.24",
-    "mfm-js": "^0.23.3",
+    "html-to-text": "^9.0.5",
     "vue": "^3.3.4",
     "vue-cookie": "^1.1.4",
     "vue-feather": "^2.0.0",
