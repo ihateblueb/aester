@@ -1,5 +1,4 @@
 <script setup>
-import Afm from '../components/Afm/AfmCore.vue'
 import Icon from '../components/Icon.vue'
 </script>
 
@@ -213,7 +212,7 @@ export default {
     <div class="mColumnHeader" v-if="ready === true">
         <div class="mCH-left">
             <div class="mCH-text">
-                <Afm :input="user.display_name"></Afm>
+                {{ user.display_name }}
             </div>
         </div>
         <div class="mCH-buttons">
@@ -271,7 +270,7 @@ export default {
                 <div class="mCC-headerBottom">
                     <p
                         class="mCC-accountDisplayName"
-                    ><Afm :input="user.display_name"></Afm></p>
+                    >{{ user.display_name }}</p>
                     <p class="mCC-accountUserName">@{{ user.acct }}</p>
                     <div
                         class="mCC-followsYouContainer"
@@ -291,7 +290,7 @@ export default {
                         </span>
                     </div>
                     <div class="mCC-hb-bio">
-                        <p><Afm :input="user.note"></Afm></p>
+                        <p v-html="user.note"></p>
                     </div>
                     <div class="mCC-hb-fields">
                         <div class="mCC-hb-field" v-for="field in user.fields">
@@ -299,11 +298,13 @@ export default {
                                 <span
                                     class="mCC-hb-fieldName verified"
                                     :title="field.name"
-                                ><Afm :input="field.name"></Afm></span>
+                                    v-html="field.name"
+                                ></span>
                                 <span
                                     class="mCC-hb-fieldValue verified"
                                     :title="field.value"
-                                ><Afm :input="field.value"></Afm></span>
+                                    v-html="field.value"
+                                ></span>
                                 <Icon
                                     class="verifiedIcon"
                                     type="check"
@@ -315,11 +316,13 @@ export default {
                                 <span
                                     class="mCC-hb-fieldName"
                                     :title="field.name"
-                                ><Afm :input="field.name"></Afm></span>
+                                    v-html="field.name"
+                                ></span>
                                 <span
                                     class="mCC-hb-fieldValue"
                                     :title="field.value"
-                                ><Afm :input="field.value"></Afm></span>
+                                    v-html="field.value"
+                                ></span>
                             </div>
                         </div>
                     </div>
