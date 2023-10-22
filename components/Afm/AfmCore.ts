@@ -7,6 +7,10 @@ export function render(i: string): any[] {
             { selector: 'a', options: { 
                 hideLinkHrefIfSameAsText: true,
                 linkBrackets: ["$[afm_url", "]"] } },
+            { selector: 'ul', format: 'inlineHtml'},
+            { selector: 'ol', format: 'inlineHtml'},
+            { selector: 'li', format: 'inlineHtml'},
+            { selector: 'br', format: 'inlineHtml'},
           ]
     }));
     let final: any[] = [];

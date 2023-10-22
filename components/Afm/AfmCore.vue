@@ -1,5 +1,5 @@
 <script setup>
-import { render } from './index.ts';
+import { render } from './AfmCore.ts';
 </script>
 
 <script ts>
@@ -35,4 +35,4 @@ export default {
     padding-left: 5px;
     padding-right: 5px;
 }
-</style>./index.js
+</style>./index.js./AfmCore.js
