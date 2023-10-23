@@ -49,6 +49,23 @@ body.reduced-motion {
     transition: 0s !important;
 }
 
+body:not(.reduced-motion).pop-animations .emojiReaction {
+    transition: .2s;
+    max-width: 200px;
+}
+
+body:not(.reduced-motion).pop-animations .emojiReaction:hover {
+    scale: 150%;
+}
+
+body:not(.reduced-motion).pop-animations .postInteraction .vue-feather {
+    transition: .2s;
+}
+
+body:not(.reduced-motion).pop-animations .postInteraction:hover .vue-feather {
+    scale: 125%;
+}
+
 body {
     font-family: var(--font1);
     margin: 0px;
@@ -935,8 +952,4 @@ label {
 
 blockquote:not(:last-child) {
     margin-bottom: 10px !important;
-}
-
-.emojiReaction {
-    max-width: 200px;
 }

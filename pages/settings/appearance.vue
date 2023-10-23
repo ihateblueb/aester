@@ -1,20 +1,20 @@
 <script setup>
-import ColorSwatches from '../../components/ColorSwatches.vue';
-import themes from 'assets/themes.json';
+import ColorSwatches from '../../components/ColorSwatches.vue'
+import themes from 'assets/themes.json'
 </script>
 
 <script>
 definePageMeta({
-    layout: "settings",
-});
+    layout: 'settings',
+})
 
 export default {
     data: () => ({
         ready: false,
-        colortheme: "",
+        colortheme: '',
     }),
     mounted() {
-        this.colortheme = this.getLocalStorage("ui_colortheme")
+        this.colortheme = this.getLocalStorage('ui_colortheme')
     },
     methods: {
         setLocalStorage(key, value) {
@@ -24,35 +24,37 @@ export default {
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key);
+                return localStorage.getItem(key)
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key);
+                return localStorage.removeItem(key)
             }
         },
 
         async colorThemeAction(action, theme) {
-            if (action === "set") {
-                this.setLocalStorage("ui_colortheme", theme)
+            if (action === 'set') {
+                this.setLocalStorage('ui_colortheme', theme)
                 this.setColorTheme()
             }
         },
 
         setColorTheme() {
-            this.colortheme = this.getLocalStorage("ui_colortheme")
+            this.colortheme = this.getLocalStorage('ui_colortheme')
 
             // remove previous
-            let themearray = Object.entries(JSON.parse(JSON.stringify(themes.color)))
+            let themearray = Object.entries(
+                JSON.parse(JSON.stringify(themes.color))
+            )
 
             themearray.forEach((element) => {
-                document.body.classList.remove("cs_" + element[1].id)
+                document.body.classList.remove('cs_' + element[1].id)
             })
 
             document.body.classList.add(this.colortheme)
         },
-    }
+    },
 }
 </script>
 
@@ -61,31 +63,44 @@ export default {
         <h2>Appearance</h2>
         <div class="settingContainer">
             <h3>Base Theme</h3>
-
         </div>
         <div class="settingContainer">
             <h3>Color Theme</h3>
             <div>
                 <div class="ctheme" v-for="theme in themes.color">
                     <input type="radio" :id="'cs_' + theme.id" name="cs" :value="'cs_' + theme.id"
-                        @click="colorThemeAction('set', 'cs_' + theme.id)" :checked="colortheme === 'cs_' + theme.id">
+                        @click="colorThemeAction('set', 'cs_' + theme.id)" :checked="colortheme === 'cs_' + theme.id" />
                     <label :for="'cs_' + theme.id">{{ theme.name }}
                         <div class="cthemeTags">
-                            <span class="cthemeTag" v-for="tag in theme.tags">{{ tag }}</span>
+                            <span class="cthemeTag" v-for="tag in theme.tags">{{
+                                tag
+                            }}</span>
                         </div>
                     </label>
                     <ColorSwatches :theme="'cs_' + theme.id" />
                 </div>
             </div>
             <p class="attribution">
-            <p>Catppuccin color themes are open source <a href="https://github.com/catppuccin/catppuccin#-palette">on
-                    GitHub</a>.</p>
-            <p>Rosé Pine color themes are also available <a href="https://rosepinetheme.com/palette/">from
-                    their website</a>.</p>
-            <p style="margin-top: 5px;">
+            <p>
+                Catppuccin color themes are open source
+                <a href="https://github.com/catppuccin/catppuccin#-palette">on GitHub</a>.
+            </p>
+            <p>
+                Rosé Pine color themes are also available
+                <a href="https://rosepinetheme.com/palette/">from their website</a>.
+            </p>
+            <p style="margin-top: 5px">
                 Some colors have been modified to better fit the UI.
             </p>
+
             </p>
+        </div>
+        <div class="settingContainer">
+            <h3>Extras</h3>
+            <div>
+                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+                <label for="vehicle1"> Enable extra animations in UI</label>
+            </div>
         </div>
     </div>
 </template>
