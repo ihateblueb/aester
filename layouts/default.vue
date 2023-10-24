@@ -99,6 +99,16 @@ export default {
             });
             document.body.classList.add(this.colortheme);
 
+            // font
+            this.font = this.getLocalStorage("ui_font");
+            let fontarray = Object.entries(
+                JSON.parse(JSON.stringify(themes.font))
+            );
+            fontarray.forEach((element) => {
+                document.body.classList.remove("ft_" + element[1].id);
+            });
+            document.body.classList.add(this.font);
+
             // reduced motion
             this.reducedmotion = this.getLocalStorage("ui_reducedmotion");
             document.body.classList.remove("reduced-motion");

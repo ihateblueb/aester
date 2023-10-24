@@ -15,10 +15,12 @@ export default {
         ready: false,
         colortheme: '',
         extraanimations: 'false',
+        fonttheme: 'inter',
     }),
     mounted() {
         this.colortheme = this.getLocalStorage('ui_colortheme')
         this.extraanimations = this.getLocalStorage('ui_extraanimations')
+        this.fonttheme = this.getLocalStorage('ui_font')
         this.ready = true
     },
     methods: {
@@ -58,6 +60,28 @@ export default {
             })
 
             document.body.classList.add(this.colortheme)
+        },
+
+        async fontAction(action, font) {
+            if (action === 'set') {
+                this.setLocalStorage('ui_font', font)
+                this.setFont()
+            }
+        },
+
+        setFont() {
+            this.fonttheme = this.getLocalStorage('ui_font')
+
+            // remove previous
+            let fontarray = Object.entries(
+                JSON.parse(JSON.stringify(themes.font))
+            )
+
+            fontarray.forEach((element) => {
+                document.body.classList.remove('ft_' + element[1].id)
+            })
+
+            document.body.classList.add(this.fonttheme)
         },
 
         extraAnimationToggle() {

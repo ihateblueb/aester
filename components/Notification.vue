@@ -389,7 +389,7 @@ export default {
                                 class="emojiReaction"
                                 v-if="reaction.url"
                             />
-                            <span v-if="!reaction.url">{{
+                            <span class="emojiReaction" v-if="!reaction.url">{{
                                 reaction.name
                             }}</span>
                             <span class="postReactionCounter">{{
