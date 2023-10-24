@@ -1,16 +1,16 @@
 <script setup>
-import Icon from '../components/Icon.vue'
+import Icon from "../components/Icon.vue";
 </script>
 
 <script>
 export default {
     data: () => ({
         content: [],
-        token: '',
+        token: "",
         fr_show: true,
         ready: false,
         showCwContent: false,
-        showcwtext: 'Show More',
+        showcwtext: "Show More",
         timer: 0,
     }),
     props: {
@@ -18,125 +18,126 @@ export default {
         data: Object,
     },
     mounted() {
-        this.content = this.data
-        this.token = this.getLocalStorage('token')
-        this.ready = true
+        this.content = this.data;
+        this.token = this.getLocalStorage("token");
+        this.ready = true;
         this.timer = setInterval(() => {
-            this.timer += 1
-        }, 5000)
+            this.timer += 1;
+        }, 5000);
     },
     methods: {
         timeAgo(time) {
             switch (typeof time) {
-                case 'number':
-                    break
-                case 'string':
-                    time = +new Date(time)
-                    break
-                case 'object':
-                    if (time.constructor === Date) time = time.getTime()
-                    break
+                case "number":
+                    break;
+                case "string":
+                    time = +new Date(time);
+                    break;
+                case "object":
+                    if (time.constructor === Date) time = time.getTime();
+                    break;
                 default:
-                    time = +new Date()
+                    time = +new Date();
             }
             var time_formats = [
-                [60, 's', 1],
-                [120, '1m', '1m'],
-                [3600, 'm', 60],
-                [7200, '1h', '1h'],
-                [86400, 'h', 3600],
-                [604800, 'd', 86400],
-                [2419200, 'w', 604800],
-                [29030400, 'mo', 2419200],
-                [2903040000, 'y', 29030400],
-                [58060800000, 'c', 2903040000],
-            ]
+                [60, "s", 1],
+                [120, "1m", "1m"],
+                [3600, "m", 60],
+                [7200, "1h", "1h"],
+                [86400, "h", 3600],
+                [604800, "d", 86400],
+                [2419200, "w", 604800],
+                [29030400, "mo", 2419200],
+                [2903040000, "y", 29030400],
+                [58060800000, "c", 2903040000],
+            ];
             var seconds = (+new Date() - time) / 1000,
-                list_choice = 1
+                list_choice = 1;
             if (seconds == 0) {
-                return 'now'
+                return "now";
             }
             var i = 0,
-                format
+                format;
             while ((format = time_formats[i++]))
                 if (seconds < format[0]) {
-                    if (typeof format[2] == 'string') return format[list_choice]
-                    else return Math.floor(seconds / format[2]) + format[1]
+                    if (typeof format[2] == "string")
+                        return format[list_choice];
+                    else return Math.floor(seconds / format[2]) + format[1];
                 }
-            return time
+            return time;
         },
 
         setLocalStorage(key, value) {
             if (process.client) {
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value);
             }
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key)
+                return localStorage.getItem(key);
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key)
+                return localStorage.removeItem(key);
             }
         },
 
         async followRequest(response, id) {
-            if (response === 'accept') {
+            if (response === "accept") {
                 const acceptfollowrequest = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/follow_requests/' +
+                        "/api/v1/follow_requests/" +
                         id +
-                        '/authorize',
+                        "/authorize",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
+                );
                 const acceptfollowrequest_response =
-                    await acceptfollowrequest.json()
+                    await acceptfollowrequest.json();
 
-                this.fr_show = false
+                this.fr_show = false;
 
-                console.log(acceptfollowrequest_response)
-            } else if (response === 'deny') {
+                console.log(acceptfollowrequest_response);
+            } else if (response === "deny") {
                 const denyfollowrequest = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/follow_requests/' +
+                        "/api/v1/follow_requests/" +
                         id +
-                        '/reject',
+                        "/reject",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
+                );
                 const denyfollowrequest_response =
-                    await denyfollowrequest.json()
+                    await denyfollowrequest.json();
 
-                this.fr_show = false
+                this.fr_show = false;
 
-                console.log(denyfollowrequest_response)
+                console.log(denyfollowrequest_response);
             }
         },
 
         async toggleShowCW() {
             if (this.showCwContent === true) {
-                this.showCwContent = false
-                this.showcwtext = 'Show More'
+                this.showCwContent = false;
+                this.showcwtext = "Show More";
             } else {
-                this.showCwContent = true
-                this.showcwtext = 'Show Less'
+                this.showCwContent = true;
+                this.showcwtext = "Show Less";
             }
         },
     },
-}
+};
 </script>
 
 <template>

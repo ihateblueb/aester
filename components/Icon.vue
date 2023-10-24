@@ -1,11 +1,11 @@
 <script setup>
-import VueFeather from 'vue-feather'
+import VueFeather from "vue-feather";
 </script>
 
 <script>
 export default {
     data: () => ({
-        fillcolor: 'none',
+        fillcolor: "none",
     }),
     props: {
         name: String,
@@ -15,10 +15,10 @@ export default {
     },
     created() {
         if (this.fill) {
-            this.fillcolor = this.color
+            this.fillcolor = this.color;
         }
     },
-}
+};
 </script>
 
 <template>

@@ -1,211 +1,211 @@
 <script setup>
-import Icon from '../components/Icon.vue'
+import Icon from "../components/Icon.vue";
 </script>
 
 <script>
 export default {
     data: () => ({
         ready: false,
-        token: '',
-        instanceurl: '',
-        acct: '',
-        selfid: '',
+        token: "",
+        instanceurl: "",
+        acct: "",
+        selfid: "",
         user: {},
         relationships: {},
         timeline: {
             pins: [],
             profile: [],
             profile_new: [],
-            profile_last: '',
+            profile_last: "",
         },
     }),
     mounted() {
-        this.selfid = this.getLocalStorage('user_id')
-        this.instanceurl = this.getLocalStorage('instanceurl')
-        this.token = this.getLocalStorage('token')
-        this.acct = this.$route.params.userid
+        this.selfid = this.getLocalStorage("user_id");
+        this.instanceurl = this.getLocalStorage("instanceurl");
+        this.token = this.getLocalStorage("token");
+        this.acct = this.$route.params.userid;
 
-        this.getOtherUserDetails()
+        this.getOtherUserDetails();
     },
     methods: {
         setLocalStorage(key, value) {
             if (process.client) {
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value);
             }
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key)
+                return localStorage.getItem(key);
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key)
+                return localStorage.removeItem(key);
             }
         },
 
         async getOtherUserDetails() {
             const getotheruserdetails = await fetch(
-                'https://' +
+                "https://" +
                     this.instanceurl +
-                    '/api/v1/accounts/lookup/?acct=' +
+                    "/api/v1/accounts/lookup/?acct=" +
                     this.acct,
                 {
-                    method: 'GET',
+                    method: "GET",
                 }
-            )
+            );
             const getotheruserdetails_response =
-                await getotheruserdetails.json()
+                await getotheruserdetails.json();
 
-            this.user = getotheruserdetails_response
+            this.user = getotheruserdetails_response;
 
-            console.log(getotheruserdetails_response)
+            console.log(getotheruserdetails_response);
 
-            this.getRelationships()
-            this.loadPins()
-            this.loadToots()
+            this.getRelationships();
+            this.loadPins();
+            this.loadToots();
 
-            this.ready = true
+            this.ready = true;
         },
 
         async getRelationships() {
             const getrelationships = await fetch(
-                'https://' +
+                "https://" +
                     this.instanceurl +
-                    '/api/v1/accounts/relationships/?id=' +
+                    "/api/v1/accounts/relationships/?id=" +
                     this.user.id,
                 {
-                    method: 'GET',
+                    method: "GET",
                     headers: {
-                        Authorization: 'Bearer ' + this.token,
+                        Authorization: "Bearer " + this.token,
                     },
                 }
-            )
-            const getrelationships_response = await getrelationships.json()
+            );
+            const getrelationships_response = await getrelationships.json();
 
-            this.relationships = getrelationships_response[0]
+            this.relationships = getrelationships_response[0];
 
-            console.log(getrelationships_response[0])
+            console.log(getrelationships_response[0]);
         },
 
         async userInteraction(type) {
-            if (type === 'follow') {
+            if (type === "follow") {
                 const sendinteraction = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/accounts/' +
+                        "/api/v1/accounts/" +
                         this.user.id +
-                        '/follow',
+                        "/follow",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
-                const sendinteraction_response = await sendinteraction.json()
+                );
+                const sendinteraction_response = await sendinteraction.json();
 
                 if (sendinteraction_response.following === true) {
-                    this.getRelationships()
+                    this.getRelationships();
                 }
-            } else if (type === 'unfollow') {
+            } else if (type === "unfollow") {
                 const sendinteraction = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/accounts/' +
+                        "/api/v1/accounts/" +
                         this.user.id +
-                        '/unfollow',
+                        "/unfollow",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
-                const sendinteraction_response = await sendinteraction.json()
+                );
+                const sendinteraction_response = await sendinteraction.json();
 
                 if (sendinteraction_response.following === false) {
-                    this.getRelationships()
+                    this.getRelationships();
                 }
             }
         },
 
         async loadPins() {
             let pinnedtoots = await fetch(
-                'https://' +
+                "https://" +
                     this.instanceurl +
-                    '/api/v1/accounts/' +
+                    "/api/v1/accounts/" +
                     this.user.id +
-                    '/statuses?pinned=true',
+                    "/statuses?pinned=true",
                 {
-                    method: 'GET',
+                    method: "GET",
                     headers: {
-                        Authorization: 'Bearer ' + this.token,
+                        Authorization: "Bearer " + this.token,
                     },
                 }
-            )
-            let pinnedtoots_response = await pinnedtoots.json()
+            );
+            let pinnedtoots_response = await pinnedtoots.json();
 
             pinnedtoots_response.forEach(
                 (element) =>
                     this.timeline.pins.push(element) && console.log(element)
-            )
+            );
         },
         async loadToots() {
             let initialtoots = await fetch(
-                'https://' +
+                "https://" +
                     this.instanceurl +
-                    '/api/v1/accounts/' +
+                    "/api/v1/accounts/" +
                     this.user.id +
-                    '/statuses',
+                    "/statuses",
                 {
-                    method: 'GET',
+                    method: "GET",
                     headers: {
-                        Authorization: 'Bearer ' + this.token,
+                        Authorization: "Bearer " + this.token,
                     },
                 }
-            )
-            let initialtoots_response = await initialtoots.json()
+            );
+            let initialtoots_response = await initialtoots.json();
 
             initialtoots_response.forEach(
                 (element) =>
                     this.timeline.profile.push(element) && console.log(element)
-            )
+            );
 
-            this.timeline.profile_last = initialtoots_response.at(-1).id
+            this.timeline.profile_last = initialtoots_response.at(-1).id;
         },
         async loadMoreToots(id) {
             let moretoots = await fetch(
-                'https://' +
+                "https://" +
                     this.instanceurl +
-                    '/api/v1/accounts/' +
+                    "/api/v1/accounts/" +
                     this.user.id +
-                    '/statuses?max_id=' +
+                    "/statuses?max_id=" +
                     id,
                 {
-                    method: 'GET',
+                    method: "GET",
                     headers: {
-                        Authorization: 'Bearer ' + this.token,
+                        Authorization: "Bearer " + this.token,
                     },
                 }
-            )
-            let moretoots_response = await moretoots.json()
+            );
+            let moretoots_response = await moretoots.json();
 
             moretoots_response.forEach((element) =>
                 this.timeline.profile.push(element)
-            )
+            );
 
-            this.timeline.profile_last = moretoots_response.at(-1).id
+            this.timeline.profile_last = moretoots_response.at(-1).id;
         },
 
         async onProfileScroll(e) {
-            const { scrollTop, offsetHeight, scrollHeight } = e.target
+            const { scrollTop, offsetHeight, scrollHeight } = e.target;
             if (scrollTop + offsetHeight >= scrollHeight) {
-                this.loadMoreToots(this.timeline.profile_last)
+                this.loadMoreToots(this.timeline.profile_last);
             }
         },
     },
-}
+};
 </script>
 
 <template>

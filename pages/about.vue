@@ -1,52 +1,52 @@
 <script setup>
-import Icon from '../components/Icon.vue'
+import Icon from "../components/Icon.vue";
 </script>
 
 <script>
 export default {
     data: () => ({
         ready: false,
-        instanceurl: '',
+        instanceurl: "",
         instance: {},
     }),
     mounted() {
-        this.instanceurl = this.getLocalStorage('instanceurl')
-        this.getInstance()
+        this.instanceurl = this.getLocalStorage("instanceurl");
+        this.getInstance();
     },
     methods: {
         setLocalStorage(key, value) {
             if (process.client) {
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value);
             }
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key)
+                return localStorage.getItem(key);
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key)
+                return localStorage.removeItem(key);
             }
         },
 
         async getInstance() {
             const getinstance = await fetch(
-                'https://' + this.instanceurl + '/api/v2/instance',
+                "https://" + this.instanceurl + "/api/v2/instance",
                 {
-                    method: 'GET',
+                    method: "GET",
                 }
-            )
-            const getinstance_response = await getinstance.json()
+            );
+            const getinstance_response = await getinstance.json();
 
-            this.instance = getinstance_response
+            this.instance = getinstance_response;
 
-            console.log(getinstance_response)
+            console.log(getinstance_response);
 
-            this.ready = true
+            this.ready = true;
         },
     },
-}
+};
 </script>
 
 <template>
@@ -94,7 +94,7 @@ export default {
                                 :to="'/@' + instance.contact.account.acct"
                                 >@{{
                                     instance.contact.account.acct +
-                                    '@' +
+                                    "@" +
                                     instanceurl
                                 }}</NuxtLink
                             ></span

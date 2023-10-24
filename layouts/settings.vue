@@ -1,61 +1,61 @@
 <script setup>
-import themes from 'assets/themes.json'
+import themes from "assets/themes.json";
 </script>
 
 <script>
 export default {
     data: () => ({
-        href: '',
+        href: "",
     }),
     mounted() {
-        this.loadSettings()
-        const route = useRoute()
-        this.href = route.href
+        this.loadSettings();
+        const route = useRoute();
+        this.href = route.href;
     },
     methods: {
         setLocalStorage(key, value) {
             if (process.client) {
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value);
             }
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key)
+                return localStorage.getItem(key);
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key)
+                return localStorage.removeItem(key);
             }
         },
 
         async loadSettings() {
             // color themes
-            this.colortheme = this.getLocalStorage('ui_colortheme')
+            this.colortheme = this.getLocalStorage("ui_colortheme");
             let themearray = Object.entries(
                 JSON.parse(JSON.stringify(themes.color))
-            )
+            );
             themearray.forEach((element) => {
-                document.body.classList.remove('cs_' + element[1].id)
-            })
-            document.body.classList.add(this.colortheme)
+                document.body.classList.remove("cs_" + element[1].id);
+            });
+            document.body.classList.add(this.colortheme);
 
             // reduced motion
-            this.reducedmotion = this.getLocalStorage('ui_reducedmotion')
-            document.body.classList.remove('reduced-motion')
-            if (this.reducedmotion === 'true') {
-                document.body.classList.add('reduced-motion')
+            this.reducedmotion = this.getLocalStorage("ui_reducedmotion");
+            document.body.classList.remove("reduced-motion");
+            if (this.reducedmotion === "true") {
+                document.body.classList.add("reduced-motion");
             }
 
             // extra animations
-            this.extraanimations = this.getLocalStorage('ui_extraanimations')
-            document.body.classList.remove('extra-animations')
-            if (this.extraanimations === 'true') {
-                document.body.classList.add('extra-animations')
+            this.extraanimations = this.getLocalStorage("ui_extraanimations");
+            document.body.classList.remove("extra-animations");
+            if (this.extraanimations === "true") {
+                document.body.classList.add("extra-animations");
             }
         },
     },
-}
+};
 </script>
 
 <template>

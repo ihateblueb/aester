@@ -1,52 +1,52 @@
 <script setup>
-import Checkbox from '../../components/Checkbox.vue'
+import Checkbox from "../../components/Checkbox.vue";
 </script>
 
 <script>
 definePageMeta({
-    layout: 'settings',
-})
+    layout: "settings",
+});
 
 export default {
     data: () => ({
         ready: false,
-        reducedmotion: 'false',
+        reducedmotion: "false",
     }),
     mounted() {
-        this.reducedmotion = this.getLocalStorage('ui_reducedmotion')
-        this.ready = true
+        this.reducedmotion = this.getLocalStorage("ui_reducedmotion");
+        this.ready = true;
     },
     methods: {
         setLocalStorage(key, value) {
             if (process.client) {
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value);
             }
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key)
+                return localStorage.getItem(key);
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key)
+                return localStorage.removeItem(key);
             }
         },
 
         reducedMotionToggle() {
-            this.reducedmotion = this.getLocalStorage('ui_reducedmotion')
-            if (this.reducedmotion === 'true') {
-                document.body.classList.remove('reduced-motion')
-                this.setLocalStorage('ui_reducedmotion', 'false')
-                this.reducedmotion = 'false'
+            this.reducedmotion = this.getLocalStorage("ui_reducedmotion");
+            if (this.reducedmotion === "true") {
+                document.body.classList.remove("reduced-motion");
+                this.setLocalStorage("ui_reducedmotion", "false");
+                this.reducedmotion = "false";
             } else {
-                document.body.classList.add('reduced-motion')
-                this.setLocalStorage('ui_reducedmotion', 'true')
-                this.reducedmotion = 'true'
+                document.body.classList.add("reduced-motion");
+                this.setLocalStorage("ui_reducedmotion", "true");
+                this.reducedmotion = "true";
             }
-        }
+        },
     },
-}
+};
 </script>
 
 <template>
@@ -56,8 +56,13 @@ export default {
             <div>
                 <div class="checkboxSetting" @click="reducedMotionToggle">
                     <div>
-                        <Checkbox :checked="reducedmotion" :key="reducedmotion" />
-                        <label for="extraanimations"> Enable reduced motion</label>
+                        <Checkbox
+                            :checked="reducedmotion"
+                            :key="reducedmotion"
+                        />
+                        <label for="extraanimations">
+                            Enable reduced motion</label
+                        >
                     </div>
                     <p class="settingExplaination">
                         Reduced motion will disable animations throughout the

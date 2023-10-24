@@ -37,5 +37,19 @@
             "name": "Rosé Pine",
             "tags": ["rosepine", "dark", "purple", "pink"]
         }
+    },
+    "font": {
+        "system-ui": {
+            "id": "system-ui",
+            "name": "System"
+        },
+        "atkinson": {
+            "id": "atkinson",
+            "name": "Atkinson Hyperlegible"
+        },
+        "inter": {
+            "id": "inter",
+            "name": "Inter"
+        }
     }
 }

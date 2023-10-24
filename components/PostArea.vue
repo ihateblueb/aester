@@ -1,164 +1,164 @@
 <script>
 export default {
     data: () => ({
-        instanceurl: '',
-        token: '',
+        instanceurl: "",
+        token: "",
         user: {
-            displayname: 'none',
-            username: 'none',
-            avatar: 'assets/none.png',
+            displayname: "none",
+            username: "none",
+            avatar: "assets/none.png",
         },
         app: {
             postArea: {
-                selectedBtn: '',
-                contentWarning: 'false',
-                dropdown: '',
+                selectedBtn: "",
+                contentWarning: "false",
+                dropdown: "",
                 poll: {
                     options: 2,
                 },
             },
-            clientid: '',
-            secret: '',
+            clientid: "",
+            secret: "",
         },
         toot: {
-            content: '',
-            replying: '',
+            content: "",
+            replying: "",
             media: [],
             poll: {
-                options: ['', '', '', '', ''],
-                expires_in: '1 day',
-                multiple: 'false',
-                hide_totals: 'false',
+                options: ["", "", "", "", ""],
+                expires_in: "1 day",
+                multiple: "false",
+                hide_totals: "false",
             },
-            sensitive: '',
-            spoiler_text: '',
-            visibility: 'public',
-            language: '',
+            sensitive: "",
+            spoiler_text: "",
+            visibility: "public",
+            language: "",
         },
     }),
     mounted() {
-        this.populateData()
+        this.populateData();
     },
     methods: {
         setLocalStorage(key, value) {
             if (process.client) {
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value);
             }
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key)
+                return localStorage.getItem(key);
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key)
+                return localStorage.removeItem(key);
             }
         },
 
         async populateData() {
-            this.instanceurl = this.getLocalStorage('instanceurl')
-            this.token = this.getLocalStorage('token')
+            this.instanceurl = this.getLocalStorage("instanceurl");
+            this.token = this.getLocalStorage("token");
 
-            this.user.avatar = this.getLocalStorage('user_avatar')
-            this.user.displayname = this.getLocalStorage('user_displayname')
-            this.user.username = this.getLocalStorage('user_username')
+            this.user.avatar = this.getLocalStorage("user_avatar");
+            this.user.displayname = this.getLocalStorage("user_displayname");
+            this.user.username = this.getLocalStorage("user_username");
         },
 
         async sendToot() {
-            if (this.toot.content != '') {
+            if (this.toot.content != "") {
                 console.log(
-                    '[Aster Actions] Posting toot as @' +
+                    "[Aster Actions] Posting toot as @" +
                         this.user.username +
-                        '@' +
+                        "@" +
                         this.instanceurl +
-                        '...'
-                )
+                        "..."
+                );
 
-                var additional_status_options = `&visibility=${this.toot.visibility}`
+                var additional_status_options = `&visibility=${this.toot.visibility}`;
 
                 if (
                     this.toot.spoiler_text &&
-                    this.app.postArea.contentWarning === 'true'
+                    this.app.postArea.contentWarning === "true"
                 ) {
                     var additional_status_options =
-                        (additional_status_options += `&spoiler_text=${this.toot.spoiler_text}`)
+                        (additional_status_options += `&spoiler_text=${this.toot.spoiler_text}`);
                 }
 
                 const sendtoot = await fetch(
-                    'https://' + this.instanceurl + '/api/v1/statuses',
+                    "https://" + this.instanceurl + "/api/v1/statuses",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
-                            'Content-Type': 'application/x-www-form-urlencoded',
+                            Authorization: "Bearer " + this.token,
+                            "Content-Type": "application/x-www-form-urlencoded",
                         },
                         body: `status=${this.toot.content}${additional_status_options}`,
                     }
-                )
-                const sendtoot_response = await sendtoot.json()
+                );
+                const sendtoot_response = await sendtoot.json();
 
                 if (sendtoot_response.error) {
-                    this.toast(sendtoot_response.error)
+                    this.toast(sendtoot_response.error);
 
                     console.log(
                         "[Aster Actions] Can't post toot: " +
                             sendtoot_response.error
-                    )
+                    );
                 } else {
-                    this.app.postArea.dropdown = ''
-                    this.app.postArea.selectedBtn = ''
+                    this.app.postArea.dropdown = "";
+                    this.app.postArea.selectedBtn = "";
 
-                    this.toot.content = ''
-                    this.toot.media = ''
-                    this.toot.poll.options = ''
-                    this.toot.poll.expires_in = '1 day'
-                    this.toot.poll.multiple = 'false'
-                    this.toot.poll.hide_totals = 'false'
-                    this.toot.sensitive = ''
-                    this.toot.spoiler_text = ''
-                    this.toot.visibility = 'public'
+                    this.toot.content = "";
+                    this.toot.media = "";
+                    this.toot.poll.options = "";
+                    this.toot.poll.expires_in = "1 day";
+                    this.toot.poll.multiple = "false";
+                    this.toot.poll.hide_totals = "false";
+                    this.toot.sensitive = "";
+                    this.toot.spoiler_text = "";
+                    this.toot.visibility = "public";
 
-                    console.log('[Aster Actions] Posted toot.')
+                    console.log("[Aster Actions] Posted toot.");
                 }
             }
         },
 
         setPostAreaButton(thebutton) {
-            if (thebutton === 'sensitive') {
-                if (this.toot.sensitive === 'true') {
-                    this.toot.sensitive = 'false'
+            if (thebutton === "sensitive") {
+                if (this.toot.sensitive === "true") {
+                    this.toot.sensitive = "false";
                 } else {
-                    this.toot.sensitive = 'true'
+                    this.toot.sensitive = "true";
                 }
             } else {
                 if (thebutton === this.app.postArea.selectedBtn) {
-                    this.app.postArea.selectedBtn = ''
-                    this.app.postArea.dropdown = ''
+                    this.app.postArea.selectedBtn = "";
+                    this.app.postArea.dropdown = "";
                 } else {
-                    this.app.postArea.selectedBtn = thebutton
-                    this.app.postArea.dropdown = thebutton
+                    this.app.postArea.selectedBtn = thebutton;
+                    this.app.postArea.dropdown = thebutton;
                 }
             }
         },
 
         setPostAreaToggle(thetoggle) {
-            if (thetoggle === 'contentwarning') {
-                if (this.app.postArea.contentWarning === 'true') {
-                    this.app.postArea.contentWarning = 'false'
+            if (thetoggle === "contentwarning") {
+                if (this.app.postArea.contentWarning === "true") {
+                    this.app.postArea.contentWarning = "false";
                 } else {
-                    this.app.postArea.contentWarning = 'true'
+                    this.app.postArea.contentWarning = "true";
                 }
             }
         },
 
         setTootOption(option, value) {
-            if (option === 'visibility') {
-                this.toot.visibility = value
+            if (option === "visibility") {
+                this.toot.visibility = value;
             }
         },
     },
-}
+};
 </script>
 
 <template>

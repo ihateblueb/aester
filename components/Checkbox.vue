@@ -1,6 +1,6 @@
 <script setup>
-import VueFeather from 'vue-feather'
-import Icon from './Icon.vue'
+import VueFeather from "vue-feather";
+import Icon from "./Icon.vue";
 </script>
 
 <script>
@@ -8,7 +8,7 @@ export default {
     props: {
         checked: String,
     },
-}
+};
 </script>
 
 <template>

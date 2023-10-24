@@ -1,70 +1,70 @@
 <script>
 definePageMeta({
-    layout: 'settings',
-})
+    layout: "settings",
+});
 
 export default {
     data: () => ({
         ready: false,
-        token: '',
-        instanceurl: '',
+        token: "",
+        instanceurl: "",
         selfid: 0,
         user: {},
         editor: {
-            bio: '',
+            bio: "",
         },
     }),
     mounted() {
-        this.selfid = this.getLocalStorage('user_id')
-        this.instanceurl = this.getLocalStorage('instanceurl')
-        this.token = this.getLocalStorage('token')
+        this.selfid = this.getLocalStorage("user_id");
+        this.instanceurl = this.getLocalStorage("instanceurl");
+        this.token = this.getLocalStorage("token");
 
-        this.getUserDetails()
+        this.getUserDetails();
 
-        this.ready = true
+        this.ready = true;
     },
     methods: {
         setLocalStorage(key, value) {
             if (process.client) {
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value);
             }
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key)
+                return localStorage.getItem(key);
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key)
+                return localStorage.removeItem(key);
             }
         },
 
         async getUserDetails() {
             const getotheruserdetails = await fetch(
-                'https://' +
+                "https://" +
                     this.instanceurl +
-                    '/api/v1/accounts/' +
+                    "/api/v1/accounts/" +
                     this.selfid,
                 {
-                    method: 'GET',
+                    method: "GET",
                 }
-            )
+            );
             const getotheruserdetails_response =
-                await getotheruserdetails.json()
+                await getotheruserdetails.json();
 
-            this.user = getotheruserdetails_response
-            this.editor.bio = this.user.note
+            this.user = getotheruserdetails_response;
+            this.editor.bio = this.user.note;
 
-            console.log(getotheruserdetails_response)
+            console.log(getotheruserdetails_response);
         },
 
         async biovalidate(event) {
-            this.editor.bio = event.target.innerHTML
-            console.log(this.editor.bio)
+            this.editor.bio = event.target.innerHTML;
+            console.log(this.editor.bio);
         },
     },
-}
+};
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup>
-import Icon from '../components/Icon.vue'
+import Icon from "../components/Icon.vue";
 </script>
 
 <script>
@@ -8,7 +8,7 @@ export default {
         content: [],
         ready: false,
         showCwContent: false,
-        showcwtext: 'Show More',
+        showcwtext: "Show More",
         timer: 0,
     }),
     props: {
@@ -18,246 +18,255 @@ export default {
         data: Object,
     },
     mounted() {
-        this.content = this.data
-        this.ready = true
+        this.content = this.data;
+        this.ready = true;
         this.timer = setInterval(() => {
-            this.timer += 1
-        }, 5000)
+            this.timer += 1;
+        }, 5000);
     },
     methods: {
         timeAgo(time) {
             switch (typeof time) {
-                case 'number':
-                    break
-                case 'string':
-                    time = +new Date(time)
-                    break
-                case 'object':
-                    if (time.constructor === Date) time = time.getTime()
-                    break
+                case "number":
+                    break;
+                case "string":
+                    time = +new Date(time);
+                    break;
+                case "object":
+                    if (time.constructor === Date) time = time.getTime();
+                    break;
                 default:
-                    time = +new Date()
+                    time = +new Date();
             }
             var time_formats = [
-                [60, 's', 1],
-                [120, '1m', '1m'],
-                [3600, 'm', 60],
-                [7200, '1h', '1h'],
-                [86400, 'h', 3600],
-                [604800, 'd', 86400],
-                [2419200, 'w', 604800],
-                [29030400, 'mo', 2419200],
-                [2903040000, 'y', 29030400],
-                [58060800000, 'c', 2903040000],
-            ]
+                [60, "s", 1],
+                [120, "1m", "1m"],
+                [3600, "m", 60],
+                [7200, "1h", "1h"],
+                [86400, "h", 3600],
+                [604800, "d", 86400],
+                [2419200, "w", 604800],
+                [29030400, "mo", 2419200],
+                [2903040000, "y", 29030400],
+                [58060800000, "c", 2903040000],
+            ];
             var seconds = (+new Date() - time) / 1000,
-                list_choice = 1
+                list_choice = 1;
             if (seconds === 0) {
-                return 'now'
+                return "now";
             }
             var i = 0,
-                format
+                format;
             while ((format = time_formats[i++]))
                 if (seconds < format[0]) {
-                    if (typeof format[2] == 'string') return format[list_choice]
-                    else return Math.floor(seconds / format[2]) + format[1]
+                    if (typeof format[2] == "string")
+                        return format[list_choice];
+                    else return Math.floor(seconds / format[2]) + format[1];
                 }
-            return time
+            return time;
         },
 
         async postInteraction(type, id) {
-            if (type === 'boost') {
+            if (type === "boost") {
                 let response = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/statuses/' +
+                        "/api/v1/statuses/" +
                         id +
-                        '/reblog',
+                        "/reblog",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
+                );
 
                 if (response.status === 200) {
-                    this.content = await response.json()
+                    this.content = await response.json();
                 } else {
                     console.log(
                         (await type) +
-                            ' failed. ' +
+                            " failed. " +
                             response.status +
-                            ' ' +
+                            " " +
                             response.statusText
-                    )
+                    );
                 }
-            } else if (type === 'unboost') {
+            } else if (type === "unboost") {
                 let response = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/statuses/' +
+                        "/api/v1/statuses/" +
                         id +
-                        '/unreblog',
+                        "/unreblog",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
+                );
 
                 if (response.status === 200) {
-                    this.content = await response.json()
+                    this.content = await response.json();
                 } else {
                     console.log(
                         (await type) +
-                            ' failed. ' +
+                            " failed. " +
                             response.status +
-                            ' ' +
+                            " " +
                             response.statusText
-                    )
+                    );
                 }
-            } else if (type === 'favorite') {
+            } else if (type === "favorite") {
                 let response = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/statuses/' +
+                        "/api/v1/statuses/" +
                         id +
-                        '/favourite',
+                        "/favourite",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
+                );
 
                 if (response.status === 200) {
-                    this.content = await response.json()
+                    this.content = await response.json();
                 } else {
                     console.log(
                         (await type) +
-                            ' failed. ' +
+                            " failed. " +
                             response.status +
-                            ' ' +
+                            " " +
                             response.statusText
-                    )
+                    );
                 }
-            } else if (type === 'unfavorite') {
+            } else if (type === "unfavorite") {
                 let response = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/statuses/' +
+                        "/api/v1/statuses/" +
                         id +
-                        '/unfavourite',
+                        "/unfavourite",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
+                );
 
                 if (response.status === 200) {
-                    this.content = await response.json()
+                    this.content = await response.json();
                 } else {
                     console.log(
                         (await type) +
-                            ' failed. ' +
+                            " failed. " +
                             response.status +
-                            ' ' +
+                            " " +
                             response.statusText
-                    )
+                    );
                 }
-            } else if (type === 'bookmark') {
+            } else if (type === "bookmark") {
                 let response = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/statuses/' +
+                        "/api/v1/statuses/" +
                         id +
-                        '/bookmark',
+                        "/bookmark",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
+                );
 
                 if (response.status === 200) {
-                    this.content = await response.json()
+                    this.content = await response.json();
                 } else {
                     console.log(
                         (await type) +
-                            ' failed. ' +
+                            " failed. " +
                             response.status +
-                            ' ' +
+                            " " +
                             response.statusText
-                    )
+                    );
                 }
-            } else if (type === 'unbookmark') {
+            } else if (type === "unbookmark") {
                 let response = await fetch(
-                    'https://' +
+                    "https://" +
                         this.instanceurl +
-                        '/api/v1/statuses/' +
+                        "/api/v1/statuses/" +
                         id +
-                        '/unbookmark',
+                        "/unbookmark",
                     {
-                        method: 'POST',
+                        method: "POST",
                         headers: {
-                            Authorization: 'Bearer ' + this.token,
+                            Authorization: "Bearer " + this.token,
                         },
                     }
-                )
+                );
 
                 if (response.status === 200) {
-                    this.content = await response.json()
+                    this.content = await response.json();
                 } else {
                     console.log(
                         (await type) +
-                            ' failed. ' +
+                            " failed. " +
                             response.status +
-                            ' ' +
+                            " " +
                             response.statusText
-                    )
+                    );
                 }
             }
         },
         async toggleShowCW() {
             if (this.showCwContent === true) {
-                this.showCwContent = false
-                this.showcwtext = 'Show More'
+                this.showCwContent = false;
+                this.showcwtext = "Show More";
             } else {
-                this.showCwContent = true
-                this.showcwtext = 'Show Less'
+                this.showCwContent = true;
+                this.showcwtext = "Show Less";
             }
         },
     },
-}
+};
 </script>
 
 <template>
     <div class="post" v-if="ready">
         <div class="boostAlertContainer" v-if="content.reblog">
-            <Icon
-                class="boostAlertIcon"
-                name="repeat"
-                size="14px"
-                color="var(--txt2)"
-            />
-            <span class="boostAlert"
-                >{{ content.account.display_name }} boosted</span
-            >
+            <div>
+                <Icon
+                    class="boostAlertIcon"
+                    name="repeat"
+                    size="14px"
+                    color="var(--txt2)"
+                />
+            </div>
+            <div>
+                <span class="boostAlert"
+                    >{{ content.account.display_name }} boosted</span
+                >
+            </div>
         </div>
         <div class="boostAlertContainer" v-if="pinned">
-            <Icon
-                class="boostAlertIcon"
-                name="pin"
-                size="14px"
-                color="var(--txt2)"
-            />
-            <span class="boostAlert">Pinned toot</span>
+            <div>
+                <Icon
+                    class="boostAlertIcon"
+                    name="pin"
+                    size="14px"
+                    color="var(--txt2)"
+                />
+            </div>
+            <div>
+                <span class="boostAlert">Pinned toot</span>
+            </div>
         </div>
         <div class="post-userInfo">
             <div class="post-userAvatars">
@@ -670,7 +679,9 @@ export default {
                         class="emojiReaction"
                         v-if="reaction.url"
                     />
-                    <span v-if="!reaction.url">{{ reaction.name }}</span>
+                    <span class="emojiReaction" v-if="!reaction.url">{{
+                        reaction.name
+                    }}</span>
                     <span class="postReactionCounter">{{
                         reaction.count
                     }}</span>
@@ -919,11 +930,16 @@ report
     margin-left: 20px;
     margin-top: -10px;
     margin-bottom: 10px;
+
+    display: flex;
+    & div {
+        min-width: 20px;
+    }
 }
 
 .boostAlert {
     color: var(--txt2);
-    padding-left: 10px;
+    padding-left: 5px;
     font-size: 14px;
 }
 

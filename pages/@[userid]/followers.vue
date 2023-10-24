@@ -1,85 +1,85 @@
 <script setup>
-import Icon from '../components/Icon.vue'
+import Icon from "../components/Icon.vue";
 </script>
 
 <script>
 export default {
     data: () => ({
         ready: false,
-        token: '',
-        instanceurl: '',
-        acct: '',
+        token: "",
+        instanceurl: "",
+        acct: "",
         user: {},
         users: [],
     }),
     mounted() {
-        this.instanceurl = this.getLocalStorage('instanceurl')
-        this.token = this.getLocalStorage('token')
-        this.acct = this.$route.params.userid
+        this.instanceurl = this.getLocalStorage("instanceurl");
+        this.token = this.getLocalStorage("token");
+        this.acct = this.$route.params.userid;
 
-        this.getOtherUserDetails()
+        this.getOtherUserDetails();
 
-        this.ready = true
+        this.ready = true;
     },
     methods: {
         setLocalStorage(key, value) {
             if (process.client) {
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value);
             }
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key)
+                return localStorage.getItem(key);
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key)
+                return localStorage.removeItem(key);
             }
         },
 
         async getOtherUserDetails() {
             const getotheruserdetails = await fetch(
-                'https://' +
+                "https://" +
                     this.instanceurl +
-                    '/api/v1/accounts/lookup/?acct=' +
+                    "/api/v1/accounts/lookup/?acct=" +
                     this.acct,
                 {
-                    method: 'GET',
+                    method: "GET",
                 }
-            )
+            );
             const getotheruserdetails_response =
-                await getotheruserdetails.json()
+                await getotheruserdetails.json();
 
-            this.user = getotheruserdetails_response
+            this.user = getotheruserdetails_response;
 
-            console.log(getotheruserdetails_response)
+            console.log(getotheruserdetails_response);
 
-            this.loadFollowers()
+            this.loadFollowers();
         },
 
         async loadFollowers() {
             let initialfollowers = await fetch(
-                'https://' +
+                "https://" +
                     this.instanceurl +
-                    '/api/v1/accounts/' +
+                    "/api/v1/accounts/" +
                     this.user.id +
-                    '/followers',
+                    "/followers",
                 {
-                    method: 'GET',
+                    method: "GET",
                     headers: {
-                        Authorization: 'Bearer ' + this.token,
+                        Authorization: "Bearer " + this.token,
                     },
                 }
-            )
-            let initialfollowers_response = await initialfollowers.json()
+            );
+            let initialfollowers_response = await initialfollowers.json();
 
             initialfollowers_response.forEach(
                 (element) => this.users.push(element) && console.log(element)
-            )
+            );
         },
     },
-}
+};
 </script>
 
 <template>

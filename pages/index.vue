@@ -1,50 +1,50 @@
 <script setup>
-import Icon from '../components/Icon.vue'
+import Icon from "../components/Icon.vue";
 </script>
 
 <script>
 export default {
     data: () => ({
-        instanceurl: '',
+        instanceurl: "",
         instance: {},
     }),
     mounted() {
-        this.instanceurl = this.getLocalStorage('instanceurl')
+        this.instanceurl = this.getLocalStorage("instanceurl");
 
-        this.ready = true
+        this.ready = true;
     },
     methods: {
         setLocalStorage(key, value) {
             if (process.client) {
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value);
             }
         },
         getLocalStorage(key) {
             if (process.client) {
-                return localStorage.getItem(key)
+                return localStorage.getItem(key);
             }
         },
         removeLocalStorage(key) {
             if (process.client) {
-                return localStorage.removeItem(key)
+                return localStorage.removeItem(key);
             }
         },
 
         async getInstance() {
             const getinstance = await fetch(
-                'https://' + this.instanceurl + '/api/v2/instance',
+                "https://" + this.instanceurl + "/api/v2/instance",
                 {
-                    method: 'GET',
+                    method: "GET",
                 }
-            )
-            const getinstance_response = await getinstance.json()
+            );
+            const getinstance_response = await getinstance.json();
 
-            this.instance = getinstance_response
+            this.instance = getinstance_response;
 
-            console.log(getinstance_response)
+            console.log(getinstance_response);
         },
     },
-}
+};
 </script>
 
 <template>

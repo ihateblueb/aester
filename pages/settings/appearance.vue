@@ -1,5 +1,6 @@
 <script setup>
 import ColorSwatches from '../../components/ColorSwatches.vue'
+import FontSample from '../../components/FontSample.vue'
 import Checkbox from '../../components/Checkbox.vue'
 import themes from 'assets/themes.json'
 </script>
@@ -113,6 +114,18 @@ export default {
             </p>
         </div>
         <div class="settingContainer">
+            <h3>Fonts</h3>
+            <div>
+                <div class="ftheme" v-for="font in themes.font">
+                    <input type="radio" :id="'ft_' + font.id" name="ft" :value="'ft_' + font.id"
+                        @click="fontAction('set', 'ft_' + font.id)" :checked="fonttheme === 'ft_' + font.id" />
+                    <label :for="'ft_' + font.id">{{ font.name }}
+                    </label>
+                    <FontSample :font="font.id" />
+                </div>
+            </div>
+        </div>
+        <div class="settingContainer">
             <h3>Extras</h3>
             <div>
                 <div class="checkboxSetting" @click="extraAnimationToggle">
@@ -165,7 +178,7 @@ export default {
     text-decoration: underline;
 }
 
-.ctheme, .checkboxSetting {
+.ctheme, .checkboxSetting, .ftheme {
     margin-top: 10px;
 }
 

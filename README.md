@@ -32,7 +32,6 @@ Here's what I'm currently doing:
 
 -   Profile Rendering
 -   Settings Pages (specifically base and color themes)
--   Custom Emoji Rendering (total shitshow)
 
 Here's what is already working:
 
