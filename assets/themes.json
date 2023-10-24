@@ -50,6 +50,26 @@
         "inter": {
             "id": "inter",
             "name": "Inter"
+        },
+        "noto": {
+            "id": "noto",
+            "name": "Noto Sans"
+        },
+        "sourcesans": {
+            "id": "sourcesans",
+            "name": "Source Sans"
+        },
+        "lato": {
+            "id": "lato",
+            "name": "Lato"
+        },
+        "fira": {
+            "id": "fira",
+            "name": "Fira Sans"
+        },
+        "dm": {
+            "id": "dm",
+            "name": "DM Sans"
         }
     }
 }

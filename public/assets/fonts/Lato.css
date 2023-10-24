@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url("/assets/fonts/Lato/Lato-Thin.ttf");
+}
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 200;
+    font-display: swap;
+    src: url("/assets/fonts/Lato/Lato-ExtraLight.ttf");
+}
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url("/assets/fonts/Lato/Lato-Light.ttf");
+}
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/assets/fonts/Lato/Lato-Regular.ttf");
+}
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("/assets/fonts/Lato/Lato-Medium.ttf");
+}
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("/assets/fonts/Lato/Lato-SemiBold.ttf");
+}
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/assets/fonts/Lato/Lato-Bold.ttf");
+}
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url("/assets/fonts/Lato/Lato-ExtraBold.ttf");
+}
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url("/assets/fonts/Lato/Lato-Black.ttf");
+}

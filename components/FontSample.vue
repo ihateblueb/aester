@@ -7,8 +7,8 @@ export default {
 </script>
 
 <template>
-    <div class="fontPreview" :style="'font-family: ' + font + ', system-ui;'">
-        <span>The quick brown fox jumps over the sleepy dog.</span>
+    <div class="fontPreview">
+        <span :class="'ft_'+font+' fontPreviewText'">The quick brown fox jumps over the sleepy dog.</span>
     </div>
 </template>
 
@@ -16,5 +16,8 @@ export default {
 .fontPreview {
     margin-top: 5px;
     margin-bottom: 5px;
+}
+.fontPreviewText {
+    font-family: var(--font1);
 }
 </style>
