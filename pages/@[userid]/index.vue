@@ -212,7 +212,7 @@ export default {
     <div class="mColumnHeader" v-if="ready === true">
         <div class="mCH-left">
             <div class="mCH-text">
-                {{ user.display_name }}
+                <p>{{ user.display_name }}</p>
             </div>
         </div>
         <div class="mCH-buttons">

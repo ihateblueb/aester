@@ -968,13 +968,17 @@ blockquote:not(:last-child) {
 
 .notificationStatus,
 .mCC-accountDisplayName,
-.boostAlert {
+.boostAlert,
+.mCC-hb-bio {
     overflow-wrap: break-word;
 }
 
 .mCH-text {
-    max-width: 250px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    & p {
+        max-width: 265px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    box-sizing: border-box;
 }
