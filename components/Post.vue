@@ -395,8 +395,16 @@ export default {
                 </button>
             </div>
             <div class="cwContent" v-if="showCwContent">
-                <span class="post-content" v-html="content.reblog.content" v-if="content.reblog"></span>
-                <span class="post-content" v-html="content.content" v-if="!content.reblog"></span>
+                <span
+                    class="post-content"
+                    v-html="content.reblog.content"
+                    v-if="content.reblog"
+                ></span>
+                <span
+                    class="post-content"
+                    v-html="content.content"
+                    v-if="!content.reblog"
+                ></span>
 
                 <div
                     class="post-attachments"
@@ -517,8 +525,16 @@ export default {
             </div>
         </div>
         <div v-if="!content.spoiler_text">
-                <span class="post-content" v-html="content.reblog.content" v-if="content.reblog"></span>
-                <span class="post-content" v-html="content.content" v-if="!content.reblog"></span>
+            <span
+                class="post-content"
+                v-html="content.reblog.content"
+                v-if="content.reblog"
+            ></span>
+            <span
+                class="post-content"
+                v-html="content.content"
+                v-if="!content.reblog"
+            ></span>
 
             <div
                 class="post-attachments"

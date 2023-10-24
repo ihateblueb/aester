@@ -50,7 +50,7 @@ body.reduced-motion {
 }
 
 body:not(.reduced-motion).extra-animations .emojiReaction {
-    transition: .2s;
+    transition: 0.2s;
     max-width: 200px;
 }
 
@@ -59,7 +59,7 @@ body:not(.reduced-motion).extra-animations .emojiReaction:hover {
 }
 
 body:not(.reduced-motion).extra-animations .postInteraction .vue-feather {
-    transition: .2s;
+    transition: 0.2s;
 }
 
 body:not(.reduced-motion).extra-animations .postInteraction:hover .vue-feather {

@@ -268,9 +268,9 @@ export default {
                     </div>
                 </div>
                 <div class="mCC-headerBottom">
-                    <p
-                        class="mCC-accountDisplayName"
-                    >{{ user.display_name }}</p>
+                    <p class="mCC-accountDisplayName">
+                        {{ user.display_name }}
+                    </p>
                     <p class="mCC-accountUserName">@{{ user.acct }}</p>
                     <div
                         class="mCC-followsYouContainer"

@@ -1,28 +1,29 @@
 {
-  "name": "aster",
-  "private": true,
-  "packageManager": "bun@1.0.3",
-  "scripts": {
-    "build": "nuxt build",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "dev": "PORT=9080 bun run scripts/dev.js",
-    "prod": "PORT=9080 bun run scripts/prod.js",
-    "clean": "bun run scripts/clean.js",
-    "refresh": "bun run scripts/refresh.js"
-  },
-  "devDependencies": {
-    "@nuxt/devtools": "latest",
-    "nuxt": "^3.7.0"
-  },
-  "dependencies": {
-    "feather-icons": "^4.29.1",
-    "floating-vue": "^2.0.0-beta.24",
-    "html-to-text": "^9.0.5",
-    "vue": "^3.3.4",
-    "vue-cookie": "^1.1.4",
-    "vue-feather": "^2.0.0",
-    "vue-router": "^4.1.6"
-  }
+    "name": "aster",
+    "private": true,
+    "packageManager": "bun@1.0.3",
+    "scripts": {
+        "build": "nuxt build",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "dev": "PORT=9080 bun run scripts/dev.js",
+        "prod": "PORT=9080 bun run scripts/prod.js",
+        "clean": "bun run scripts/clean.js",
+        "refresh": "bun run scripts/refresh.js",
+        "update": "bun run scripts/update.js"
+    },
+    "devDependencies": {
+        "@nuxt/devtools": "latest",
+        "nuxt": "^3.7.0"
+    },
+    "dependencies": {
+        "feather-icons": "^4.29.1",
+        "floating-vue": "^2.0.0-beta.24",
+        "html-to-text": "^9.0.5",
+        "vue": "^3.3.4",
+        "vue-cookie": "^1.1.4",
+        "vue-feather": "^2.0.0",
+        "vue-router": "^4.1.6"
+    }
 }

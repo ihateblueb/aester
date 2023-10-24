@@ -43,15 +43,15 @@ export default {
         reducedMotionToggle() {
             this.reducedmotion = this.getLocalStorage('ui_reducemotion')
             if (this.reducedmotion === 'true') {
-                document.body.classList.remove("reduced-motion")
+                document.body.classList.remove('reduced-motion')
                 this.setLocalStorage('ui_reducemotion', 'false')
                 this.reducedmotion = 'false'
             } else {
-                document.body.classList.add("reduced-motion")
+                document.body.classList.add('reduced-motion')
                 this.setLocalStorage('ui_reducemotion', 'true')
                 this.reducedmotion = 'true'
             }
-        }
+        },
     },
 }
 </script>
@@ -63,11 +63,17 @@ export default {
             <div>
                 <div class="checkboxSetting" @click="reducedMotionToggle">
                     <div>
-                        <Checkbox :checked="reducedmotion" :key="reducedmotion" />
-                        <label for="reducedmotion"> Enable reduced motion</label>
+                        <Checkbox
+                            :checked="reducedmotion"
+                            :key="reducedmotion"
+                        />
+                        <label for="reducedmotion">
+                            Enable reduced motion</label
+                        >
                     </div>
                     <p class="settingExplaination">
-                        Reduced motion will disable animations throughout the UI.
+                        Reduced motion will disable animations throughout the
+                        UI.
                     </p>
                 </div>
             </div>
@@ -111,7 +117,8 @@ export default {
     text-decoration: underline;
 }
 
-.ctheme, .checkboxSetting {
+.ctheme,
+.checkboxSetting {
     margin-top: 10px;
 }
 

@@ -153,7 +153,9 @@ export default {
                     <NuxtLink
                         class="notificationMention"
                         :to="'/@' + content.account.acct"
-                        ><span>{{ content.account.display_name }}</span></NuxtLink
+                        ><span>{{
+                            content.account.display_name
+                        }}</span></NuxtLink
                     >
                     favorited your post
                 </span>

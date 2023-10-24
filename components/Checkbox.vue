@@ -7,7 +7,7 @@ import Icon from './Icon.vue'
 export default {
     props: {
         checked: String,
-    }
+    },
 }
 </script>
 
