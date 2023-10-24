@@ -33,43 +33,31 @@ export default {
             }
         },
 
-        async colorThemeAction(action, theme) {
-            if (action === 'set') {
-                this.setLocalStorage('ui_colortheme', theme)
-                this.setColorTheme()
-            }
-        },
-
         reducedMotionToggle() {
-            this.reducedmotion = this.getLocalStorage('ui_reducemotion')
+            this.reducedmotion = this.getLocalStorage('ui_reducedmotion')
             if (this.reducedmotion === 'true') {
                 document.body.classList.remove('reduced-motion')
-                this.setLocalStorage('ui_reducemotion', 'false')
+                this.setLocalStorage('ui_reducedmotion', 'false')
                 this.reducedmotion = 'false'
             } else {
                 document.body.classList.add('reduced-motion')
-                this.setLocalStorage('ui_reducemotion', 'true')
+                this.setLocalStorage('ui_reducedmotion', 'true')
                 this.reducedmotion = 'true'
             }
-        },
+        }
     },
 }
 </script>
 
 <template>
-    <div class="settingsPage">
+    <div class="settingsPage" v-if="ready">
         <h2>Accessibility</h2>
         <div class="settingContainer">
             <div>
                 <div class="checkboxSetting" @click="reducedMotionToggle">
                     <div>
-                        <Checkbox
-                            :checked="reducedmotion"
-                            :key="reducedmotion"
-                        />
-                        <label for="reducedmotion">
-                            Enable reduced motion</label
-                        >
+                        <Checkbox :checked="reducedmotion" :key="reducedmotion" />
+                        <label for="extraanimations"> Enable reduced motion</label>
                     </div>
                     <p class="settingExplaination">
                         Reduced motion will disable animations throughout the

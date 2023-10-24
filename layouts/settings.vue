@@ -40,14 +40,12 @@ export default {
             })
             document.body.classList.add(this.colortheme)
 
-            /*
             // reduced motion
             this.reducedmotion = this.getLocalStorage('ui_reducedmotion')
-            document.body.classList.remove('ui_reducedmotion')
+            document.body.classList.remove('reduced-motion')
             if (this.reducedmotion === 'true') {
-                document.body.classList.add('ui_reducedmotion')
+                document.body.classList.add('reduced-motion')
             }
-            */
 
             // extra animations
             this.extraanimations = this.getLocalStorage('ui_extraanimations')
