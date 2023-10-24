@@ -14,10 +14,10 @@ export default {
 <template>
     <div>
         <div class="formCheckbox checked" v-if="checked === 'true'">
-            <Icon type="check" size="18px" />
+            <Icon type="check" size="16px" />
         </div>
         <div class="formCheckbox" v-else>
-            <Icon type="minus" size="18px" />
+            <Icon type="minus" size="16px" />
         </div>
     </div>
 </template>
@@ -30,8 +30,8 @@ export default {
 
     margin-right: 5px;
 
-    height: 25px;
-    width: 25px;
+    height: 22px;
+    width: 22px;
 
     background-color: var(--bg3);
 
