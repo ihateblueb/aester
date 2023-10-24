@@ -49,20 +49,20 @@ body.reduced-motion {
     transition: 0s !important;
 }
 
-body:not(.reduced-motion).pop-animations .emojiReaction {
+body:not(.reduced-motion).extra-animations .emojiReaction {
     transition: .2s;
     max-width: 200px;
 }
 
-body:not(.reduced-motion).pop-animations .emojiReaction:hover {
+body:not(.reduced-motion).extra-animations .emojiReaction:hover {
     scale: 150%;
 }
 
-body:not(.reduced-motion).pop-animations .postInteraction .vue-feather {
+body:not(.reduced-motion).extra-animations .postInteraction .vue-feather {
     transition: .2s;
 }
 
-body:not(.reduced-motion).pop-animations .postInteraction:hover .vue-feather {
+body:not(.reduced-motion).extra-animations .postInteraction:hover .vue-feather {
     scale: 125%;
 }
 

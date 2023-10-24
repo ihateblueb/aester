@@ -54,7 +54,7 @@ export default {
         },
     }),
     mounted() {
-        this.setColorTheme()
+        this.loadSettings()
         this.asterurl = window.location.origin
 
         if (this.$route.query.code) {
@@ -88,19 +88,32 @@ export default {
             }
         },
 
-        setColorTheme() {
+        loadSettings() {
+            // color themes
             this.colortheme = this.getLocalStorage('ui_colortheme')
-
-            // remove previous
             let themearray = Object.entries(
                 JSON.parse(JSON.stringify(themes.color))
             )
-
             themearray.forEach((element) => {
                 document.body.classList.remove('cs_' + element[1].id)
             })
-
             document.body.classList.add(this.colortheme)
+
+            /*
+            // reduced motion
+            this.reducedmotion = this.getLocalStorage('ui_reducedmotion')
+            document.body.classList.remove('ui_reducedmotion')
+            if (this.reducedmotion === 'true') {
+                document.body.classList.add('ui_reducedmotion')
+            }
+            */
+           
+            // extra animations
+            this.extraanimations = this.getLocalStorage('ui_extraanimations')
+            document.body.classList.remove('extra-animations')
+            if (this.extraanimations === 'true') {
+                document.body.classList.add('extra-animations')
+            }
         },
 
         async createApplication() {
@@ -133,10 +146,10 @@ export default {
             await this.createApplication()
             window.open(
                 'https://' +
-                    this.instanceurl +
-                    '/oauth/authorize?client_id=' +
-                    this.app.clientid +
-                    `&scope=read+write+push&redirect_uri=${this.asterurl}/&response_type=code`,
+                this.instanceurl +
+                '/oauth/authorize?client_id=' +
+                this.app.clientid +
+                `&scope=read+write+push&redirect_uri=${this.asterurl}/&response_type=code`,
                 '_self'
             )
             this.setLocalStorage('instanceurl', this.instanceurl)
@@ -182,8 +195,8 @@ export default {
         async getAccountDetails() {
             const accountdetails = await fetch(
                 'https://' +
-                    this.instanceurl +
-                    '/api/v1/accounts/verify_credentials',
+                this.instanceurl +
+                '/api/v1/accounts/verify_credentials',
                 {
                     method: 'GET',
                     headers: {
@@ -256,9 +269,9 @@ export default {
         async loadMoreToots(id) {
             let moretoots = await fetch(
                 'https://' +
-                    this.instanceurl +
-                    '/api/v1/timelines/home?max_id=' +
-                    id,
+                this.instanceurl +
+                '/api/v1/timelines/home?max_id=' +
+                id,
                 {
                     method: 'GET',
                     headers: {
@@ -320,9 +333,9 @@ export default {
         async loadMoreNotifications(id) {
             let morenotifications = await fetch(
                 'https://' +
-                    this.instanceurl +
-                    '/api/v1/notifications?max_id=' +
-                    id,
+                this.instanceurl +
+                '/api/v1/notifications?max_id=' +
+                id,
                 {
                     method: 'GET',
                     headers: {
@@ -453,9 +466,9 @@ export default {
         async startStream() {
             let userSocket = new WebSocket(
                 'wss://' +
-                    this.instanceurl +
-                    '/api/v1/streaming?stream=user&access_token=' +
-                    this.token
+                this.instanceurl +
+                '/api/v1/streaming?stream=user&access_token=' +
+                this.token
             )
 
             userSocket.onmessage = (event) => {
@@ -500,13 +513,8 @@ export default {
             </div>
             <div>
                 <p class="iptlabel">Please type your instances URL</p>
-                <input
-                    type="text"
-                    placeholder="yourinstance.social"
-                    class="ipt instanceTextArea"
-                    v-model="instanceurl"
-                    @keypress.enter="startlogin()"
-                />
+                <input type="text" placeholder="yourinstance.social" class="ipt instanceTextArea" v-model="instanceurl"
+                    @keypress.enter="startlogin()" />
                 <div class="instanceLoginButtons">
                     <button class="loginbtn" @click="startlogin()">Next</button>
                 </div>
@@ -553,19 +561,11 @@ export default {
                 <div class="mColumnContent" @scroll="onHomeScroll">
                     <div class="timelineNewPosts">
                         <div v-for="toot in timeline.home_new">
-                            <Post
-                                :data="toot"
-                                :instanceurl="instanceurl"
-                                :token="token"
-                            />
+                            <Post :data="toot" :instanceurl="instanceurl" :token="token" />
                         </div>
                     </div>
                     <div v-for="toot in timeline.home">
-                        <Post
-                            :data="toot"
-                            :instanceurl="instanceurl"
-                            :token="token"
-                        />
+                        <Post :data="toot" :instanceurl="instanceurl" :token="token" />
                     </div>
                 </div>
             </div>
@@ -576,17 +576,11 @@ export default {
                 <div class="mColumnContent" @scroll="onNotificationsScroll">
                     <div class="timelineNewPosts">
                         <div v-for="notification in timeline.notifications_new">
-                            <Notification
-                                :data="notification"
-                                :instanceurl="instanceurl"
-                            />
+                            <Notification :data="notification" :instanceurl="instanceurl" />
                         </div>
                     </div>
                     <div v-for="notification in timeline.notifications">
-                        <Notification
-                            :data="notification"
-                            :instanceurl="instanceurl"
-                        />
+                        <Notification :data="notification" :instanceurl="instanceurl" />
                     </div>
                 </div>
             </div>

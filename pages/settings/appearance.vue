@@ -12,9 +12,11 @@ export default {
     data: () => ({
         ready: false,
         colortheme: '',
+        extraanimations: false,
     }),
     mounted() {
         this.colortheme = this.getLocalStorage('ui_colortheme')
+        this.extraanimations = this.getLocalStorage('ui_extraanimations')
     },
     methods: {
         setLocalStorage(key, value) {
@@ -54,6 +56,19 @@ export default {
 
             document.body.classList.add(this.colortheme)
         },
+
+        extraAnimationToggle() {
+            this.extraanimations = this.getLocalStorage('ui_extraanimations')
+            if (this.extraanimations === 'true') {
+                document.body.classList.remove("extra-animations")
+                this.setLocalStorage('ui_extraanimations', 'false')
+                this.extraanimations = 'false'
+            } else {
+                document.body.classList.add("extra-animations")
+                this.setLocalStorage('ui_extraanimations', 'true')
+                this.extraanimations = 'true'
+            }
+        }
     },
 }
 </script>
@@ -98,8 +113,10 @@ export default {
         <div class="settingContainer">
             <h3>Extras</h3>
             <div>
-                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-                <label for="vehicle1"> Enable extra animations in UI</label>
+                <div>
+                    <input type="checkbox" id="extraanimations" name="extraanimations" value="extraanimations" @click="extraAnimationToggle" :checked="extraanimations === true" />
+                    <label for="extraanimations"> Enable extra animations in UI</label>
+                </div>
             </div>
         </div>
     </div>

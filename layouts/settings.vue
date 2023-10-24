@@ -1,4 +1,5 @@
 <script setup>
+import themes from 'assets/themes.json'
 </script>
 
 <script>
@@ -7,7 +8,7 @@ export default {
         href: '',
     }),
     mounted() {
-        this.setColorTheme()
+        this.loadSettings()
         const route = useRoute()
         this.href = route.href
     },
@@ -28,19 +29,32 @@ export default {
             }
         },
 
-        async setColorTheme() {
+        async loadSettings() {
+            // color themes
             this.colortheme = this.getLocalStorage('ui_colortheme')
-
-            // remove previous
             let themearray = Object.entries(
                 JSON.parse(JSON.stringify(themes.color))
             )
-
             themearray.forEach((element) => {
                 document.body.classList.remove('cs_' + element[1].id)
             })
-
             document.body.classList.add(this.colortheme)
+
+            /*
+            // reduced motion
+            this.reducedmotion = this.getLocalStorage('ui_reducedmotion')
+            document.body.classList.remove('ui_reducedmotion')
+            if (this.reducedmotion === 'true') {
+                document.body.classList.add('ui_reducedmotion')
+            }
+            */
+
+            // extra animations
+            this.extraanimations = this.getLocalStorage('ui_extraanimations')
+            document.body.classList.remove('extra-animations')
+            if (this.extraanimations === 'true') {
+                document.body.classList.add('extra-animations')
+            }
         },
     },
 }
