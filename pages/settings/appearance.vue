@@ -1,5 +1,6 @@
 <script setup>
 import ColorSwatches from '../../components/ColorSwatches.vue'
+import Checkbox from '../../components/Checkbox.vue'
 import themes from 'assets/themes.json'
 </script>
 
@@ -12,11 +13,12 @@ export default {
     data: () => ({
         ready: false,
         colortheme: '',
-        extraanimations: false,
+        extraanimations: 'false',
     }),
     mounted() {
         this.colortheme = this.getLocalStorage('ui_colortheme')
         this.extraanimations = this.getLocalStorage('ui_extraanimations')
+        this.ready = true
     },
     methods: {
         setLocalStorage(key, value) {
@@ -74,7 +76,7 @@ export default {
 </script>
 
 <template>
-    <div class="settingsPage">
+    <div class="settingsPage" v-if="ready">
         <h2>Appearance</h2>
         <div class="settingContainer">
             <h3>Base Theme</h3>
@@ -113,9 +115,14 @@ export default {
         <div class="settingContainer">
             <h3>Extras</h3>
             <div>
-                <div>
-                    <input type="checkbox" id="extraanimations" name="extraanimations" value="extraanimations" @click="extraAnimationToggle" :checked="extraanimations === true" />
-                    <label for="extraanimations"> Enable extra animations in UI</label>
+                <div class="checkboxSetting" @click="extraAnimationToggle">
+                    <div>
+                        <Checkbox :checked="extraanimations" :key="extraanimations" />
+                        <label for="extraanimations"> Enable extra animations in UI</label>
+                    </div>
+                    <p class="settingExplaination">
+                        Adds extra animations with emojis and buttons throughout the UI. If reduced motion is enabled, this will do nothing.
+                    </p>
                 </div>
             </div>
         </div>
@@ -147,11 +154,18 @@ export default {
     font-size: 14px;
 }
 
+.settingExplaination {
+    margin-top: 5px;
+
+    color: var(--txt2);
+    font-size: 14px;
+}
+
 .attribution a {
     text-decoration: underline;
 }
 
-.ctheme {
+.ctheme, .checkboxSetting {
     margin-top: 10px;
 }
 

@@ -1,3 +1,7 @@
+<script setup>
+import Checkbox from '../../components/Checkbox.vue'
+</script>
+
 <script>
 definePageMeta({
     layout: 'settings',
@@ -6,10 +10,11 @@ definePageMeta({
 export default {
     data: () => ({
         ready: false,
-        colortheme: '',
+        reducedmotion: 'false',
     }),
     mounted() {
-        this.colortheme = this.getLocalStorage('ui_colortheme')
+        this.reducedmotion = this.getLocalStorage('ui_reducedmotion')
+        this.ready = true
     },
     methods: {
         setLocalStorage(key, value) {
@@ -35,20 +40,18 @@ export default {
             }
         },
 
-        setColorTheme() {
-            this.colortheme = this.getLocalStorage('ui_colortheme')
-
-            // remove previous
-            let themearray = Object.entries(
-                JSON.parse(JSON.stringify(themes.color))
-            )
-
-            themearray.forEach((element) => {
-                document.body.classList.remove('cs_' + element[1].id)
-            })
-
-            document.body.classList.add(this.colortheme)
-        },
+        reducedMotionToggle() {
+            this.reducedmotion = this.getLocalStorage('ui_reducemotion')
+            if (this.reducedmotion === 'true') {
+                document.body.classList.remove("reduced-motion")
+                this.setLocalStorage('ui_reducemotion', 'false')
+                this.reducedmotion = 'false'
+            } else {
+                document.body.classList.add("reduced-motion")
+                this.setLocalStorage('ui_reducemotion', 'true')
+                this.reducedmotion = 'true'
+            }
+        }
     },
 }
 </script>
@@ -58,9 +61,14 @@ export default {
         <h2>Accessibility</h2>
         <div class="settingContainer">
             <div>
-                <div>
-                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-                    <label for="vehicle1"> Enable reduced motion</label>
+                <div class="checkboxSetting" @click="reducedMotionToggle">
+                    <div>
+                        <Checkbox :checked="reducedmotion" :key="reducedmotion" />
+                        <label for="reducedmotion"> Enable reduced motion</label>
+                    </div>
+                    <p class="settingExplaination">
+                        Reduced motion will disable animations throughout the UI.
+                    </p>
                 </div>
             </div>
         </div>
@@ -92,11 +100,18 @@ export default {
     font-size: 14px;
 }
 
+.settingExplaination {
+    margin-top: 5px;
+
+    color: var(--txt2);
+    font-size: 14px;
+}
+
 .attribution a {
     text-decoration: underline;
 }
 
-.ctheme {
+.ctheme, .checkboxSetting {
     margin-top: 10px;
 }
 
