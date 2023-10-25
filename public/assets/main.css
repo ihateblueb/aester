@@ -903,6 +903,17 @@ blockquote::before {
     border-radius: 7px;
 }
 
+.replyAlert {
+    margin-bottom: 10px;
+    font-size: 14px;
+
+    color: var(--accent1);
+    background-color: var(--accent1-25);
+
+    padding: 10px;
+    border-radius: 7px;
+}
+
 .underline {
     text-decoration: underline;
 }

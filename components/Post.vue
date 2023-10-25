@@ -25,6 +25,22 @@ export default {
         }, 5000);
     },
     methods: {
+        setLocalStorage(key, value) {
+            if (process.client) {
+                localStorage.setItem(key, value);
+            }
+        },
+        getLocalStorage(key) {
+            if (process.client) {
+                return localStorage.getItem(key);
+            }
+        },
+        removeLocalStorage(key) {
+            if (process.client) {
+                return localStorage.removeItem(key);
+            }
+        },
+
         timeAgo(time) {
             switch (typeof time) {
                 case "number":
@@ -67,7 +83,9 @@ export default {
         },
 
         async postInteraction(type, id) {
-            if (type === "boost") {
+            if (type === "reply") {
+                this.setLocalStorage("replyingto", id);
+            } else if (type === "boost") {
                 let response = await fetch(
                     "https://" +
                         this.instanceurl +
@@ -665,7 +683,7 @@ export default {
             </div>
         </div>
 
-        <div class="postReactionBar" v-if="content.reactions.length > 0">
+        <div class="postReactionBar" v-if="content.reactions && content.reactions > 0">
             <div v-for="reaction in content.reactions">
                 <div
                     class="postReaction"
@@ -706,7 +724,10 @@ export default {
             </div>
         </div>
         <div class="postInteractionBar" v-if="!content.reblog">
-            <button class="postInteraction">
+            <button
+                @click="postInteraction('reply', content.id)"
+                class="postInteraction"
+            >
                 <Icon type="message-circle" size="18px" color="var(--txt2)" />
                 <span>
                     {{ content.replies_count }}

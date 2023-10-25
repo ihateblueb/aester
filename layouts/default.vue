@@ -70,6 +70,19 @@ export default {
         }
 
         console.log("[Aster Startup] Login State: " + this.loginstate);
+
+        async function keyboardShortcuts(e) {
+            if (e.ctrlKey && e.code === "Comma") {
+                await navigateTo({ path: '/settings' })
+            } /*
+            else if (e.code === "KeyL") {
+                await navigateTo({ path: '/local' })
+            } else if (e.code === "KeyF") {
+                await navigateTo({ path: '/federated' })
+            } */
+        }
+        // register the handler
+        document.addEventListener("keyup", keyboardShortcuts, false);
     },
     methods: {
         setLocalStorage(key, value) {

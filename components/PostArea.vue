@@ -56,6 +56,10 @@ export default {
             }
         },
 
+        refreshReply() {
+            this.toot.replying = this.getLocalStorage("replyingto");
+        },
+
         async populateData() {
             this.instanceurl = this.getLocalStorage("instanceurl");
             this.token = this.getLocalStorage("token");
@@ -63,6 +67,8 @@ export default {
             this.user.avatar = this.getLocalStorage("user_avatar");
             this.user.displayname = this.getLocalStorage("user_displayname");
             this.user.username = this.getLocalStorage("user_username");
+
+            this.toot.replying = this.getLocalStorage("replyingto");
         },
 
         async sendToot() {
@@ -82,7 +88,14 @@ export default {
                     this.app.postArea.contentWarning === "true"
                 ) {
                     var additional_status_options =
-                        (additional_status_options += `&spoiler_text=${this.toot.spoiler_text}`);
+                        additional_status_options +
+                        `&spoiler_text=${this.toot.spoiler_text}`;
+                }
+
+                if (this.toot.replying) {
+                    var additional_status_options =
+                        additional_status_options +
+                        `&in_reply_to_id=${this.toot.replying}`;
                 }
 
                 const sendtoot = await fetch(
@@ -118,6 +131,8 @@ export default {
                     this.toot.sensitive = "";
                     this.toot.spoiler_text = "";
                     this.toot.visibility = "public";
+
+                    this.removeLocalStorage("replyingto");
 
                     console.log("[Aster Actions] Posted toot.");
                 }
@@ -192,6 +207,14 @@ export default {
                     target="_blank"
                     >Learn more</a
                 >.
+            </p>
+            <p class="replyAlert" :key="toot.replying" v-if="toot.replying">
+                Replying to {{ toot.replying }}.
+                <Icon
+                    type="x"
+                    size="18px"
+                    @click="removeLocalStorage('replyingto')"
+                />
             </p>
 
             <input
