@@ -87,10 +87,10 @@ export default {
             if (response === "accept") {
                 const acceptfollowrequest = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/follow_requests/" +
-                        id +
-                        "/authorize",
+                    this.instanceurl +
+                    "/api/v1/follow_requests/" +
+                    id +
+                    "/authorize",
                     {
                         method: "POST",
                         headers: {
@@ -107,10 +107,10 @@ export default {
             } else if (response === "deny") {
                 const denyfollowrequest = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/follow_requests/" +
-                        id +
-                        "/reject",
+                    this.instanceurl +
+                    "/api/v1/follow_requests/" +
+                    id +
+                    "/reject",
                     {
                         method: "POST",
                         headers: {
@@ -144,171 +144,114 @@ export default {
     <div class="post" v-if="ready && fr_show">
         <div>
             <div class="notificationTop" v-if="content.type === 'favourite'">
-                <Icon
-                    type="star"
-                    size="18px"
-                    color="var(--favorite)"
-                    fill="true"
-                />
+                <Icon type="star" size="18px" color="var(--favorite)" fill="true" />
                 <span>
-                    <NuxtLink
-                        class="notificationMention"
-                        :to="'/@' + content.account.acct"
-                        ><span>{{
-                            content.account.display_name
-                        }}</span></NuxtLink
-                    >
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct"><span>{{
+                        content.account.display_name
+                    }}</span></NuxtLink>
                     favorited your post
                 </span>
-                <div
-                    class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer"
-                >
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
             <div class="notificationTop" v-if="content.type === 'reblog'">
                 <Icon type="repeat" size="18px" color="var(--reblog)" />
                 <span>
-                    <NuxtLink
-                        class="notificationMention"
-                        :to="'/@' + content.account.acct"
-                        ><span>{{ content.account.display_name }}</span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct"><span>{{
+                        content.account.display_name }}</span>
                     </NuxtLink>
                     boosted your post
                 </span>
-                <div
-                    class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer"
-                >
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
             <div class="notificationTop" v-if="content.type === 'follow'">
                 <Icon type="user-plus" size="18px" color="var(--accent1)" />
                 <span>
-                    <NuxtLink
-                        class="notificationMention"
-                        :to="'/@' + content.account.acct"
-                        ><span>{{ content.account.display_name }}</span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct"><span>{{
+                        content.account.display_name }}</span>
                     </NuxtLink>
                     followed you
                 </span>
-                <div
-                    class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer"
-                >
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
             <div class="notificationTop" v-if="content.type === 'mention'">
                 <Icon type="at-sign" size="18px" color="var(--accent1)" />
                 <span>
-                    <NuxtLink
-                        class="notificationMention"
-                        :to="'/@' + content.account.acct"
-                        ><span>{{ content.account.display_name }}</span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct"><span>{{
+                        content.account.display_name }}</span>
                     </NuxtLink>
                     mentioned you
                 </span>
-                <div
-                    class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer"
-                >
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
             <div class="notificationTop" v-if="content.type === 'status'">
-                <Icon
-                    type="message-circle"
-                    size="18px"
-                    color="var(--accent1)"
-                />
+                <Icon type="message-circle" size="18px" color="var(--accent1)" />
                 <span>
-                    <NuxtLink
-                        class="notificationMention"
-                        :to="'/@' + content.account.acct"
-                        ><span>{{ content.account.display_name }}</span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct"><span>{{
+                        content.account.display_name }}</span>
                     </NuxtLink>
                     published a toot
                 </span>
-                <div
-                    class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer"
-                >
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
             <div class="notificationTop" v-if="content.type === 'poll'">
                 <Icon type="bar-chart-2" size="18px" color="var(--accent1)" />
                 <span>A poll you're involved in has ended</span>
-                <div
-                    class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer"
-                >
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
             <div class="notificationTop" v-if="content.type === 'reaction'">
                 <Icon type="plus" size="18px" color="var(--accent1)" />
                 <span>
-                    <NuxtLink
-                        class="notificationMention"
-                        :to="'/@' + content.account.acct"
-                        ><span>{{ content.account.display_name }}</span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct"><span>{{
+                        content.account.display_name }}</span>
                     </NuxtLink>
                     reacted to your post
                 </span>
-                <div
-                    class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer"
-                >
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
-            <div
-                class="notificationTop"
-                v-if="content.type === 'follow_request'"
-            >
+            <div class="notificationTop" v-if="content.type === 'follow_request'">
                 <Icon type="user" size="18px" color="var(--accent1)" />
                 <span>
-                    <NuxtLink
-                        class="notificationMention"
-                        :to="'/@' + content.account.acct"
-                        ><span>{{ content.account.display_name }}</span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct"><span>{{
+                        content.account.display_name }}</span>
                     </NuxtLink>
                     requested to follow you
                 </span>
-                <div
-                    class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer"
-                >
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
             <div class="notificationTop" v-if="content.type === 'update'">
                 <Icon type="edit-3" size="18px" color="var(--accent1)" />
                 <span>
-                    <NuxtLink
-                        class="notificationMention"
-                        :to="'/@' + content.account.acct"
-                        ><span>{{ content.account.display_name }}</span>
+                    <NuxtLink class="notificationMention" :to="'/@' + content.account.acct"><span>{{
+                        content.account.display_name }}</span>
                     </NuxtLink>
                     edited a toot
                 </span>
-                <div
-                    class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer"
-                >
+                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                    :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
@@ -324,11 +267,7 @@ export default {
             <div class="notificationStatus" v-if="content.type === 'mention'">
                 <div v-if="content.status.spoiler_text">
                     <div class="cwAlert">
-                        <Icon
-                            type="alert-triangle"
-                            size="18px"
-                            color="var(--bg-warning)"
-                        />
+                        <Icon type="alert-triangle" size="18px" color="var(--bg-warning)" />
                         <p class="cwText">{{ content.status.spoiler_text }}</p>
                         <button class="cwButton" @click="toggleShowCW()">
                             {{ showcwtext }}
@@ -347,11 +286,7 @@ export default {
             <div class="notificationStatus" v-if="content.type === 'status'">
                 <div v-if="content.status.spoiler_text">
                     <div class="cwAlert">
-                        <Icon
-                            type="alert-triangle"
-                            size="18px"
-                            color="var(--bg-warning)"
-                        />
+                        <Icon type="alert-triangle" size="18px" color="var(--bg-warning)" />
                         <p class="cwText">{{ content.status.spoiler_text }}</p>
                         <button class="cwButton" @click="toggleShowCW()">
                             {{ showcwtext }}
@@ -368,27 +303,19 @@ export default {
                 </div>
             </div>
             <div class="notificationStatus" v-if="content.type === 'poll'">
-                <span
-                    v-html="
-                        '@' +
-                        content.account.acct +
-                        ':' +
-                        content.status.content
-                    "
-                ></span>
+                <span v-html="'@' +
+                    content.account.acct +
+                    ':' +
+                    content.status.content
+                    "></span>
             </div>
             <div class="notificationStatus" v-if="content.type === 'reaction'">
                 <span v-html="content.status.content"></span>
                 <div class="postReactionBar">
                     <div v-for="reaction in content.status.reactions">
                         <div class="postReaction">
-                            <img
-                                :src="reaction.url"
-                                :alt="reaction.name"
-                                :title="reaction.name"
-                                class="emojiReaction"
-                                v-if="reaction.url"
-                            />
+                            <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction"
+                                v-if="reaction.url" />
                             <span class="emojiReaction" v-if="!reaction.url">{{
                                 reaction.name
                             }}</span>
@@ -399,62 +326,36 @@ export default {
                     </div>
                 </div>
             </div>
-            <div
-                class="notificationStatus"
-                v-if="content.type === 'follow_request'"
-            >
+            <div class="notificationStatus" v-if="content.type === 'follow_request'">
                 <div class="notificationAttachmentContainer">
-                    <NuxtLink
-                        class="notificationAttachment acceptFollowRequests"
-                        @click="followRequest('accept', content.account.id)"
-                        >Accept</NuxtLink
-                    >
-                    <NuxtLink
-                        class="notificationAttachment denyFollowRequests"
-                        @click="followRequest('deny', content.account.id)"
-                        >Deny</NuxtLink
-                    >
+                    <NuxtLink class="notificationAttachment acceptFollowRequests"
+                        @click="followRequest('accept', content.account.id)">Accept</NuxtLink>
+                    <NuxtLink class="notificationAttachment denyFollowRequests"
+                        @click="followRequest('deny', content.account.id)">Deny</NuxtLink>
                 </div>
             </div>
             <div class="notificationStatus" v-if="content.type === 'update'">
                 <span v-html="content.status.content"></span>
                 <div class="notificationAttachmentContainer">
-                    <NuxtLink
-                        class="notificationAttachment"
-                        :to="'/toot/' + content.status.id"
-                        >View Toot</NuxtLink
-                    >
+                    <NuxtLink class="notificationAttachment" :to="'/toot/' + content.status.id">View Toot</NuxtLink>
                 </div>
             </div>
         </div>
-        <div
-            v-if="
-                content.type !== 'reblog' &&
-                content.type !== 'favourite' &&
-                content.type !== 'follow' &&
-                content.type !== 'mention' &&
-                content.type !== 'status' &&
-                content.type !== 'poll' &&
-                content.type !== 'reaction' &&
-                content.type !== 'follow_request' &&
-                content.type !== 'update'
-            "
-        >
+        <div v-if="content.type !== 'reblog' &&
+            content.type !== 'favourite' &&
+            content.type !== 'follow' &&
+            content.type !== 'mention' &&
+            content.type !== 'status' &&
+            content.type !== 'poll' &&
+            content.type !== 'reaction' &&
+            content.type !== 'follow_request' &&
+            content.type !== 'update'
+            ">
             <div class="notificationTop">
-                <Icon
-                    type="alert-circle"
-                    size="18px"
-                    color="var(--bg-danger)"
-                />
-                <span
-                    >Unknown notification type {{ content.type }}. Please report
+                <Icon type="alert-circle" size="18px" color="var(--bg-danger)" />
+                <span>Unknown notification type {{ content.type }}. Please report
                     this as a bug on
-                    <a
-                        href="https://github.com/ihateblueb/aster"
-                        target="_blank"
-                        >the Aster GitHub repo</a
-                    >.</span
-                >
+                    <a href="https://github.com/ihateblueb/aster" target="_blank">the Aster GitHub repo</a>.</span>
             </div>
         </div>
     </div>

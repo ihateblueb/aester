@@ -85,10 +85,7 @@ export default {
                 <NuxtLink to="/settings/appearance" class="sidebarCategoryItem">
                     Appearence
                 </NuxtLink>
-                <NuxtLink
-                    to="/settings/accessibility"
-                    class="sidebarCategoryItem"
-                >
+                <NuxtLink to="/settings/accessibility" class="sidebarCategoryItem">
                     Accessibility
                 </NuxtLink>
             </div>
@@ -103,10 +100,7 @@ export default {
                 <NuxtLink to="/settings/debug" class="sidebarCategoryItem">
                     Debug
                 </NuxtLink>
-                <NuxtLink
-                    to="/settings/experiments"
-                    class="sidebarCategoryItem"
-                >
+                <NuxtLink to="/settings/experiments" class="sidebarCategoryItem">
                     Experiments
                 </NuxtLink>
             </div>

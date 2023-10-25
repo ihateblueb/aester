@@ -42,9 +42,9 @@ export default {
         async getTootDetails() {
             const gettootdetails = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/statuses/" +
-                    this.tootid,
+                this.instanceurl +
+                "/api/v1/statuses/" +
+                this.tootid,
                 {
                     method: "GET",
                     headers: {

@@ -26,7 +26,7 @@ function log(type, msg) {
     } else if (type === 1) {
         console.log(
             `${fgYellow}[${fgMagenta}aster ${fgYellow}WARN${fgYellow}] ${r}` +
-                msg
+            msg
         );
     } else if (type === 2) {
         console.log(

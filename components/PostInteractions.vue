@@ -37,10 +37,10 @@ export default {
             } else if (type === "boost") {
                 let response = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/statuses/" +
-                        id +
-                        "/reblog",
+                    this.instanceurl +
+                    "/api/v1/statuses/" +
+                    id +
+                    "/reblog",
                     {
                         method: "POST",
                         headers: {
@@ -54,19 +54,19 @@ export default {
                 } else {
                     console.log(
                         (await type) +
-                            " failed. " +
-                            response.status +
-                            " " +
-                            response.statusText
+                        " failed. " +
+                        response.status +
+                        " " +
+                        response.statusText
                     );
                 }
             } else if (type === "unboost") {
                 let response = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/statuses/" +
-                        id +
-                        "/unreblog",
+                    this.instanceurl +
+                    "/api/v1/statuses/" +
+                    id +
+                    "/unreblog",
                     {
                         method: "POST",
                         headers: {
@@ -80,19 +80,19 @@ export default {
                 } else {
                     console.log(
                         (await type) +
-                            " failed. " +
-                            response.status +
-                            " " +
-                            response.statusText
+                        " failed. " +
+                        response.status +
+                        " " +
+                        response.statusText
                     );
                 }
             } else if (type === "favorite") {
                 let response = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/statuses/" +
-                        id +
-                        "/favourite",
+                    this.instanceurl +
+                    "/api/v1/statuses/" +
+                    id +
+                    "/favourite",
                     {
                         method: "POST",
                         headers: {
@@ -106,19 +106,19 @@ export default {
                 } else {
                     console.log(
                         (await type) +
-                            " failed. " +
-                            response.status +
-                            " " +
-                            response.statusText
+                        " failed. " +
+                        response.status +
+                        " " +
+                        response.statusText
                     );
                 }
             } else if (type === "unfavorite") {
                 let response = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/statuses/" +
-                        id +
-                        "/unfavourite",
+                    this.instanceurl +
+                    "/api/v1/statuses/" +
+                    id +
+                    "/unfavourite",
                     {
                         method: "POST",
                         headers: {
@@ -132,19 +132,19 @@ export default {
                 } else {
                     console.log(
                         (await type) +
-                            " failed. " +
-                            response.status +
-                            " " +
-                            response.statusText
+                        " failed. " +
+                        response.status +
+                        " " +
+                        response.statusText
                     );
                 }
             } else if (type === "bookmark") {
                 let response = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/statuses/" +
-                        id +
-                        "/bookmark",
+                    this.instanceurl +
+                    "/api/v1/statuses/" +
+                    id +
+                    "/bookmark",
                     {
                         method: "POST",
                         headers: {
@@ -158,19 +158,19 @@ export default {
                 } else {
                     console.log(
                         (await type) +
-                            " failed. " +
-                            response.status +
-                            " " +
-                            response.statusText
+                        " failed. " +
+                        response.status +
+                        " " +
+                        response.statusText
                     );
                 }
             } else if (type === "unbookmark") {
                 let response = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/statuses/" +
-                        id +
-                        "/unbookmark",
+                    this.instanceurl +
+                    "/api/v1/statuses/" +
+                    id +
+                    "/unbookmark",
                     {
                         method: "POST",
                         headers: {
@@ -184,10 +184,10 @@ export default {
                 } else {
                     console.log(
                         (await type) +
-                            " failed. " +
-                            response.status +
-                            " " +
-                            response.statusText
+                        " failed. " +
+                        response.status +
+                        " " +
+                        response.statusText
                     );
                 }
             }

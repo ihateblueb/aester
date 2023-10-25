@@ -158,7 +158,8 @@ export default {
                         <label for="extraanimations"> Enable extra animations in UI</label>
                     </div>
                     <p class="settingExplaination">
-                        Adds extra animations with emojis and buttons throughout the UI. If reduced motion is enabled, this will do nothing.
+                        Adds extra animations with emojis and buttons throughout the UI. If reduced motion is enabled, this
+                        will do nothing.
                     </p>
                 </div>
             </div>
@@ -202,7 +203,9 @@ export default {
     text-decoration: underline;
 }
 
-.ctheme, .checkboxSetting, .ftheme {
+.ctheme,
+.checkboxSetting,
+.ftheme {
     margin-top: 10px;
 }
 
@@ -234,5 +237,4 @@ export default {
 
 .settingsPage h2 {
     margin-bottom: 20px;
-}
-</style>
+}</style>

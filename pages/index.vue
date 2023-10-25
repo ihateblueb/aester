@@ -86,6 +86,7 @@ export default {
 .getstartedLink span {
     margin-left: 10px;
 }
+
 .getstartedLink .feathericon {
     margin-bottom: 0px;
 }
@@ -94,9 +95,11 @@ export default {
     background-color: var(--bg3);
     color: var(--txt1);
 }
+
 .getstartedLink:first-child {
     margin-top: 10px;
 }
+
 .getstartedLink {
     display: flex;
     align-items: center;
@@ -106,8 +109,8 @@ export default {
     padding: 12px;
     border-radius: 7px;
 }
+
 .getstartedLinks {
     display: flex;
     flex-direction: column;
-}
-</style>
+}</style>

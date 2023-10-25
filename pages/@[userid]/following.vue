@@ -41,9 +41,9 @@ export default {
         async getOtherUserDetails() {
             const getotheruserdetails = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/accounts/lookup/?acct=" +
-                    this.acct,
+                this.instanceurl +
+                "/api/v1/accounts/lookup/?acct=" +
+                this.acct,
                 {
                     method: "GET",
                 }
@@ -61,10 +61,10 @@ export default {
         async loadFollowers() {
             let initialfollowers = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/accounts/" +
-                    this.user.id +
-                    "/following",
+                this.instanceurl +
+                "/api/v1/accounts/" +
+                this.user.id +
+                "/following",
                 {
                     method: "GET",
                     headers: {

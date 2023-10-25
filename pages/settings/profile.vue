@@ -43,9 +43,9 @@ export default {
         async getUserDetails() {
             const getotheruserdetails = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/accounts/" +
-                    this.selfid,
+                this.instanceurl +
+                "/api/v1/accounts/" +
+                this.selfid,
                 {
                     method: "GET",
                 }
@@ -92,10 +92,7 @@ export default {
                 </div>
                 <div class="names">
                     <p>Display Name</p>
-                    <input
-                        :placeholder="user.display_name"
-                        :value="user.display_name"
-                    />
+                    <input :placeholder="user.display_name" :value="user.display_name" />
                     <p>Username</p>
                     <input :placeholder="user.acct" :value="user.acct" />
                 </div>
@@ -103,12 +100,7 @@ export default {
         </div>
         <div class="bio">
             <p class="label">Bio</p>
-            <p
-                class="bioEditor"
-                v-html="editor.bio"
-                @keyup="biovalidate"
-                contenteditable="true"
-            ></p>
+            <p class="bioEditor" v-html="editor.bio" @keyup="biovalidate" contenteditable="true"></p>
         </div>
         <div>
             <!-- fields -->

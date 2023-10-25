@@ -75,10 +75,10 @@ export default {
             if (this.toot.content != "") {
                 console.log(
                     "[Aster Actions] Posting toot as @" +
-                        this.user.username +
-                        "@" +
-                        this.instanceurl +
-                        "..."
+                    this.user.username +
+                    "@" +
+                    this.instanceurl +
+                    "..."
                 );
 
                 var additional_status_options = `&visibility=${this.toot.visibility}`;
@@ -116,7 +116,7 @@ export default {
 
                     console.log(
                         "[Aster Actions] Can't post toot: " +
-                            sendtoot_response.error
+                        sendtoot_response.error
                     );
                 } else {
                     this.app.postArea.dropdown = "";
@@ -180,11 +180,7 @@ export default {
     <div class="postArea">
         <div class="postAreaHeader">
             <div class="postArea-avatars">
-                <img
-                    class="postArea-avatar"
-                    :src="user.avatar"
-                    :alt="user.displayname + 's avatar'"
-                />
+                <img class="postArea-avatar" :src="user.avatar" :alt="user.displayname + 's avatar'" />
             </div>
             <div class="postArea-names">
                 <NuxtLink :to="'/@' + user.username">
@@ -201,149 +197,71 @@ export default {
             <p class="mopAlert" v-if="toot.visibility === 'direct'">
                 Mentioned People Only posts are still visible by instance admins
                 and moderators, and are not end to end encrypted.
-                <a
-                    class="underline"
-                    :href="'https://' + instanceurl + '/privacy-policy'"
-                    target="_blank"
-                    >Learn more</a
-                >.
+                <a class="underline" :href="'https://' + instanceurl + '/privacy-policy'" target="_blank">Learn more</a>.
             </p>
             <p class="replyAlert" :key="toot.replying" v-if="toot.replying">
                 Replying to {{ toot.replying }}.
-                <Icon
-                    type="x"
-                    size="18px"
-                    @click="removeLocalStorage('replyingto')"
-                />
+                <Icon type="x" size="18px" @click="removeLocalStorage('replyingto')" />
             </p>
 
-            <input
-                class="postArea-contentwarning"
-                placeholder="Write your content warning here..."
-                v-if="app.postArea.contentWarning === 'true'"
-                v-model="toot.spoiler_text"
-            />
-            <textarea
-                class="postArea-textArea"
-                placeholder="What's up?"
-                v-model="toot.content"
-            ></textarea>
+            <input class="postArea-contentwarning" placeholder="Write your content warning here..."
+                v-if="app.postArea.contentWarning === 'true'" v-model="toot.spoiler_text" />
+            <textarea class="postArea-textArea" placeholder="What's up?" v-model="toot.content"></textarea>
             <div>
                 <div class="postArea-buttons">
                     <div class="postArea-buttons-left">
-                        <button
-                            class="btn postArea-btn"
-                            @click="setPostAreaButton('attatchment')"
-                            v-bind:class="{
-                                pAbtnselected:
-                                    app.postArea.selectedBtn === 'attatchment',
-                            }"
-                        >
+                        <button class="btn postArea-btn" @click="setPostAreaButton('attatchment')" v-bind:class="{
+                            pAbtnselected:
+                                app.postArea.selectedBtn === 'attatchment',
+                        }">
                             <Icon name="paperclip" size="18px" />
                         </button>
-                        <button
-                            class="btn postArea-btn"
-                            @click="setPostAreaButton('poll')"
-                            v-bind:class="{
-                                pAbtnselected:
-                                    app.postArea.selectedBtn === 'poll',
-                            }"
-                        >
+                        <button class="btn postArea-btn" @click="setPostAreaButton('poll')" v-bind:class="{
+                            pAbtnselected:
+                                app.postArea.selectedBtn === 'poll',
+                        }">
                             <Icon name="bar-chart-2" size="18px" />
                         </button>
-                        <button
-                            class="btn postArea-btn"
-                            @click="setPostAreaButton('visibility')"
-                            v-bind:class="{
-                                pAbtnselected:
-                                    app.postArea.selectedBtn === 'visibility',
-                            }"
-                        >
-                            <Icon
-                                name="globe"
-                                size="18px"
-                                v-if="toot.visibility === 'public'"
-                            />
-                            <Icon
-                                name="unlock"
-                                size="18px"
-                                v-if="toot.visibility === 'unlisted'"
-                            />
-                            <Icon
-                                name="users"
-                                size="18px"
-                                v-if="toot.visibility === 'private'"
-                            />
-                            <Icon
-                                name="at-sign"
-                                size="18px"
-                                v-if="toot.visibility === 'direct'"
-                            />
+                        <button class="btn postArea-btn" @click="setPostAreaButton('visibility')" v-bind:class="{
+                            pAbtnselected:
+                                app.postArea.selectedBtn === 'visibility',
+                        }">
+                            <Icon name="globe" size="18px" v-if="toot.visibility === 'public'" />
+                            <Icon name="unlock" size="18px" v-if="toot.visibility === 'unlisted'" />
+                            <Icon name="users" size="18px" v-if="toot.visibility === 'private'" />
+                            <Icon name="at-sign" size="18px" v-if="toot.visibility === 'direct'" />
                         </button>
-                        <button
-                            class="btn postArea-btn postArea-cw-btn"
-                            @click="setPostAreaToggle('contentwarning')"
+                        <button class="btn postArea-btn postArea-cw-btn" @click="setPostAreaToggle('contentwarning')"
                             v-bind:class="{
                                 pAbtnselected:
                                     app.postArea.contentWarning === 'true',
-                            }"
-                        >
+                            }">
                             <span> CW </span>
                         </button>
                     </div>
-                    <button
-                        class="btn postArea-btn postArea-btn-post"
-                        @click="sendToot()"
-                        v-bind:class="{
-                            pAbtnpostdisabled: toot.content === '',
-                        }"
-                    >
+                    <button class="btn postArea-btn postArea-btn-post" @click="sendToot()" v-bind:class="{
+                        pAbtnpostdisabled: toot.content === '',
+                    }">
                         Toot
                     </button>
                 </div>
 
-                <div
-                    class="postArea-attatchments-selector"
-                    v-if="app.postArea.dropdown === 'attatchment'"
-                >
+                <div class="postArea-attatchments-selector" v-if="app.postArea.dropdown === 'attatchment'">
                     <div class="postArea-attatchments-selector-option">
                         <Icon name="upload" color="var(--txt1)" size="20px" />
                         <span>Upload a file</span>
                     </div>
                 </div>
 
-                <div
-                    class="postArea-pollmaker"
-                    v-if="app.postArea.dropdown === 'poll'"
-                >
-                    <input
-                        class="postArea-pollmaker-option"
-                        placeholder="Choice 1"
-                        v-model="toot.poll.options[1]"
-                    />
-                    <input
-                        class="postArea-pollmaker-option"
-                        placeholder="Choice 2"
-                        v-model="toot.poll.options[2]"
-                    />
-                    <input
-                        class="postArea-pollmaker-option"
-                        placeholder="Choice 3"
-                        v-model="toot.poll.options[3]"
-                        v-if="app.postArea.poll.option >= 3"
-                    />
-                    <input
-                        class="postArea-pollmaker-option"
-                        placeholder="Choice 4"
-                        v-model="toot.poll.options[4]"
-                        v-if="app.postArea.poll.option >= 4"
-                    />
-                    <input
-                        class="postArea-pollmaker-option"
-                        placeholder="Choice 5"
-                        v-model="toot.poll.options[5]"
-                        v-if="app.postArea.poll.option >= 5"
-                    />
+                <div class="postArea-pollmaker" v-if="app.postArea.dropdown === 'poll'">
+                    <input class="postArea-pollmaker-option" placeholder="Choice 1" v-model="toot.poll.options[1]" />
+                    <input class="postArea-pollmaker-option" placeholder="Choice 2" v-model="toot.poll.options[2]" />
+                    <input class="postArea-pollmaker-option" placeholder="Choice 3" v-model="toot.poll.options[3]"
+                        v-if="app.postArea.poll.option >= 3" />
+                    <input class="postArea-pollmaker-option" placeholder="Choice 4" v-model="toot.poll.options[4]"
+                        v-if="app.postArea.poll.option >= 4" />
+                    <input class="postArea-pollmaker-option" placeholder="Choice 5" v-model="toot.poll.options[5]"
+                        v-if="app.postArea.poll.option >= 5" />
                     <select class="postArea-pollmaker-select">
                         <option @click="app.postArea.poll.option = 2">
                             2 choices
@@ -394,47 +312,28 @@ export default {
                     </select>
                 </div>
 
-                <div
-                    class="postArea-visibility"
-                    v-if="app.postArea.dropdown === 'visibility'"
-                >
-                    <div
-                        class="postArea-visibility-option"
-                        @click="setTootOption('visibility', 'public')"
-                        v-bind:class="{
-                            pAoption: toot.visibility === 'public',
-                        }"
-                    >
+                <div class="postArea-visibility" v-if="app.postArea.dropdown === 'visibility'">
+                    <div class="postArea-visibility-option" @click="setTootOption('visibility', 'public')" v-bind:class="{
+                        pAoption: toot.visibility === 'public',
+                    }">
                         <Icon name="globe" color="var(--txt1)" size="18px" />
                         <span>Global</span>
                     </div>
-                    <div
-                        class="postArea-visibility-option"
-                        @click="setTootOption('visibility', 'unlisted')"
-                        v-bind:class="{
-                            pAoption: toot.visibility === 'unlisted',
-                        }"
-                    >
+                    <div class="postArea-visibility-option" @click="setTootOption('visibility', 'unlisted')" v-bind:class="{
+                        pAoption: toot.visibility === 'unlisted',
+                    }">
                         <Icon name="unlock" color="var(--txt1)" size="18px" />
                         <span>Unlisted</span>
                     </div>
-                    <div
-                        class="postArea-visibility-option"
-                        @click="setTootOption('visibility', 'private')"
-                        v-bind:class="{
-                            pAoption: toot.visibility === 'private',
-                        }"
-                    >
+                    <div class="postArea-visibility-option" @click="setTootOption('visibility', 'private')" v-bind:class="{
+                        pAoption: toot.visibility === 'private',
+                    }">
                         <Icon name="users" color="var(--txt1)" size="18px" />
                         <span>Followers Only</span>
                     </div>
-                    <div
-                        class="postArea-visibility-option"
-                        @click="setTootOption('visibility', 'direct')"
-                        v-bind:class="{
-                            pAoption: toot.visibility === 'direct',
-                        }"
-                    >
+                    <div class="postArea-visibility-option" @click="setTootOption('visibility', 'direct')" v-bind:class="{
+                        pAoption: toot.visibility === 'direct',
+                    }">
                         <Icon name="at-sign" color="var(--txt1)" size="18px" />
                         <span>Mentioned People Only</span>
                     </div>

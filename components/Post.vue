@@ -210,7 +210,7 @@ export default {
 
 <style>
 .cwAlert p {
-    margin-bottom: 0px!important;
+    margin-bottom: 0px !important;
 }
 
 .postInteractionBar {

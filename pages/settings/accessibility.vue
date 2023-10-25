@@ -56,13 +56,9 @@ export default {
             <div>
                 <div class="checkboxSetting" @click="reducedMotionToggle">
                     <div>
-                        <Checkbox
-                            :checked="reducedmotion"
-                            :key="reducedmotion"
-                        />
+                        <Checkbox :checked="reducedmotion" :key="reducedmotion" />
                         <label for="extraanimations">
-                            Enable reduced motion</label
-                        >
+                            Enable reduced motion</label>
                     </div>
                     <p class="settingExplaination">
                         Reduced motion will disable animations throughout the

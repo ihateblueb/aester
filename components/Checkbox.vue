@@ -41,6 +41,7 @@ export default {
     & .vue-feather {
         margin-top: -4px;
     }
+
     &.checked {
         border-color: var(--accent1);
         background-color: var(--accent1-25);

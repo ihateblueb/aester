@@ -42,8 +42,8 @@ export default {
         async loadToots() {
             let initialtoots = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/timelines/public?local=true",
+                this.instanceurl +
+                "/api/v1/timelines/public?local=true",
                 {
                     method: "GET",
                     headers: {
@@ -65,9 +65,9 @@ export default {
         async loadMoreToots(id) {
             let moretoots = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/timelines/public?local=true&max_id=" +
-                    id,
+                this.instanceurl +
+                "/api/v1/timelines/public?local=true&max_id=" +
+                id,
                 {
                     method: "GET",
                     headers: {
@@ -87,9 +87,9 @@ export default {
         async startStream() {
             let userSocket = new WebSocket(
                 "wss://" +
-                    this.instanceurl +
-                    "/api/v1/streaming/public/?stream=public:local&access_token=" +
-                    this.token
+                this.instanceurl +
+                "/api/v1/streaming/public/?stream=public:local&access_token=" +
+                this.token
             );
 
             userSocket.onmessage = (event) => {

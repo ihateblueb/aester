@@ -47,9 +47,9 @@ export default {
         async getOtherUserDetails() {
             const getotheruserdetails = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/accounts/lookup/?acct=" +
-                    this.acct,
+                this.instanceurl +
+                "/api/v1/accounts/lookup/?acct=" +
+                this.acct,
                 {
                     method: "GET",
                 }
@@ -71,9 +71,9 @@ export default {
         async getRelationships() {
             const getrelationships = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/accounts/relationships/?id=" +
-                    this.user.id,
+                this.instanceurl +
+                "/api/v1/accounts/relationships/?id=" +
+                this.user.id,
                 {
                     method: "GET",
                     headers: {
@@ -92,10 +92,10 @@ export default {
             if (type === "follow") {
                 const sendinteraction = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/accounts/" +
-                        this.user.id +
-                        "/follow",
+                    this.instanceurl +
+                    "/api/v1/accounts/" +
+                    this.user.id +
+                    "/follow",
                     {
                         method: "POST",
                         headers: {
@@ -111,10 +111,10 @@ export default {
             } else if (type === "unfollow") {
                 const sendinteraction = await fetch(
                     "https://" +
-                        this.instanceurl +
-                        "/api/v1/accounts/" +
-                        this.user.id +
-                        "/unfollow",
+                    this.instanceurl +
+                    "/api/v1/accounts/" +
+                    this.user.id +
+                    "/unfollow",
                     {
                         method: "POST",
                         headers: {
@@ -133,10 +133,10 @@ export default {
         async loadPins() {
             let pinnedtoots = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/accounts/" +
-                    this.user.id +
-                    "/statuses?pinned=true",
+                this.instanceurl +
+                "/api/v1/accounts/" +
+                this.user.id +
+                "/statuses?pinned=true",
                 {
                     method: "GET",
                     headers: {
@@ -154,10 +154,10 @@ export default {
         async loadToots() {
             let initialtoots = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/accounts/" +
-                    this.user.id +
-                    "/statuses",
+                this.instanceurl +
+                "/api/v1/accounts/" +
+                this.user.id +
+                "/statuses",
                 {
                     method: "GET",
                     headers: {
@@ -177,11 +177,11 @@ export default {
         async loadMoreToots(id) {
             let moretoots = await fetch(
                 "https://" +
-                    this.instanceurl +
-                    "/api/v1/accounts/" +
-                    this.user.id +
-                    "/statuses?max_id=" +
-                    id,
+                this.instanceurl +
+                "/api/v1/accounts/" +
+                this.user.id +
+                "/statuses?max_id=" +
+                id,
                 {
                     method: "GET",
                     headers: {
@@ -235,34 +235,20 @@ export default {
                         <img class="mCC-accountPicture" :src="user.avatar" />
                     </div>
                     <div class="mCC-hT-right">
-                        <NuxtLink
-                            to="settings/profile"
-                            v-if="user.id === selfid"
-                        >
+                        <NuxtLink to="settings/profile" v-if="user.id === selfid">
                             <button class="mCC-button edit">
                                 Edit Profile
                             </button>
                         </NuxtLink>
-                        <button
-                            class="mCC-button follow"
-                            v-if="
-                                user.id !== selfid && !relationships.following
-                            "
-                            @click="userInteraction('follow')"
-                        >
+                        <button class="mCC-button follow" v-if="user.id !== selfid && !relationships.following
+                            " @click="userInteraction('follow')">
                             Follow
                         </button>
-                        <button
-                            class="mCC-button unfollow"
-                            v-if="user.id !== selfid && relationships.following"
-                            @click="userInteraction('unfollow')"
-                        >
+                        <button class="mCC-button unfollow" v-if="user.id !== selfid && relationships.following"
+                            @click="userInteraction('unfollow')">
                             Unfollow
                         </button>
-                        <button
-                            class="mCC-button bell"
-                            v-if="user.id !== selfid"
-                        >
+                        <button class="mCC-button bell" v-if="user.id !== selfid">
                             <Icon type="bell" size="20px" />
                         </button>
                     </div>
@@ -272,20 +258,11 @@ export default {
                         {{ user.display_name }}
                     </p>
                     <p class="mCC-accountUserName">@{{ user.acct }}</p>
-                    <div
-                        class="mCC-followsYouContainer"
-                        v-if="relationships.followed_by"
-                    >
-                        <span
-                            class="mCC-followsYou"
-                            v-if="!relationships.following"
-                        >
+                    <div class="mCC-followsYouContainer" v-if="relationships.followed_by">
+                        <span class="mCC-followsYou" v-if="!relationships.following">
                             Follows You
                         </span>
-                        <span
-                            class="mCC-followsYou mutuals"
-                            v-if="relationships.following"
-                        >
+                        <span class="mCC-followsYou mutuals" v-if="relationships.following">
                             Mutuals
                         </span>
                     </div>
@@ -295,55 +272,25 @@ export default {
                     <div class="mCC-hb-fields">
                         <div class="mCC-hb-field" v-for="field in user.fields">
                             <div v-if="field.verified_at">
-                                <span
-                                    class="mCC-hb-fieldName verified"
-                                    :title="field.name"
-                                    v-html="field.name"
-                                ></span>
-                                <span
-                                    class="mCC-hb-fieldValue verified"
-                                    :title="field.value"
-                                    v-html="field.value"
-                                ></span>
-                                <Icon
-                                    class="verifiedIcon"
-                                    type="check"
-                                    size="14px"
-                                    color="var(--bg-success)"
-                                />
+                                <span class="mCC-hb-fieldName verified" :title="field.name" v-html="field.name"></span>
+                                <span class="mCC-hb-fieldValue verified" :title="field.value" v-html="field.value"></span>
+                                <Icon class="verifiedIcon" type="check" size="14px" color="var(--bg-success)" />
                             </div>
                             <div v-if="!field.verified_at">
-                                <span
-                                    class="mCC-hb-fieldName"
-                                    :title="field.name"
-                                    v-html="field.name"
-                                ></span>
-                                <span
-                                    class="mCC-hb-fieldValue"
-                                    :title="field.value"
-                                    v-html="field.value"
-                                ></span>
+                                <span class="mCC-hb-fieldName" :title="field.name" v-html="field.name"></span>
+                                <span class="mCC-hb-fieldValue" :title="field.value" v-html="field.value"></span>
                             </div>
                         </div>
                     </div>
                     <div class="mCC-stats">
                         <div class="stat">
-                            <strong>{{ user.statuses_count }}</strong
-                            ><br />posts
+                            <strong>{{ user.statuses_count }}</strong><br />posts
                         </div>
-                        <NuxtLink
-                            class="stat"
-                            :to="'@' + user.acct + '/following'"
-                        >
-                            <strong>{{ user.following_count }}</strong
-                            ><br />following
+                        <NuxtLink class="stat" :to="'@' + user.acct + '/following'">
+                            <strong>{{ user.following_count }}</strong><br />following
                         </NuxtLink>
-                        <NuxtLink
-                            class="stat"
-                            :to="'@' + user.acct + '/followers'"
-                        >
-                            <strong>{{ user.followers_count }}</strong
-                            ><br />followers
+                        <NuxtLink class="stat" :to="'@' + user.acct + '/followers'">
+                            <strong>{{ user.followers_count }}</strong><br />followers
                         </NuxtLink>
                     </div>
                 </div>
@@ -351,31 +298,18 @@ export default {
         </div>
         <div class="mCC-userPinned">
             <div v-for="toot in timeline.pins">
-                <Post
-                    :data="toot"
-                    :instanceurl="instanceurl"
-                    :token="token"
-                    pinned="true"
-                />
+                <Post :data="toot" :instanceurl="instanceurl" :token="token" pinned="true" />
             </div>
         </div>
         <div class="mCC-userContent">
             <div>
                 <div class="timelineNewPosts">
                     <div v-for="toot in timeline.profile_new">
-                        <Post
-                            :data="toot"
-                            :instanceurl="instanceurl"
-                            :token="token"
-                        />
+                        <Post :data="toot" :instanceurl="instanceurl" :token="token" />
                     </div>
                 </div>
                 <div v-for="toot in timeline.profile">
-                    <Post
-                        :data="toot"
-                        :instanceurl="instanceurl"
-                        :token="token"
-                    />
+                    <Post :data="toot" :instanceurl="instanceurl" :token="token" />
                 </div>
             </div>
         </div>

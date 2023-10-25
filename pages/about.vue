@@ -89,16 +89,13 @@ export default {
                 <div class="contactInfo">
                     <p>
                         Admin Account
-                        <span
-                            ><NuxtLink
-                                :to="'/@' + instance.contact.account.acct"
-                                >@{{
-                                    instance.contact.account.acct +
-                                    "@" +
-                                    instanceurl
-                                }}</NuxtLink
-                            ></span
-                        >
+                        <span></span>
+                            <NuxtLink :to="'/@' + instance.contact.account.acct">@{{
+                                instance.contact.account.acct +
+                                "@" +
+                                instanceurl
+                            }}</NuxtLink>
+                        </span>
                     </p>
                     <p>
                         Admin Email <span>{{ instance.contact.email }}</span>
@@ -113,9 +110,7 @@ export default {
             </h3>
             <div class="aboutInnerContent">
                 <p>
-                    <a href="https://github.com/ihateblueb/aster"
-                        >ihateblueb/aster</a
-                    >
+                    <a href="https://github.com/ihateblueb/aster">ihateblueb/aster</a>
                     <span>branch@commit</span>
                 </p>
                 <div class="contact">
@@ -123,9 +118,7 @@ export default {
                     <p>
                         Fediverse
                         <span>
-                            <NuxtLink to="@ihateblueb@wetdry.world"
-                                >@ihateblueb@wetdry.world</NuxtLink
-                            >
+                            <NuxtLink to="@ihateblueb@wetdry.world">@ihateblueb@wetdry.world</NuxtLink>
                         </span>
                     </p>
                     <p>Discord <span>@ihateblueb</span></p>
