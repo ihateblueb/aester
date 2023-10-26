@@ -1,7 +1,19 @@
+<script setup>
+import {
+    VTooltip,
+    VClosePopper,
+    Dropdown,
+    Tooltip,
+    Menu
+} from 'floating-vue'
+import 'floating-vue/dist/style.css'
+</script>
+
 <script>
 export default {
     data: () => ({
         content: [],
+        isSelf: false,
         ready: false
     }),
     props: {
@@ -11,6 +23,11 @@ export default {
         this.content = this.data
         this.instanceurl = this.getLocalStorage("instanceurl")
         this.token = this.getLocalStorage("token")
+        this.self = this.getLocalStorage("user_id")
+
+        if (this.content.account.id === this.self) {
+            this.isSelf = true;
+        }
 
         this.ready = true;
     },
@@ -192,6 +209,32 @@ export default {
                 }
             }
         },
+        async moreAction(type) {
+            // open, original, copy link, 
+            // not self: filter, mute, block, report
+            // self: pin, edit, delete
+            if (type === "open") {
+                alert("This is a work in progress. [open]")
+            } else if (type === "original") {
+                alert("This is a work in progress. [original]")
+            } else if (type === "copylink") {
+                alert("This is a work in progress. [copylink]")
+            } else if (type === "filter") {
+                alert("This is a work in progress. [filter]")
+            } else if (type === "mute") {
+                alert("This is a work in progress. [mute]")
+            } else if (type === "block") {
+                alert("This is a work in progress. [block]")
+            } else if (type === "report") {
+                alert("This is a work in progress. [report]")
+            } else if (type === "pin") {
+                alert("This is a work in progress. [pin]")
+            } else if (type === "edit") {
+                alert("This is a work in progress. [edit]")
+            } else if (type === "delete") {
+                alert("This is a work in progress. [delete]")
+            }
+        }
     }
 };
 </script>
@@ -204,7 +247,6 @@ export default {
                 {{ content.replies_count }}
             </span>
         </button>
-
         <button @click="postInteraction('boost', content.id)" class="postInteraction" v-if="!content.reblogged">
             <Icon type="repeat" size="18px" color="var(--txt2)" />
             <span>
@@ -215,10 +257,11 @@ export default {
             v-if="content.reblogged">
             <Icon type="repeat" size="18px" color="var(--reblog)" />
             <span>
-                {{ content.reblogs_count }}
+                {{
+
+                    s_count }}
             </span>
         </button>
-
         <button @click="postInteraction('favorite', content.id)" class="postInteraction" v-if="!content.favourited">
             <Icon type="star" size="18px" color="var(--txt2)" />
             <span>
@@ -232,7 +275,6 @@ export default {
                 {{ content.favourites_count }}
             </span>
         </button>
-
         <button @click="postInteraction('bookmark', content.id)" class="postInteraction" v-if="!content.bookmarked">
             <Icon type="bookmark" size="18px" color="var(--txt2)" />
         </button>
@@ -240,15 +282,89 @@ export default {
             v-if="content.bookmarked">
             <Icon type="bookmark" size="18px" color="var(--bookmark)" fill="true" />
         </button>
-
         <button class="postInteraction">
-            <Icon type="more-horizontal" size="18px" color="var(--txt2)" />
+            <Dropdown>
+                <Icon type="more-horizontal" size="18px" color="var(--txt2)" />
+
+                <template #popper>
+                    <div class="moreOptions" v-if="!isSelf">
+                        <div class="moreOption" @click="moreAction('open')">
+                            Open this post
+                        </div>
+                        <div class="moreOption" @click="moreAction('original')">
+                            Open original post
+                        </div>
+                        <div class="moreOption" @click="moreAction('copylink')">
+                            Copy link to post
+                        </div>
+                        <hr>
+                        <div class="moreOption danger" @click="moreAction('filter')">
+                            Filter this post
+                        </div>
+                        <hr>
+                        <div class="moreOption danger" @click="moreAction('mute')">
+                            Mute @{{ content.account.acct }}
+                        </div>
+                        <div class="moreOption danger" @click="moreAction('block')">
+                            Block @{{ content.account.acct }}
+                        </div>
+                        <div class="moreOption danger" @click="moreAction('report')">
+                            Report @{{ content.account.acct }}
+                        </div>
+                    </div>
+                    <div class="moreOptions" v-if="isSelf">
+                        <div class="moreOption" @click="moreAction('open')">
+                            Open this post
+                        </div>
+                        <div class="moreOption" @click="moreAction('original')">
+                            Open original post
+                        </div>
+                        <div class="moreOption" @click="moreAction('copylink')">
+                            Copy link to post
+                        </div>
+                        <hr>
+                        <div class="moreOption" @click="moreAction('pin')">
+                            Pin on profile
+                        </div>
+                        <hr>
+                        <div class="moreOption danger" @click="moreAction('edit')">
+                            Edit
+                        </div>
+                        <div class="moreOption danger" @click="moreAction('delete')">
+                            Delete
+                        </div>
+                    </div>
+                </template>
+            </Dropdown>
         </button>
     </div>
 </template>
 
 <style>
-.media {
-    color: var(--txt2);
+.moreOption {
+    padding: 6px 12px;
+    margin: 4px;
+
+    color: var(--txt1);
+    border-radius: 5px;
+    min-width: 150px !important;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--bg4-50);
+    }
+
+    &.danger {
+        color: var(--bg-danger);
+    }
+
+    &.danger:hover {
+        background-color: var(--bg-danger-25);
+    }
 }
-</style>
+.moreOptions hr {
+    margin: 5px 10px;
+    border-width: 1px;
+    border-color: var(--bg4) !important;
+}</style>
