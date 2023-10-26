@@ -49,9 +49,9 @@ function update() {
 }
 
 function update2() {
-    log(0, `${fgGray}${b}> npm run refresh${r}`);
+    log(0, `${fgGray}${b}> bun run refresh${r}`);
 
-    let rmprocess = subProcess.spawn("npm", ["run", "refresh"]);
+    let rmprocess = subProcess.spawn("bun", ["run", "refresh"]);
     rmprocess.on("exit", () => {
         log(0, `Complete.`);
     });

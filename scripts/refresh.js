@@ -40,27 +40,27 @@ log(0, `Now refreshing...`);
 refresh();
 
 function refresh() {
-    log(0, `${fgGray}${b}> npm run clean${r}`);
+    log(0, `${fgGray}${b}> bun run clean${r}`);
 
-    let rmprocess = subProcess.spawn("npm", ["run", "clean"]);
+    let rmprocess = subProcess.spawn("bun", ["run", "clean"]);
     rmprocess.on("exit", () => {
         refresh2();
     });
 }
 
 function refresh2() {
-    log(0, `${fgGray}${b}> npm i${r}`);
+    log(0, `${fgGray}${b}> bun i${r}`);
 
-    let rmprocess = subProcess.spawn("npm", ["i"]);
+    let rmprocess = subProcess.spawn("bun", ["i"]);
     rmprocess.on("exit", () => {
         refresh3();
     });
 }
 
 function refresh3() {
-    log(0, `${fgGray}${b}> npm run build${r}`);
+    log(0, `${fgGray}${b}> bun run build${r}`);
 
-    let rmprocess = subProcess.spawn("npm", ["run", "build"]);
+    let rmprocess = subProcess.spawn("bun", ["run", "build"]);
     rmprocess.on("exit", () => {
         log(0, `Complete.`);
     });

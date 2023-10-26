@@ -4,6 +4,8 @@ Aster is a Mastodon client (and should work seamlessly with GoToSocial. In the f
 
 Aster is BETA SOFTWARE. There's a lot of missing features, broken parts, and lacking accessibility. It's unusable as a main client as of right now. There's a lot of cases in where content warnings aren't shown, sensitive media isnt censored, or certain interactions breaking.
 
+Aster requires the bun runtime (https://bun.sh/).
+
 **Current Production Status: WORKS KINDA!**
 
 ## What's going on?

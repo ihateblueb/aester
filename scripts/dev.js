@@ -44,8 +44,8 @@ log(
 buninstall();
 
 function buninstall() {
-    log(0, `${fgGray}${b}> npm i${r} \n`);
-    const bunprocess = subProcess.spawn("npm", ["i"]);
+    log(0, `${fgGray}${b}> bun i${r} \n`);
+    const bunprocess = subProcess.spawn("bun", ["i"]);
     bunprocess.stdout.on("data", (data) => {
         console.log(`${fgBlack}${data}${r}`);
     });

@@ -1,16 +1,17 @@
 {
   "name": "aster",
   "private": true,
+  "packageManager": "bun@1.0.3",
   "scripts": {
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "dev": "PORT=9080 node scripts/dev.js",
-    "prod": "PORT=9080 node scripts/prod.js",
-    "clean": "node scripts/clean.js",
-    "refresh": "node scripts/refresh.js",
-    "update": "node scripts/update.js"
+    "dev": "PORT=9080 bun run scripts/dev.js",
+    "prod": "PORT=9080 bun run scripts/prod.js",
+    "clean": "bun run scripts/clean.js",
+    "refresh": "bun run scripts/refresh.js",
+    "update": "bun run scripts/update.js"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
