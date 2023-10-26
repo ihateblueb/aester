@@ -44,8 +44,8 @@ log(
 buninstall();
 
 function buninstall() {
-    log(0, `${fgGray}${b}> bun i${r} \n`);
-    const bunprocess = subProcess.spawn("bun", ["i"]);
+    log(0, `${fgGray}${b}> npm i${r} \n`);
+    const bunprocess = subProcess.spawn("npm", ["i"]);
     bunprocess.stdout.on("data", (data) => {
         console.log(`${fgBlack}${data}${r}`);
     });
@@ -69,10 +69,9 @@ function build() {
 }
 
 function run() {
-    log(0, `${fgGray}${b}> bun run .output/server/index.mjs${r} \n`);
+    log(0, `${fgGray}${b}> node .output/server/index.mjs${r} \n`);
 
-    const nuxtprocess = subProcess.spawn("bun", [
-        "run",
+    const nuxtprocess = subProcess.spawn("node", [
         ".output/server/index.mjs",
     ]);
     nuxtprocess.stdout.on("data", (data) => {
