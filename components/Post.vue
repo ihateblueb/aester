@@ -1,6 +1,15 @@
 <script setup>
 import PostMedia from './PostMedia.vue';
 import PostInteractions from './PostInteractions.vue';
+
+import {
+    VTooltip,
+    VClosePopper,
+    Dropdown,
+    Tooltip,
+    Menu
+} from 'floating-vue'
+import 'floating-vue/dist/style.css'
 </script >
 
 <script>
@@ -121,40 +130,44 @@ export default {
                 <img class="post-userAvatar" :src="content.reblog.account.avatar" loading="lazy" v-if="content.reblog" />
             </div>
             <div class="post-userNames">
-                <p class="post-displayName" v-if="!content.reblog">{{ content.account.display_name }}</p>
-                <p class="post-displayName" v-if="content.reblog">{{ content.reblog.account.display_name }}</p>
-                <p class="post-userName" v-if="!content.reblog">@{{ content.account.acct }}</p>
-                <p class="post-userName" v-if="content.reblog">@{{ content.reblog.account.acct }}</p>
+                <NuxtLink :to="'/@'+content.reblog.account.acct" v-if="content.reblog">
+                    <p class="post-displayName">{{ content.reblog.account.display_name }}</p>
+                    <p class="post-userName">@{{ content.reblog.account.acct }}</p>
+                </NuxtLink>
+                <NuxtLink :to="'/@'+content.account.acct" v-if="!content.reblog">
+                    <p class="post-displayName">{{ content.account.display_name }}</p>
+                    <p class="post-userName">@{{ content.account.acct }}</p>
+                </NuxtLink>
             </div>
             <div class="post-infoIcons" v-if="!content.reblog">
                 <div class="post-infoIcon post-infoIcons-visibility">
                     <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.visibility === 'public'"
-                        :title="content.visibility" />
+                        v-tooltip="'Public'" />
                     <Icon name="unlock" size="14px" color="var(--txt2)" v-if="content.visibility === 'unlisted'"
-                        :title="content.visibility" />
+                        v-tooltip="'Unlisted'" />
                     <Icon name="users" size="14px" color="var(--txt2)" v-if="content.visibility === 'private'"
-                        :title="content.visibility" />
+                        v-tooltip="'Followers Only'" />
                     <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.visibility === 'direct'"
-                        :title="content.visibility" />
+                        v-tooltip="'Mentioned Only'" />
                 </div>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
-                    :key="timer">
+                <div class="post-infoIcon post-infoIcons-created"
+                    v-tooltip="new Date(content.created_at).toLocaleDateString()" :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
             </div>
             <div class="post-infoIcons" v-if="content.reblog">
                 <div class="post-infoIcon post-infoIcons-visibility">
                     <Icon name="globe" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'public'"
-                        :title="content.reblog.visibility" />
+                        v-tooltip="'Public'" />
                     <Icon name="unlock" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'unlisted'"
-                        :title="content.reblog.visibility" />
+                        v-tooltip="'Unlisted'" />
                     <Icon name="users" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'private'"
-                        :title="content.reblog.visibility" />
+                        v-tooltip="'Followers Only'" />
                     <Icon name="at-sign" size="14px" color="var(--txt2)" v-if="content.reblog.visibility === 'direct'"
-                        :title="content.reblog.visibility" />
+                        v-tooltip="'Mentioned Only'" />
                 </div>
                 <div class="post-infoIcon post-infoIcons-created"
-                    :title="new Date(content.reblog.created_at).toLocaleDateString()" :key="timer">
+                    v-tooltip="new Date(content.reblog.created_at).toLocaleDateString()" :key="timer">
                     {{ timeAgo(content.reblog.created_at) }}
                 </div>
             </div>
@@ -163,7 +176,11 @@ export default {
             <div v-if="!content.reblog">
 
                 <div v-if="!content.spoiler_text">
-                    <p v-html="content.content" />
+                    <div>
+                        <p v-html="content.content" />
+                    </div>
+
+                    <PostMedia :data="content.media_attachments" v-if="content.media_attachments" />
                 </div>
                 <div v-if="content.spoiler_text">
                     <div class="cwAlert">
@@ -174,18 +191,24 @@ export default {
                         </button>
                     </div>
                     <div class="cwContent" v-if="showCwContent">
-                        <p v-html="content.content" />
+                        <div>
+                            <p v-html="content.content" />
+                        </div>
+
+                        <PostMedia :data="content.media_attachments" v-if="content.media_attachments" />
                     </div>
                 </div>
-
-                <PostMedia :data="content.media_attachments" v-if="content.media_attachments" />
 
                 <PostInteractions :data="content" />
             </div>
             <div v-if="content.reblog">
 
                 <div v-if="!content.reblog.spoiler_text">
-                    <p v-html="content.reblog.content" />
+                    <div>
+                        <p v-html="content.reblog.content" />
+                    </div>
+
+                    <PostMedia :data="content.reblog.media_attachments" v-if="content.reblog.media_attachments" />
                 </div>
                 <div v-if="content.reblog.spoiler_text">
                     <div class="cwAlert">
@@ -196,11 +219,13 @@ export default {
                         </button>
                     </div>
                     <div class="cwContent" v-if="showCwContent">
-                        <p v-html="content.reblog.content" />
+                        <div>
+                            <p v-html="content.reblog.content" />
+                        </div>
+
+                        <PostMedia :data="content.reblog.media_attachments" v-if="content.reblog.media_attachments" />
                     </div>
                 </div>
-
-                <PostMedia :data="content.reblog.media_attachments" v-if="content.reblog.media_attachments" />
 
                 <PostInteractions :data="content.reblog" />
             </div>
@@ -209,6 +234,10 @@ export default {
 </template>
 
 <style>
+.post-infoIcons-created {
+    cursor: default;
+}
+
 .cwAlert p {
     margin-bottom: 0px !important;
 }

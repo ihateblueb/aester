@@ -3,6 +3,15 @@ import Icon from "../components/Icon.vue";
 import Post from "../components/Post.vue";
 import PostArea from "../components/PostArea.vue";
 import themes from "assets/themes.json";
+
+import {
+    VTooltip,
+    VClosePopper,
+    Dropdown,
+    Tooltip,
+    Menu
+} from 'floating-vue'
+import 'floating-vue/dist/style.css'
 </script>
 
 <script>
@@ -549,7 +558,7 @@ export default {
                 <div class="mColumnHeader">
                     <div class="mCH-left">
                         <img class="inscanceIcon" :src="'https://' + instanceurl + '/favicon.ico'"
-                            :title="instanceurl + 'favicon'" :alt="instanceurl + 'favicon'" />
+                            v-tooltip="instanceurl + ' favicon'" :alt="instanceurl + 'favicon'" />
                         <div class="mCH-text">
                             <p>Aster <span class="betaTag">BETA</span></p>
                         </div>

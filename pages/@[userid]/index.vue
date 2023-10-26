@@ -1,5 +1,14 @@
 <script setup>
 import Icon from "../components/Icon.vue";
+
+import {
+    VTooltip,
+    VClosePopper,
+    Dropdown,
+    Tooltip,
+    Menu
+} from 'floating-vue'
+import 'floating-vue/dist/style.css'
 </script>
 
 <script>
@@ -272,13 +281,13 @@ export default {
                     <div class="mCC-hb-fields">
                         <div class="mCC-hb-field" v-for="field in user.fields">
                             <div v-if="field.verified_at">
-                                <span class="mCC-hb-fieldName verified" :title="field.name" v-html="field.name"></span>
-                                <span class="mCC-hb-fieldValue verified" :title="field.value" v-html="field.value"></span>
-                                <Icon class="verifiedIcon" type="check" size="14px" color="var(--bg-success)" />
+                                <span class="mCC-hb-fieldName verified" v-html="field.name"></span>
+                                <span class="mCC-hb-fieldValue verified" v-html="field.value"></span>
+                                <Icon class="verifiedIcon" v-tooltip="'Verified Link'" type="check" size="14px" color="var(--bg-success)" />
                             </div>
                             <div v-if="!field.verified_at">
-                                <span class="mCC-hb-fieldName" :title="field.name" v-html="field.name"></span>
-                                <span class="mCC-hb-fieldValue" :title="field.value" v-html="field.value"></span>
+                                <span class="mCC-hb-fieldName" v-html="field.name"></span>
+                                <span class="mCC-hb-fieldValue" v-html="field.value"></span>
                             </div>
                         </div>
                     </div>

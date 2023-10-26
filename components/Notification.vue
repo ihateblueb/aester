@@ -1,5 +1,14 @@
 <script setup>
 import Icon from "../components/Icon.vue";
+
+import {
+    VTooltip,
+    VClosePopper,
+    Dropdown,
+    Tooltip,
+    Menu
+} from 'floating-vue'
+import 'floating-vue/dist/style.css'
 </script>
 
 <script>
@@ -151,7 +160,7 @@ export default {
                     }}</span></NuxtLink>
                     favorited your post
                 </span>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                <div class="post-infoIcon post-infoIcons-created" v-tooltip="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
@@ -164,7 +173,7 @@ export default {
                     </NuxtLink>
                     boosted your post
                 </span>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                <div class="post-infoIcon post-infoIcons-created" v-tooltip="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
@@ -177,7 +186,7 @@ export default {
                     </NuxtLink>
                     followed you
                 </span>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                <div class="post-infoIcon post-infoIcons-created" v-tooltip="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
@@ -190,7 +199,7 @@ export default {
                     </NuxtLink>
                     mentioned you
                 </span>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                <div class="post-infoIcon post-infoIcons-created" v-tooltip="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
@@ -203,7 +212,7 @@ export default {
                     </NuxtLink>
                     published a toot
                 </span>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                <div class="post-infoIcon post-infoIcons-created" v-tooltip="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
@@ -211,7 +220,7 @@ export default {
             <div class="notificationTop" v-if="content.type === 'poll'">
                 <Icon type="bar-chart-2" size="18px" color="var(--accent1)" />
                 <span>A poll you're involved in has ended</span>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                <div class="post-infoIcon post-infoIcons-created" v-tooltip="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
@@ -224,7 +233,7 @@ export default {
                     </NuxtLink>
                     reacted to your post
                 </span>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                <div class="post-infoIcon post-infoIcons-created" v-tooltip="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
@@ -237,7 +246,7 @@ export default {
                     </NuxtLink>
                     requested to follow you
                 </span>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                <div class="post-infoIcon post-infoIcons-created" v-tooltip="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
@@ -250,7 +259,7 @@ export default {
                     </NuxtLink>
                     edited a toot
                 </span>
-                <div class="post-infoIcon post-infoIcons-created" :title="new Date(content.created_at).toLocaleDateString()"
+                <div class="post-infoIcon post-infoIcons-created" v-tooltip="new Date(content.created_at).toLocaleDateString()"
                     :key="timer">
                     {{ timeAgo(content.created_at) }}
                 </div>
@@ -314,7 +323,7 @@ export default {
                 <div class="postReactionBar">
                     <div v-for="reaction in content.status.reactions">
                         <div class="postReaction">
-                            <img :src="reaction.url" :alt="reaction.name" :title="reaction.name" class="emojiReaction"
+                            <img :src="reaction.url" :alt="reaction.name" v-tooltip="reaction.name" class="emojiReaction"
                                 v-if="reaction.url" />
                             <span class="emojiReaction" v-if="!reaction.url">{{
                                 reaction.name

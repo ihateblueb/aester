@@ -89,7 +89,7 @@ export default {
                 <div class="contactInfo">
                     <p>
                         Admin Account
-                        <span></span>
+                        <span>
                             <NuxtLink :to="'/@' + instance.contact.account.acct">@{{
                                 instance.contact.account.acct +
                                 "@" +
