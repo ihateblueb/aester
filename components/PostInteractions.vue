@@ -213,9 +213,7 @@ export default {
             // open, original, copy link, 
             // not self: filter, mute, block, report
             // self: pin, edit, delete
-            if (type === "open") {
-                alert("This is a work in progress. [open]")
-            } else if (type === "original") {
+            if (type === "original") {
                 alert("This is a work in progress. [original]")
             } else if (type === "copylink") {
                 alert("This is a work in progress. [copylink]")
@@ -288,9 +286,9 @@ export default {
 
                 <template #popper>
                     <div class="moreOptions" v-if="!isSelf">
-                        <div class="moreOption" @click="moreAction('open')">
+                        <NuxtLink :to="'/status/'+content.id" class="moreOption">
                             Open this post
-                        </div>
+                        </NuxtLink>
                         <div class="moreOption" @click="moreAction('original')">
                             Open original post
                         </div>
@@ -313,9 +311,9 @@ export default {
                         </div>
                     </div>
                     <div class="moreOptions" v-if="isSelf">
-                        <div class="moreOption" @click="moreAction('open')">
+                        <NuxtLink :to="'/status/'+content.id" class="moreOption">
                             Open this post
-                        </div>
+                        </NuxtLink>
                         <div class="moreOption" @click="moreAction('original')">
                             Open original post
                         </div>
@@ -342,6 +340,8 @@ export default {
 
 <style>
 .moreOption {
+    display: block;
+
     padding: 6px 12px;
     margin: 4px;
 

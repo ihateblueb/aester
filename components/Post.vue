@@ -22,13 +22,15 @@ export default {
         timer: 0,
     }),
     props: {
-        instanceurl: String,
-        token: String,
         pinned: Boolean,
+        expanded: Boolean,
         data: Object,
     },
     mounted() {
+        this.instanceurl = this.getLocalStorage("instanceurl")
+        this.token = this.getLocalStorage("token")
         this.content = this.data;
+
         this.timer = setInterval(() => {
             this.timer += 1;
         }, 5000);

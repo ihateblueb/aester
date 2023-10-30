@@ -19,8 +19,6 @@ export default {
         this.tootid = this.$route.params.tootid;
 
         this.getTootDetails();
-
-        this.ready = true;
     },
     methods: {
         setLocalStorage(key, value) {
@@ -57,6 +55,8 @@ export default {
             this.toot = gettootdetails_response;
 
             console.log(gettootdetails_response);
+            
+            this.ready = true;
         },
     },
 };
@@ -66,7 +66,7 @@ export default {
     <div class="mColumnHeader">
         <div class="mCH-left">
             <div class="mCH-text">
-                <p>Toot</p>
+                <p>Status</p>
             </div>
         </div>
         <div class="mCH-buttons">
@@ -79,6 +79,6 @@ export default {
         </div>
     </div>
     <div class="mColumnContent" v-if="ready">
-        {{ toot }}
+        <Post :data="toot" :expanded=true />
     </div>
 </template>
